@@ -1,0 +1,92 @@
+package Controllers;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.paint.Color;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import sample.Level;
+import sample.SceneSwitcher;
+
+import java.awt.*;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.URL;
+import java.util.Arrays;
+import java.util.EventObject;
+import java.util.ResourceBundle;
+
+public class Menu_controller implements Initializable{
+    private final SceneSwitcher sceneSwitcher = new SceneSwitcher();
+
+    @FXML
+    Button Start;
+
+    @FXML
+    Button Exit;
+
+    @FXML
+    Button RedactorButton;
+
+    public Menu_controller() throws IOException {
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) { initMenu();}
+
+    private void initMenu(){
+        initStart();
+        initExit();
+        initRedactorButton();
+    }
+
+    private void initStart(){
+        Start.setText("START");
+        Start.setPrefSize(200, 50);
+
+        this.Start.setOnAction(sceneSwitcher::setGameScene);
+    }
+
+    private void initExit(){
+        Exit.setText("EXIT");
+        Exit.setPrefSize(200, 50);
+
+        Exit.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                System.exit(0);
+            }
+        });
+
+        EventHandler<KeyEvent> closeEventHandler = event ->{
+            KeyCode code = event.getCode();
+
+            if (code == KeyCode.ENTER){
+                System.exit(0);
+            }
+        };
+
+        Exit.setOnKeyPressed(closeEventHandler);
+    }
+
+    private void initRedactorButton() {
+        RedactorButton.setText("Redactor");
+        RedactorButton.setPrefSize(200, 50);
+
+        this.RedactorButton.setOnAction(sceneSwitcher::setRedactorScene);
+    }
+}
