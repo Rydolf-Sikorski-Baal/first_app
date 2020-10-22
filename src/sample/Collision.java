@@ -35,7 +35,7 @@ import static java.lang.Math.*;
 // описывет столкновение объектов, но не его эффект
 
 public class Collision {
-    private static final double epsilon = 1e-3;
+    private static final double epsilon = 1e-6;
 
     public static double getAreaIntersection(double x1_up, double y1_left,
                                        double x1_down, double y1_right,
@@ -65,15 +65,16 @@ public class Collision {
 
         for (int i = 0; i < step.length; i++)
             for (int j = 0; j < step.length; j++){
-                int pretend_position_x = approximate_position_x + step[i] + 1;
-                int pretend_position_y = approximate_position_y + step[j] + 1;
+                int pretend_position_x = approximate_position_x + step[i];
+                int pretend_position_y = approximate_position_y + step[j];
 
                 double pretend_x_double = pretend_position_x * cellHeight;
                 double pretend_y_double = pretend_position_y * cellWeight;
 
                 double areaInterseptionOfPretendent = getAreaIntersection(x, y,
-                                                x + entity.height, y + entity.width,
-                                                pretend_x_double, pretend_y_double,
+                                                x + entity.height,
+                                                y + entity.width,
+                                                        pretend_x_double, pretend_y_double,
                                                 pretend_x_double + cellHeight,
                                                 pretend_y_double + cellWeight);
 
@@ -89,8 +90,8 @@ public class Collision {
     public static boolean check(double cellWeight, double cellHeight,
                                 Entity entity, Level level,
                                 int delta_x, int delta_y){
-        double entity_x = entity.position_x * cellHeight;
-        double entity_y = entity.position_y * cellWeight;
+        double entity_x = entity.position_x;
+        double entity_y = entity.position_y;
 
         Vector<int[]> listOfPosisions = getListOfPositions(entity_x, entity_y, cellWeight, cellHeight, entity);
 
@@ -108,14 +109,14 @@ public class Collision {
                                       Entity entity, Level level){
         return check(cellWeight, cellHeight,
                 entity, level, 1, 0)
-                && abs((entity.position_x + entity.height) % cellHeight) < epsilon;
+                && (entity.position_x + entity.height) % cellHeight < epsilon;
     }
 
     public static boolean IsBehindLeftWall(double cellWeight, double cellHeight,
                                    Entity entity, Level level){
         return check(cellWeight, cellHeight,
                 entity, level, 0, -1)
-                && abs(entity.position_y % cellWeight) < epsilon;
+                && (entity.position_y % cellWeight) < epsilon;
     }
 
     public static boolean IsBehindRightWall(double cellWeight, double cellHeight,
@@ -129,6 +130,6 @@ public class Collision {
                                       Entity entity, Level level){
         return check(cellWeight, cellHeight,
                 entity, level, -1, 0)
-                && abs(entity.position_x % cellHeight) < epsilon;
+                && (entity.position_x % cellHeight) < epsilon;
     }
 }

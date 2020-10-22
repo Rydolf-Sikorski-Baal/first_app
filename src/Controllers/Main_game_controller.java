@@ -19,10 +19,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.paint.Color;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import sample.DrawCanvas;
-import sample.Entity;
-import sample.Level;
-import sample.SceneSwitcher;
+import sample.*;
 
 import java.awt.*;
 import java.io.FileNotFoundException;
@@ -31,11 +28,10 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.EventObject;
 import java.util.ResourceBundle;
+import java.util.Vector;
 
 import javafx.animation.Timeline;
 import javafx.animation.TimelineBuilder;
-
-import sample.Collision;
 
 public class Main_game_controller implements Initializable {
     private int curr_level_number;
@@ -129,16 +125,17 @@ public class Main_game_controller implements Initializable {
 
                 if (isStarted) {
 
-                    draw.drawCell(Map, hero.position_y, hero.position_x, Color.WHITE, cellWidth, cellHeight);
+                    draw.drawCell(Map, hero.position_y, hero.position_x, Color.WHITE,
+                                  hero.width, hero.height);
 
                     if (code == KeyCode.A) {
                         if (!Collision.IsBehindLeftWall(cellWidth, cellHeight, hero, curr_level)) {
-                            hero.moveEntity(0, -0.5);
+                            hero.moveEntity(0, -10);
                         }
                     }
                     if (code == KeyCode.D) {
                         if (!Collision.IsBehindRightWall(cellWidth, cellHeight, hero, curr_level)) {
-                            hero.moveEntity(0, 0.5);
+                            hero.moveEntity(0, 10);
                         }
                     }
 
@@ -157,23 +154,27 @@ public class Main_game_controller implements Initializable {
                         }
                     }
 
-                    if (code != KeyCode.SPACE) {
+                    /*if (code != KeyCode.SPACE) {
                         if (!Collision.IsOnSurface(hero.width, hero.height,
                                                     hero, curr_level))
-                            hero.moveEntity(1, 0);
-                    }
-
-                    /*if (curr_level.level[hero.position_x][hero.position_y] == 2)
-                        initHero();
-
-                    if (curr_level.level[hero.position_x][hero.position_y] == 3) {
-                        try {
-                            curr_level_number++;
-                            startLevel(curr_level_number);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                            hero.moveEntity(10, 0);
                     }*/
+
+                    Vector<int[]> curr_positions = Collision.getListOfPositions(hero.position_x, hero.position_y,
+                                                                              cellWidth, cellHeight, hero);
+                    for (int[] now : curr_positions) {
+                        if (CheckPosition.Check(curr_level, now[0], now[1]) == 2)
+                            initHero();
+
+                        if (CheckPosition.Check(curr_level, now[0], now[1]) == 3) {
+                            try {
+                                curr_level_number++;
+                                startLevel(curr_level_number);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
 
                     draw.drawEntity(Map, curr_level, hero, cellWidth, cellHeight);
 

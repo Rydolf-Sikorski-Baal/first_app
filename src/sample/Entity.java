@@ -26,18 +26,17 @@ public class Entity {
     public double position_y;
 
     public double height, width;
+    double cellHeight, cellWidth;
 
-    public Entity(double cellHeight, double cellWidth){
+    public Entity(double _cellHeight, double _cellWidth){
         position_x = -1;
         position_y = -1;
 
-        height = 0.5 * cellHeight;
-        width = 0.5 * cellWidth;
-    }
+        height = 0.5 * _cellHeight;
+        width = 0.5 * _cellWidth;
 
-    Entity(/*double*/ int x, /*double*/ int y){
-        position_x = x;
-        position_y = y;
+        cellHeight = _cellHeight;
+        cellWidth = _cellWidth;
     }
 
     public void moveEntity(double x, double y){
@@ -45,8 +44,8 @@ public class Entity {
         position_y += y;
     }
 
-    public void setPosition(/*double*/ int x, /*double*/ int y){
-        position_x = x;
-        position_y = y;
+    public void setPosition(double x, double y){
+        position_x = x * cellHeight + (cellHeight - height);
+        position_y = y * cellWidth;
     }
 }

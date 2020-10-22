@@ -26,7 +26,7 @@ import java.util.ResourceBundle;
 // переписать вместе с классом сущности
 
 public class DrawCanvas {
-    static Color COLOR_WALL = Color.rgb(130, 80, 45);;
+    static Color COLOR_WALL = Color.rgb(130, 80, 45);
     static Color COLOR_KILLZONE = Color.RED;
     static Color COLOR_END_LEVEL = Color.BLACK;
     static Color COLOR_HERO = Color.BLUE;
@@ -38,7 +38,7 @@ public class DrawCanvas {
         GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
 
         graphicsContext.setFill(color);
-        graphicsContext.fillRect(x * width, y * height, width, height);
+        graphicsContext.fillRect(x, y, width, height);
     }
 
     public void drawLevel(
@@ -55,13 +55,13 @@ public class DrawCanvas {
         for (int i = 0; i < row + 2; i++)
             for (int j = 0; j < column + 2;j++) {
                 if (curr_level.level[i][j] == 1)
-                    drawCell(canvas, j, i, COLOR_WALL, cellWidth, cellHeight);
+                    drawCell(canvas, j * cellWidth, i * cellHeight, COLOR_WALL, cellWidth, cellHeight);
 
                 if (curr_level.level[i][j] == 2)
-                    drawCell(canvas, j, i, COLOR_KILLZONE, cellWidth, cellHeight);
+                    drawCell(canvas, j * cellWidth, i * cellHeight, COLOR_KILLZONE, cellWidth, cellHeight);
 
                 if (curr_level.level[i][j] == 3)
-                    drawCell(canvas, j, i, COLOR_END_LEVEL, cellWidth, cellHeight);
+                    drawCell(canvas, j * cellWidth, i * cellHeight, COLOR_END_LEVEL, cellWidth, cellHeight);
             }
 
         for(Entity entity : list_of_entity){
@@ -79,9 +79,8 @@ public class DrawCanvas {
         GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
 
         graphicsContext.setFill(Color.BLUE);
-        graphicsContext.fillRect(entity.position_y * cellWidth + delta_y,
-                                 entity.position_x * cellHeight + delta_x,
-                                    entity.width, entity.height);
+        graphicsContext.fillRect(entity.position_y,entity.position_x,
+                                 entity.width, entity.height);
     }
 
     public void clearCanvas(Canvas canvas,
@@ -102,13 +101,13 @@ public class DrawCanvas {
         for (int i = 0; i < row + 2; i++)
             for (int j = 0; j < column + 2;j++) {
                 if (redactor.curr_state_level[i][j] == 1)
-                    drawCell(canvas, j, i, COLOR_WALL, cellWidth, cellHeight);
+                    drawCell(canvas, j * cellWidth, i * cellHeight, COLOR_WALL, cellWidth, cellHeight);
 
                 if (redactor.curr_state_level[i][j] == 2)
-                    drawCell(canvas, j, i, COLOR_KILLZONE, cellWidth, cellHeight);
+                    drawCell(canvas, j * cellWidth, i * cellHeight, COLOR_KILLZONE, cellWidth, cellHeight);
 
                 if (redactor.curr_state_level[i][j] == 3)
-                    drawCell(canvas, j, i, COLOR_END_LEVEL, cellWidth, cellHeight);
+                    drawCell(canvas, j * cellWidth, i * cellHeight, COLOR_END_LEVEL, cellWidth, cellHeight);
             }
     }
 }
