@@ -1,33 +1,5 @@
-package sample;
+package code_files.logic;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.paint.Color;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-
-import java.awt.*;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.net.URL;
-import java.util.Arrays;
-import java.util.ResourceBundle;
-
-import java.math.*;
 import java.util.Vector;
 
 import static java.lang.Math.*;
@@ -35,7 +7,7 @@ import static java.lang.Math.*;
 // описывет столкновение объектов, но не его эффект
 
 public class Collision {
-    private static final double epsilon = 1e-6;
+    private static final double epsilon = 5;
 
     public static double getAreaIntersection(double x1_up, double y1_left,
                                        double x1_down, double y1_right,
@@ -68,8 +40,8 @@ public class Collision {
                 int pretend_position_x = approximate_position_x + step[i];
                 int pretend_position_y = approximate_position_y + step[j];
 
-                double pretend_x_double = pretend_position_x * cellHeight;
-                double pretend_y_double = pretend_position_y * cellWeight;
+                double pretend_x_double = (double)pretend_position_x * cellHeight;
+                double pretend_y_double = (double)pretend_position_y * cellWeight;
 
                 double areaInterseptionOfPretendent = getAreaIntersection(x, y,
                                                 x + entity.height,
@@ -107,29 +79,47 @@ public class Collision {
     
     public static boolean IsOnSurface(double cellWeight, double cellHeight,
                                       Entity entity, Level level){
-        return check(cellWeight, cellHeight,
+        double x_bottom_edge = (entity.position_x + entity.height);
+        x_bottom_edge %= cellHeight;
+        double deviation = (cellHeight - x_bottom_edge) % cellHeight;
+
+        boolean ans = check(cellWeight, cellHeight,
                 entity, level, 1, 0)
-                && (entity.position_x + entity.height) % cellHeight < epsilon;
+                && deviation < epsilon;
+        if (ans) {
+            int x = 1;
+        }
+        return ans;
     }
 
     public static boolean IsBehindLeftWall(double cellWeight, double cellHeight,
                                    Entity entity, Level level){
+        double y_left_edge = (entity.position_y);
+        double deviation = y_left_edge % cellWeight;
+
         return check(cellWeight, cellHeight,
                 entity, level, 0, -1)
-                && (entity.position_y % cellWeight) < epsilon;
+                && deviation < epsilon;
     }
 
     public static boolean IsBehindRightWall(double cellWeight, double cellHeight,
                                             Entity entity, Level level){
+        double y_right_edge = (entity.position_y + entity.width);
+        y_right_edge %= cellWeight;
+        double deviation = (cellWeight - y_right_edge) % cellWeight;
+
         return check(cellWeight, cellHeight,
                 entity, level, 0, 1)
-                && abs((entity.position_y + entity.width) % cellWeight) < epsilon;
+                && deviation < epsilon;
     }
 
     public static boolean IsUnderRoof(double cellWeight, double cellHeight,
                                       Entity entity, Level level){
+        double x_bottom_edge = (entity.position_x);
+        double deviation = x_bottom_edge % cellHeight;
+
         return check(cellWeight, cellHeight,
                 entity, level, -1, 0)
-                && (entity.position_x % cellHeight) < epsilon;
+                && deviation < epsilon;
     }
 }

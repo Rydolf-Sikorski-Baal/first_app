@@ -1,35 +1,25 @@
-package Controllers;
+package code_files.scenes.redactor_scene;
 
+import code_files.logic.Redactor;
+import code_files.main.SceneSwitcher;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.paint.Color;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import sample.DrawCanvas;
-import sample.Level;
-import sample.Redactor;
-import sample.SceneSwitcher;
+import code_files.logic.DrawCanvas;
+import code_files.logic.Level;
 
 import java.awt.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Arrays;
-import java.util.EventObject;
 import java.util.ResourceBundle;
 
 public class Redactor_controller implements Initializable{

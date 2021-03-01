@@ -8,7 +8,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ComboBox?>
 
-<GridPane fx:controller="Controllers.Redactor_controller"
+<GridPane fx:controller="code_files.scenes.redactor_scene.Redactor_controller"
           xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10">
 
     <Button fx:id="ToMenu" GridPane.columnIndex="0" GridPane.rowIndex="0"/>

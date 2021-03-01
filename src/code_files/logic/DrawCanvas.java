@@ -1,26 +1,8 @@
-package sample;
+package code_files.logic;
 
-import javafx.event.EventHandler;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
 import javafx.scene.paint.Color;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-
-import java.awt.*;
-import java.net.URL;
-import java.util.Arrays;
-import java.util.ResourceBundle;
 
 // отвечает за всё изображение полотен
 // переписать вместе с классом сущности
@@ -65,12 +47,11 @@ public class DrawCanvas {
             }
 
         for(Entity entity : list_of_entity){
-            drawEntity(canvas, curr_level, entity, cellWidth, cellHeight);
+            drawEntity(canvas, entity, cellWidth, cellHeight);
         }
     }
 
     public void drawEntity(Canvas canvas,
-                           Level curr_level,
                            Entity entity,
                            double cellWidth, double cellHeight){
         double delta_y = cellWidth - entity.width;
@@ -79,7 +60,8 @@ public class DrawCanvas {
         GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
 
         graphicsContext.setFill(Color.BLUE);
-        graphicsContext.fillRect(entity.position_y,entity.position_x,
+        graphicsContext.fillRect(entity.position_y,
+                                entity.position_x,
                                  entity.width, entity.height);
     }
 

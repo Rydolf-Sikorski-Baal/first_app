@@ -1,16 +1,10 @@
-package sample;
+package code_files.main;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
-import javafx.scene.layout.Background;
-import java.awt.*;
 
 public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{

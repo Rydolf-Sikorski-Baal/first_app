@@ -1,34 +1,14 @@
-package sample;
+package code_files.main;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.paint.Color;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.awt.*;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URL;
-import java.rmi.RemoteException;
-import java.util.Arrays;
 import java.util.EventObject;
-import java.util.ResourceBundle;
 
 // отвечает за смену сцен
 
@@ -65,7 +45,7 @@ public class SceneSwitcher {
 
     private ResultInfo findParentBy(String sceneName) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(
-                String.format("/scenes/%s.fxml", sceneName)
+                String.format("/code_files/scenes/%s/", sceneName) + sceneName + ".fxml"
         ));
         return new ResultInfo(loader);
     }

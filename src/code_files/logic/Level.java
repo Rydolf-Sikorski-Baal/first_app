@@ -1,27 +1,7 @@
-package sample;
+package code_files.logic;
 
-import javafx.event.EventHandler;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.paint.Color;
-
-import java.awt.*;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URL;
-import java.util.Arrays;
-import java.util.ResourceBundle;
 import java.util.Scanner;
-import java.io.PrintWriter;
-import java.io.FileWriter;
 import java.io.FileReader;
 
 // отвечает за структуру и свойства уровней
@@ -70,7 +50,7 @@ public class Level {
     }
 
     public void buildLevel() throws IOException {
-        Scanner in = new Scanner(new FileReader("src/Levels_structure/" + level_file_name));
+        Scanner in = new Scanner(new FileReader("src/technical_files/Levels/" + level_file_name));
 
         row = in.nextInt();
         column = in.nextInt();

@@ -1,31 +1,10 @@
-package sample;
+package code_files.logic;
 
-import javafx.event.EventHandler;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.paint.Color;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-
-import java.awt.*;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.URL;
-import java.util.Arrays;
-import java.util.ResourceBundle;
 import java.util.Scanner;
 
 // отвечает за редакцию уровней
@@ -45,7 +24,7 @@ public class Redactor {
     public Redactor(int number) throws IOException {
         getLevelFileName(number);
 
-        File level_file = new File("src/Levels_structure/" + level_file_name);
+        File level_file = new File("src/technical_files/Levels/" + level_file_name);
 
         if (level_file.createNewFile()){
             row = 0;
@@ -60,7 +39,7 @@ public class Redactor {
             hero_position_x = 0;
             hero_position_y = 0;
         }else{
-            Scanner in = new Scanner(new FileReader("src/Levels_structure/" + level_file_name));
+            Scanner in = new Scanner(new FileReader("src/technical_files/Levels/" + level_file_name));
 
             row = in.nextInt();
             column = in.nextInt();
@@ -86,7 +65,7 @@ public class Redactor {
     }
 
     public void setLevel() throws FileNotFoundException {
-        try (PrintWriter file = new PrintWriter("src/Levels_structure/" + level_file_name)) {
+        try (PrintWriter file = new PrintWriter("src/technical_files/Levels/" + level_file_name)) {
             file.print(row + " " + column + '\n');
             file.print(hero_position_x + " " + hero_position_y + '\n');
 
