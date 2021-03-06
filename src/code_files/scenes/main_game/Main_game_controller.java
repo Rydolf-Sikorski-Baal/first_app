@@ -1,5 +1,10 @@
 package code_files.scenes.main_game;
 
+import code_files.blocks.Air;
+import code_files.blocks.Block;
+import code_files.blocks.Ice;
+import code_files.blocks.Mud;
+import code_files.entities.Entity;
 import code_files.logic.*;
 import code_files.main.SceneSwitcher;
 import javafx.event.EventHandler;
@@ -30,6 +35,8 @@ public class Main_game_controller implements Initializable {
 
     private SceneSwitcher sceneSwitcher = new SceneSwitcher();
     private ObjectsThread objectsThread = new ObjectsThread();
+
+    private Block[] blocks_type = {new Air(), new Mud(), new Ice()};
 
     @FXML
     Button ToMenu;
@@ -141,24 +148,11 @@ public class Main_game_controller implements Initializable {
                     if (code == KeyCode.SPACE){
                         if (!Collision.IsUnderRoof(cellWidth, cellHeight, hero, curr_level)
                         && Collision.IsOnSurface(cellWidth,cellHeight,hero,curr_level))
-                            hero.pulse.changePulseX(-5);
+                            hero.pulse.changePulseX(-400);
                     }
 
                     Vector<int[]> curr_positions = Collision.getListOfPositions(hero.position_x, hero.position_y,
                                                                               cellWidth, cellHeight, hero);
-                    for (int[] now : curr_positions) {
-                        if (CheckPosition.Check(curr_level, now[0], now[1]) == 2)
-                            initHero();
-
-                        if (CheckPosition.Check(curr_level, now[0], now[1]) == 3) {
-                            try {
-                                curr_level_number++;
-                                startLevel(curr_level_number);
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
 
                 }
             }
@@ -200,22 +194,24 @@ public class Main_game_controller implements Initializable {
                             entity.position_x,
                             Color.WHITE,
                             hero.width, hero.height);
-                    entity.moveEntityUsingPulse();
+                    entity.move();
                     draw.drawEntity(Map, entity, cellWidth, cellHeight);
 
-                    //довольно-плохой (поправка: ужасный) код:
+                    //почему оно не работает?
 
-                    if (Collision.IsOnSurface(cellWidth,cellHeight,entity,curr_level)) {
-                        entity.pulse.pulse_y *= 0.2;
-                        //entity.pulse.nullifyPlusY();
-                        //entity.pulse.nullifyMinusY();
+                    Vector<Integer> bottom_blocks = Collision.getBottomBlocksIndexes(cellWidth, cellHeight,
+                                                                            entity, curr_level);
+
+                    for (Integer block_ind : bottom_blocks){
+                        entity.pulse.setPulseX(blocks_type[block_ind].getNewSpeedX(entity.pulse.pulse_x));
+                        entity.pulse.setPulseY(blocks_type[block_ind].getNewSpeedY(entity.pulse.pulse_y));
                     }
                 }
 
                 //сюда вставить коллизию аватара с объектами (проджектайлами и миллиардом разных шипов)
 
                 try {
-                    sleep(10);
+                    sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                     isStarted = false;

@@ -30,7 +30,7 @@ public class SceneSwitcher {
             this.loader = loader;
         }
 
-        <T extends Controller> T getController() {
+        <T extends code_files.scenes.main_game.Main_game_controller> T getController() {
             return loader.getController();
         }
 

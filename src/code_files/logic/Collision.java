@@ -1,5 +1,7 @@
 package code_files.logic;
 
+import code_files.entities.Entity;
+
 import java.util.Vector;
 
 import static java.lang.Math.*;
@@ -71,10 +73,36 @@ public class Collision {
             int curr_x = listOfPosisions.get(i)[0];
             int curr_y = listOfPosisions.get(i)[1];
 
-            if (level.level[curr_x + delta_x][curr_y + delta_y] == 1) return true;
+            if (level.level[curr_x + delta_x][curr_y + delta_y] > 0) return true;
         }
 
         return false;
+    }
+
+    public static Vector<Integer> getBottomBlocksIndexes(double cellWeight, double cellHeight,
+                                               Entity entity, Level level){
+        Vector<Integer> res = new Vector();
+
+        double entity_x = entity.position_x;
+        double entity_y = entity.position_y;
+
+        Vector<int[]> listOfPosisions = getListOfPositions(entity_x, entity_y, cellWeight, cellHeight, entity);
+
+        for (int i = 0; i < listOfPosisions.size(); i++){
+            int curr_x = listOfPosisions.get(i)[0];
+            int curr_y = listOfPosisions.get(i)[1];
+
+            double x_bottom_edge = (entity.position_x + entity.height);
+            x_bottom_edge %= cellHeight;
+            double deviation = (cellHeight - x_bottom_edge) % cellHeight;
+
+            if (deviation < epsilon) {
+                int curr_numb = level.level[curr_x + 1][curr_y];
+                res.add(curr_numb);
+            }
+        }
+
+        return res;
     }
     
     public static boolean IsOnSurface(double cellWeight, double cellHeight,
@@ -86,9 +114,7 @@ public class Collision {
         boolean ans = check(cellWeight, cellHeight,
                 entity, level, 1, 0)
                 && deviation < epsilon;
-        if (ans) {
-            int x = 1;
-        }
+
         return ans;
     }
 

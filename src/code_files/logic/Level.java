@@ -1,5 +1,7 @@
 package code_files.logic;
 
+import code_files.entities.Entity;
+
 import java.io.IOException;
 import java.util.Scanner;
 import java.io.FileReader;
@@ -22,7 +24,7 @@ public class Level {
 
     //0 - пустое пространство
     //1 - обычный блок
-    //2 - киллзона
+    //2 - лёд
     //3 - выход с уровня
 
     public Level(int number) throws IOException {
