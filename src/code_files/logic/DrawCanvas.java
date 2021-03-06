@@ -1,5 +1,10 @@
 package code_files.logic;
 
+import code_files.blocks.Air;
+import code_files.blocks.Block;
+import code_files.blocks.Ice;
+import code_files.blocks.Mud;
+import code_files.entities.Entity;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -13,10 +18,13 @@ public class DrawCanvas {
     static Color COLOR_END_LEVEL = Color.BLACK;
     static Color COLOR_HERO = Color.BLUE;
     static Color COLOR_EMPTY = Color.WHITE;
+    static Color COLOR_ICE = Color.LIGHTBLUE;
 
     public static DrawCanvas draw = new DrawCanvas();
 
-    public void drawCell(Canvas canvas, double x, double y, Color color, double width, double height){
+    Block[] blocks = {new Air(), new Mud(), new Ice()};
+
+    public static void drawCell(Canvas canvas, double x, double y, Color color, double width, double height){
         GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
 
         graphicsContext.setFill(color);
@@ -35,16 +43,8 @@ public class DrawCanvas {
         int column = curr_level.column;
 
         for (int i = 0; i < row + 2; i++)
-            for (int j = 0; j < column + 2;j++) {
-                if (curr_level.level[i][j] == 1)
-                    drawCell(canvas, j * cellWidth, i * cellHeight, COLOR_WALL, cellWidth, cellHeight);
-
-                if (curr_level.level[i][j] == 2)
-                    drawCell(canvas, j * cellWidth, i * cellHeight, COLOR_KILLZONE, cellWidth, cellHeight);
-
-                if (curr_level.level[i][j] == 3)
-                    drawCell(canvas, j * cellWidth, i * cellHeight, COLOR_END_LEVEL, cellWidth, cellHeight);
-            }
+            for (int j = 0; j < column + 2;j++)
+                blocks[curr_level.level[i][j]].drawYourself(canvas,i, j, cellHeight, cellWidth);
 
         for(Entity entity : list_of_entity){
             drawEntity(canvas, entity, cellWidth, cellHeight);
@@ -82,14 +82,7 @@ public class DrawCanvas {
 
         for (int i = 0; i < row + 2; i++)
             for (int j = 0; j < column + 2;j++) {
-                if (redactor.curr_state_level[i][j] == 1)
-                    drawCell(canvas, j * cellWidth, i * cellHeight, COLOR_WALL, cellWidth, cellHeight);
-
-                if (redactor.curr_state_level[i][j] == 2)
-                    drawCell(canvas, j * cellWidth, i * cellHeight, COLOR_KILLZONE, cellWidth, cellHeight);
-
-                if (redactor.curr_state_level[i][j] == 3)
-                    drawCell(canvas, j * cellWidth, i * cellHeight, COLOR_END_LEVEL, cellWidth, cellHeight);
+                blocks[redactor.curr_state_level[i][j]].drawYourself(canvas,i, j, cellHeight, cellWidth);
             }
     }
 }

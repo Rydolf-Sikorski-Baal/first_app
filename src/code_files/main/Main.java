@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
-        Parent parent = FXMLLoader.load(getClass().getResource("sample.fxml"));
+        Parent parent = FXMLLoader.load(getClass().getResource("/code_files/scenes/menu/menu.fxml"));
 
         primaryStage.setTitle("first");
         primaryStage.setScene(new Scene(parent, 1000, 1000));

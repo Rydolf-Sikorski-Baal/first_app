@@ -1,10 +1,12 @@
-package code_files.logic;
+package code_files.entities;
+
+import code_files.interfaces.Movable;
 
 import java.awt.*;
 
 // отвечает за положение и поведение сущности (здесь обрабатывается эффект столкновения, либо создам отдельный класс)
 
-public class Entity {
+public class Entity implements Movable {
     public Point position;
     public double position_x;
     public double position_y;
@@ -42,6 +44,14 @@ public class Entity {
             }else{
                 pulse_x += deltaPulse;
             }
+        }
+
+        public void setPulseX(double newPulseX){
+            pulse_x = newPulseX;
+        }
+
+        public void setPulseY(double newPulseY){
+            pulse_y = newPulseY;
         }
 
         public double getPulseX(){
@@ -87,7 +97,7 @@ public class Entity {
         position_y += y;
     }
 
-    public void moveEntityUsingPulse(){
+    public void move(){
         position_x += pulse.getPulseX();
         position_y += pulse.getPulseY();
     }
