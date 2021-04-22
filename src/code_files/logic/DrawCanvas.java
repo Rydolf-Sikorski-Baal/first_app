@@ -1,9 +1,5 @@
 package code_files.logic;
 
-import code_files.blocks.Air;
-import code_files.blocks.Block;
-import code_files.blocks.Ice;
-import code_files.blocks.Mud;
 import code_files.entities.Entity;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -21,8 +17,6 @@ public class DrawCanvas {
     static Color COLOR_ICE = Color.LIGHTBLUE;
 
     public static DrawCanvas draw = new DrawCanvas();
-
-    Block[] blocks = {new Air(), new Mud(), new Ice()};
 
     public static void drawCell(Canvas canvas, double x, double y, Color color, double width, double height){
         GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
@@ -44,7 +38,7 @@ public class DrawCanvas {
 
         for (int i = 0; i < row + 2; i++)
             for (int j = 0; j < column + 2;j++)
-                blocks[curr_level.level[i][j]].drawYourself(canvas,i, j, cellHeight, cellWidth);
+                Blocks.values()[curr_level.level[i][j]].drawYourself(canvas,i, j, cellHeight, cellWidth);
 
         for(Entity entity : list_of_entity){
             drawEntity(canvas, entity, cellWidth, cellHeight);
@@ -82,7 +76,7 @@ public class DrawCanvas {
 
         for (int i = 0; i < row + 2; i++)
             for (int j = 0; j < column + 2;j++) {
-                blocks[redactor.curr_state_level[i][j]].drawYourself(canvas,i, j, cellHeight, cellWidth);
+                Blocks.values()[redactor.curr_state_level[i][j]].drawYourself(canvas,i, j, cellHeight, cellWidth);
             }
     }
 }

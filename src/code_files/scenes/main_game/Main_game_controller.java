@@ -1,9 +1,5 @@
 package code_files.scenes.main_game;
 
-import code_files.blocks.Air;
-import code_files.blocks.Block;
-import code_files.blocks.Ice;
-import code_files.blocks.Mud;
 import code_files.entities.Entity;
 import code_files.logic.*;
 import code_files.main.SceneSwitcher;
@@ -35,8 +31,6 @@ public class Main_game_controller implements Initializable {
 
     private SceneSwitcher sceneSwitcher = new SceneSwitcher();
     private ObjectsThread objectsThread = new ObjectsThread();
-
-    private Block[] blocks_type = {new Air(), new Mud(), new Ice()};
 
     @FXML
     Button ToMenu;
@@ -150,10 +144,6 @@ public class Main_game_controller implements Initializable {
                         && Collision.IsOnSurface(cellWidth,cellHeight,hero,curr_level))
                             hero.pulse.changePulseX(-400);
                     }
-
-                    Vector<int[]> curr_positions = Collision.getListOfPositions(hero.position_x, hero.position_y,
-                                                                              cellWidth, cellHeight, hero);
-
                 }
             }
         };
@@ -163,17 +153,7 @@ public class Main_game_controller implements Initializable {
 
     class ObjectsThread extends Thread{
         public void checkPulse(Entity entity){
-            if (Collision.IsOnSurface(cellWidth, cellHeight, entity, curr_level))
-                entity.pulse.nullifyPlusX();
 
-            if (Collision.IsUnderRoof(cellWidth, cellHeight, entity, curr_level))
-                entity.pulse.nullifyMinusX();
-
-            if (Collision.IsBehindLeftWall(cellWidth, cellHeight, entity, curr_level))
-                entity.pulse.nullifyMinusY();
-
-            if (Collision.IsBehindRightWall(cellWidth, cellHeight, entity, curr_level))
-                entity.pulse.nullifyPlusY();
         }
 
         @Override
@@ -200,22 +180,19 @@ public class Main_game_controller implements Initializable {
                     //почему оно не работает?
 
                     Vector<Integer> bottom_blocks = Collision.getBottomBlocksIndexes(cellWidth, cellHeight,
-                                                                            entity, curr_level);
+                            entity, curr_level);
 
-                    for (Integer block_ind : bottom_blocks){
-                        entity.pulse.setPulseX(blocks_type[block_ind].getNewSpeedX(entity.pulse.pulse_x));
-                        entity.pulse.setPulseY(blocks_type[block_ind].getNewSpeedY(entity.pulse.pulse_y));
+                    for (Integer block_ind : bottom_blocks) {
+                        entity.pulse.setPulseX(Blocks.values()[block_ind].getNewSpeedX(entity.pulse.pulse_x));
+                        entity.pulse.setPulseY(Blocks.values()[block_ind].getNewSpeedY(entity.pulse.pulse_y));
                     }
                 }
-
-                //сюда вставить коллизию аватара с объектами (проджектайлами и миллиардом разных шипов)
-
-                try {
-                    sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                    isStarted = false;
-                }
+            }
+            try {
+                sleep(10*1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                isStarted = false;
             }
         }
     }

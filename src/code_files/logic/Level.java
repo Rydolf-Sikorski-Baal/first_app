@@ -22,11 +22,6 @@ public class Level {
 
     public final int number_of_levels = 2;
 
-    //0 - пустое пространство
-    //1 - обычный блок
-    //2 - лёд
-    //3 - выход с уровня
-
     public Level(int number) throws IOException {
         level_number = number;
 

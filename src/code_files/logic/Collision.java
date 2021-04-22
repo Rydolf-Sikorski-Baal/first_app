@@ -12,9 +12,9 @@ public class Collision {
     private static final double epsilon = 5;
 
     public static double getAreaIntersection(double x1_up, double y1_left,
-                                       double x1_down, double y1_right,
-                                       double x2_up, double y2_left,
-                                       double x2_down, double y2_right){
+                                             double x1_down, double y1_right,
+                                             double x2_up, double y2_left,
+                                             double x2_down, double y2_right){
         double y_leftPoint = max(y1_left, y2_left);
         double x_leftPoint = max(x1_up, x2_up);
 
@@ -28,8 +28,8 @@ public class Collision {
     }
 
     public static Vector<int[]> getListOfPositions(double x, double y,
-                                      double cellWeight, double cellHeight,
-                                      Entity entity){
+                                                   double cellWeight, double cellHeight,
+                                                   Entity entity){
         Vector<int[]> listOfPositions = new Vector<int[]>(0);
 
         int[] step = {-1, 0, 1};
@@ -46,11 +46,11 @@ public class Collision {
                 double pretend_y_double = (double)pretend_position_y * cellWeight;
 
                 double areaInterseptionOfPretendent = getAreaIntersection(x, y,
-                                                x + entity.height,
-                                                y + entity.width,
-                                                        pretend_x_double, pretend_y_double,
-                                                pretend_x_double + cellHeight,
-                                                pretend_y_double + cellWeight);
+                        x + entity.height,
+                        y + entity.width,
+                        pretend_x_double, pretend_y_double,
+                        pretend_x_double + cellHeight,
+                        pretend_y_double + cellWeight);
 
                 if (areaInterseptionOfPretendent > epsilon) {
                     int[] curr_coord = {pretend_position_x, pretend_position_y};
@@ -80,7 +80,7 @@ public class Collision {
     }
 
     public static Vector<Integer> getBottomBlocksIndexes(double cellWeight, double cellHeight,
-                                               Entity entity, Level level){
+                                                         Entity entity, Level level){
         Vector<Integer> res = new Vector();
 
         double entity_x = entity.position_x;
@@ -104,7 +104,7 @@ public class Collision {
 
         return res;
     }
-    
+
     public static boolean IsOnSurface(double cellWeight, double cellHeight,
                                       Entity entity, Level level){
         double x_bottom_edge = (entity.position_x + entity.height);
@@ -119,7 +119,7 @@ public class Collision {
     }
 
     public static boolean IsBehindLeftWall(double cellWeight, double cellHeight,
-                                   Entity entity, Level level){
+                                           Entity entity, Level level){
         double y_left_edge = (entity.position_y);
         double deviation = y_left_edge % cellWeight;
 
