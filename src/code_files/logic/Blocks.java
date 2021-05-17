@@ -1,10 +1,7 @@
 package code_files.logic;
 
-import code_files.entities.Entity;
 import code_files.interfaces.ChangingSpeed;
 import code_files.interfaces.Visible;
-import code_files.logic.DrawCanvas;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.paint.Color;
 
 public enum Blocks implements ChangingSpeed, Visible {
@@ -69,5 +66,5 @@ public enum Blocks implements ChangingSpeed, Visible {
             DrawCanvas.drawCell(canvas, top_left_corner_y * cellWidth, top_left_corner_x * cellHeight,
                     color, cellWidth, cellHeight);
         }
-    };
+    }
 }

@@ -18,7 +18,7 @@ public class SceneSwitcher {
     public static final String redactor_scene_name = "redactor_scene";
 
     public static final double menu_scene_width = 400, menu_scene_height = 300;
-    public static final double game_scene_width = 200, game_scene_height = 100;
+    public static final double game_scene_width = 400, game_scene_height = 300;
     public static final double redactor_scene_width = 200, redactor_scene_height = 100;
 
     private static class ResultInfo{

@@ -1,6 +1,7 @@
 package code_files.logic;
 
-import code_files.entities.Entity;
+import code_files.entities_collision.entities_tree.Entity;
+import code_files.entities_collision.shape_tree.Rectangle;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -48,15 +49,17 @@ public class DrawCanvas {
     public void drawEntity(Canvas canvas,
                            Entity entity,
                            double cellWidth, double cellHeight){
-        double delta_y = cellWidth - entity.width;
-        double delta_x = cellHeight - entity.height;
+        Rectangle rectangle = (Rectangle) entity.shape;
+
+        double delta_y = cellWidth - rectangle.x_size;
+        double delta_x = cellHeight - rectangle.y_size;
 
         GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
 
         graphicsContext.setFill(Color.BLUE);
-        graphicsContext.fillRect(entity.position_y,
-                                entity.position_x,
-                                 entity.width, entity.height);
+        graphicsContext.fillRect(entity.position.getY(),
+                                entity.position.getX(),
+                                rectangle.x_size, rectangle.y_size);
     }
 
     public void clearCanvas(Canvas canvas,

@@ -1,6 +1,6 @@
 package code_files.logic;
 
-import code_files.entities.Entity;
+import code_files.entities_collision.entities_tree.Entity;
 
 import java.io.IOException;
 import java.util.Scanner;
