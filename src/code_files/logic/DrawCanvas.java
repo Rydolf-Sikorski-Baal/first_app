@@ -1,7 +1,8 @@
 package code_files.logic;
 
-import code_files.entities_collision.entities_tree.Entity;
-import code_files.entities_collision.shape_tree.Rectangle;
+import code_files.blocks.Blocks;
+import code_files.entities.entities_tree.Entity;
+import code_files.entities.shape_tree.Rectangle;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -39,7 +40,7 @@ public class DrawCanvas {
 
         for (int i = 0; i < row + 2; i++)
             for (int j = 0; j < column + 2;j++)
-                Blocks.values()[curr_level.level[i][j]].drawYourself(canvas,i, j, cellHeight, cellWidth);
+                (curr_level.getBlockByCoords(i, j)).drawYourself(canvas,i, j, cellHeight, cellWidth);
 
         for(Entity entity : list_of_entity){
             drawEntity(canvas, entity, cellWidth, cellHeight);
@@ -51,15 +52,12 @@ public class DrawCanvas {
                            double cellWidth, double cellHeight){
         Rectangle rectangle = (Rectangle) entity.shape;
 
-        double delta_y = cellWidth - rectangle.x_size;
-        double delta_x = cellHeight - rectangle.y_size;
-
         GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
 
         graphicsContext.setFill(Color.BLUE);
         graphicsContext.fillRect(entity.position.getY(),
                                 entity.position.getX(),
-                                rectangle.x_size, rectangle.y_size);
+                                rectangle.y_size, rectangle.x_size);
     }
 
     public void clearCanvas(Canvas canvas,

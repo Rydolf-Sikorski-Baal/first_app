@@ -1,4 +1,4 @@
-package code_files.entities_collision;
+package code_files.entity_movement;
 
 import code_files.interfaces.PositionInfoInterf;
 import lombok.AllArgsConstructor;

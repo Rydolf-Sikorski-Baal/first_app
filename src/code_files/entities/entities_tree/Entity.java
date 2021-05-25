@@ -1,15 +1,16 @@
-package code_files.entities_collision.entities_tree;
+package code_files.entities.entities_tree;
 
-import code_files.entities_collision.PointDouble;
-import code_files.entities_collision.shape_tree.Shape;
-import code_files.entities_collision.movement_tree.Movement;
+import code_files.PointDouble;
+import code_files.entities.shape_tree.Shape;
+import code_files.entities.movement_tree.Movement;
+import code_files.interfaces.Visible;
 import lombok.NonNull;
 
-import java.awt.geom.Point2D;
+import java.beans.Visibility;
 
 // отвечает за положение и поведение сущности (здесь обрабатывается эффект столкновения, либо создам отдельный класс)
 
-public abstract class Entity{
+public abstract class Entity implements Visible {
     @NonNull
     public Shape shape;
     @NonNull

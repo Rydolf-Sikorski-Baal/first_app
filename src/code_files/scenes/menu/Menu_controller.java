@@ -1,6 +1,6 @@
 package code_files.scenes.menu;
 
-import code_files.main.SceneSwitcher;
+import code_files.logic.SceneSwitcher;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

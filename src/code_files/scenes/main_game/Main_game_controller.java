@@ -1,14 +1,16 @@
 package code_files.scenes.main_game;
 
-import code_files.entities_collision.Collision;
-import code_files.entities_collision.PointDouble;
-import code_files.entities_collision.PositionInfo;
-import code_files.entities_collision.entities_tree.Entity;
-import code_files.entities_collision.entities_tree.Hero;
-import code_files.entities_collision.movement_tree.AccordingToSpeed;
-import code_files.entities_collision.shape_tree.Rectangle;
+import code_files.blocks.Blocks;
+import code_files.entity_movement.Collision;
+import code_files.PointDouble;
+import code_files.entity_movement.EntityMovement;
+import code_files.entity_movement.PositionInfo;
+import code_files.entities.entities_tree.Entity;
+import code_files.entities.entities_tree.Hero;
+import code_files.entities.movement_tree.AccordingToSpeed;
+import code_files.entities.shape_tree.Rectangle;
 import code_files.logic.*;
-import code_files.main.SceneSwitcher;
+import code_files.logic.SceneSwitcher;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -32,7 +34,7 @@ public class Main_game_controller implements Initializable {
     private DrawCanvas draw = new DrawCanvas();
     private Hero hero;
 
-    private Collision collision = new Collision();
+    private Collision collision;
 
     private static int row, column;
     private double cellHeight, cellWidth;
@@ -56,27 +58,19 @@ public class Main_game_controller implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        //сюда вставляется тик. ну либо мне придётся переписывать контроллер
-
-        /*Timeline tick = TimelineBuilder.create().keyFrames(
-
-        )*/
     }
 
     private void startGame() throws IOException {
         checkThread.setText("0");
 
-
         isStarted = true;
         curr_level_number = 1;
 
-        initCanvas();
         initToMenu();
 
         startLevel(curr_level_number);
-
-        draw.drawLevel(Map, cellWidth, cellHeight, curr_level, curr_level.list_of_entities);
+        collision = new Collision(cellHeight, cellWidth);
+        entityMovement = new EntityMovement(cellHeight, cellWidth);
 
         objectsThread.start();
     }
@@ -86,21 +80,19 @@ public class Main_game_controller implements Initializable {
 
         row = curr_level.row;
         column = curr_level.column;
-
         initCanvas();
+
+        curr_level.buildLevel(cellHeight, cellWidth);
 
         initHero();
 
         draw.drawLevel(Map, cellWidth, cellHeight, curr_level, curr_level.list_of_entities);
-
-
     }
 
     private void initHero() {
         hero = new Hero(new Rectangle(30, 30),
                 new PointDouble(curr_level.hero_start_x, curr_level.hero_start_y),
                 new AccordingToSpeed());
-        hero.setPosition(100, 200);
 
         curr_level.list_of_entities = new Entity[1];
         curr_level.list_of_entities[0] = hero;
@@ -137,10 +129,10 @@ public class Main_game_controller implements Initializable {
                     AccordingToSpeed accordingToSpeed = (AccordingToSpeed) hero.movement;
 
                     if (code == KeyCode.A) {
-                        accordingToSpeed.changeSpeedY(-10);
+                        accordingToSpeed.changeSpeedY(-1);
                     }
                     if (code == KeyCode.D) {
-                        accordingToSpeed.changeSpeedY(10);
+                        accordingToSpeed.changeSpeedY(1);
                     }
 
                     if (code == KeyCode.SPACE){
@@ -153,33 +145,19 @@ public class Main_game_controller implements Initializable {
         ToMenu.setOnKeyPressed(heroMoveEventHandler);
     }
 
+    EntityMovement entityMovement;
     class ObjectsThread extends Thread{
         @Override
         public void run(){
             while(isStarted) {
-                AccordingToSpeed accordingToSpeed = (AccordingToSpeed) hero.movement;
-                accordingToSpeed.changeSpeedX(10);
+                ((AccordingToSpeed)hero.movement).changeSpeedX(0.5);
 
-                Collision collision = new Collision();
-                PositionInfo positionInfo = collision.getPositionInfo(hero, cellHeight, cellWidth);
-
-                Vector<Point> bottom_coords = positionInfo.getCurrentAdjacentDownCoords();
-                for (Point curr_coord : bottom_coords){
-                    if (Blocks.values()[curr_level.level[curr_coord.x][curr_coord.y]] != Blocks.Air){
-                        ((AccordingToSpeed) hero.movement).nullifyMinusX();
-                        //((AccordingToSpeed) hero.movement).nullifyPlusX();
-                    }
-                }
-
-                draw.drawCell(Map, hero.position.getY(),
-                        hero.position.getX(),
-                        Color.WHITE,
-                        30, 30);
-                hero.moveTick();
+                /*draw.drawCell(Map, hero.position.getY(), hero.position.getX(),
+                        Color.WHITE, ((Rectangle)hero.shape).y_size, ((Rectangle)hero.shape).x_size);*/
+                entityMovement.moveTick(hero, curr_level);
                 draw.drawEntity(Map, hero, cellWidth, cellHeight);
-
                 try {
-                    sleep(100);
+                    sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                     isStarted = false;

@@ -1,7 +1,7 @@
 package code_files.scenes.redactor_scene;
 
 import code_files.logic.Redactor;
-import code_files.main.SceneSwitcher;
+import code_files.logic.SceneSwitcher;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;

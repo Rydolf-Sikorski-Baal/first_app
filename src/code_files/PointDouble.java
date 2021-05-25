@@ -1,22 +1,14 @@
-package code_files.entities_collision;
+package code_files;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
-import javax.naming.OperationNotSupportedException;
 import java.awt.geom.Point2D;
 
 @AllArgsConstructor
+@Getter
 public class PointDouble extends Point2D {
     double x, y;
-
-    @Override
-    public double getX() {
-        return x;
-    }
-    @Override
-    public double getY() {
-        return y;
-    }
 
     @Override
     public void setLocation(double _x, double _y) {

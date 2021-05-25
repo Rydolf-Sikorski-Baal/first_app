@@ -1,6 +1,5 @@
-package code_files.entities_collision.shape_tree;
+package code_files.entities.shape_tree;
 
-import code_files.entities_collision.shape_tree.Shape;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor

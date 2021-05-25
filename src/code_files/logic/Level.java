@@ -1,6 +1,8 @@
 package code_files.logic;
 
-import code_files.entities_collision.entities_tree.Entity;
+import code_files.blocks.Blocks;
+import code_files.entities.entities_tree.Entity;
+import jdk.nashorn.internal.ir.Block;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -9,9 +11,10 @@ import java.io.FileReader;
 // отвечает за структуру и свойства уровней
 
 public class Level {
-    public int[][] level;
+    private int[][] level;
     public int row, column;
-    public /*double*/ int hero_start_x, hero_start_y;
+    public double hero_start_x, hero_start_y;
+    public double cellHeight, cellWidth;
 
     public int level_number;
 
@@ -27,7 +30,19 @@ public class Level {
 
         getLevelFileName(number);
 
-        buildLevel();
+        Scanner in = new Scanner(new FileReader("src/technical_files/Levels/" + level_file_name));
+
+        row = in.nextInt();
+        column = in.nextInt();
+
+        hero_start_x = in.nextInt();
+        hero_start_y = in.nextInt();
+
+        level = new int[row + 2][column + 2];
+
+        for (int i = 0; i < row + 2; i++)
+            for (int j = 0; j < column + 2; j++)
+                level[i][j] = in.nextInt();
     }
 
     public void getLevelFileName(int number){
@@ -46,19 +61,17 @@ public class Level {
         return false;
     }
 
-    public void buildLevel() throws IOException {
-        Scanner in = new Scanner(new FileReader("src/technical_files/Levels/" + level_file_name));
+    public void buildLevel(double _cellHeight, double _cellWidth) throws IOException {
+        cellHeight = _cellHeight;
+        cellWidth = _cellWidth;
 
-        row = in.nextInt();
-        column = in.nextInt();
+        hero_start_x = hero_start_x * cellHeight;
+        hero_start_y = hero_start_y * cellWidth;
+    }
 
-        hero_start_x = in.nextInt();
-        hero_start_y = in.nextInt();
-
-        level = new int[row + 2][column + 2];
-
-        for (int i = 0; i < row + 2; i++)
-            for (int j = 0; j < column + 2; j++)
-                level[i][j] = in.nextInt();
+    public Blocks getBlockByCoords(int x, int y){
+        if (x < 0 || x > row + 1 || y < 0 || y > column + 1)
+            return Blocks.ExternalBlock;
+        return Blocks.values()[level[x][y]];
     }
 }

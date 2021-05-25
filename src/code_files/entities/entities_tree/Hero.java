@@ -1,10 +1,9 @@
-package code_files.entities_collision.entities_tree;
+package code_files.entities.entities_tree;
 
-import code_files.entities_collision.PointDouble;
-import code_files.entities_collision.movement_tree.Movement;
-import code_files.entities_collision.shape_tree.Shape;
-import lombok.AllArgsConstructor;
-import lombok.NonNull;
+import code_files.PointDouble;
+import code_files.entities.movement_tree.Movement;
+import code_files.entities.shape_tree.Shape;
+import javafx.scene.canvas.Canvas;
 
 //@AllArgsConstructor
 public class Hero extends Entity {
@@ -26,5 +25,10 @@ public class Hero extends Entity {
         shape = _shape;
         position =_position;
         movement = _movement;
+    }
+
+    @Override
+    public void drawYourself(Canvas canvas, double top_left_corner_x, double top_left_y, double cellHeight, double cellWidth) {
+
     }
 }

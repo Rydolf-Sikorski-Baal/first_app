@@ -1,12 +1,13 @@
-package code_files.entities_collision.movement_tree;
+package code_files.entities.movement_tree;
 
-import code_files.entities_collision.PointDouble;
-import code_files.entities_collision.entities_tree.Entity;
+import code_files.entities.entities_tree.Entity;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.awt.geom.Point2D;
-
+@Getter
+@Setter
 public class AccordingToSpeed extends Movement{
-    private final double MAX_PULSE = 4;
+    private final double MAX_PULSE = 30;
 
     public double speed_x, speed_y;
 
@@ -25,20 +26,6 @@ public class AccordingToSpeed extends Movement{
             speed_x = MAX_PULSE;
         if (speed_x < -MAX_PULSE)
             speed_x = -MAX_PULSE;
-    }
-
-    public void setSpeedX(double newSpeedX){
-        speed_x = newSpeedX;
-    }
-    public void setSpeedY(double newSpeedY){
-        speed_y = newSpeedY;
-    }
-
-    public double getSpeedX(){
-        return speed_x;
-    }
-    public double getSpeedY(){
-        return speed_y;
     }
 
     public void nullifyMinusX(){

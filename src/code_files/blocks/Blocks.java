@@ -1,11 +1,15 @@
-package code_files.logic;
+package code_files.blocks;
 
 import code_files.interfaces.ChangingSpeed;
 import code_files.interfaces.Visible;
+import code_files.logic.DrawCanvas;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.paint.Color;
 
 public enum Blocks implements ChangingSpeed, Visible {
-    Air(){
+    Air() {
+        public boolean isPassable(){return true;}
+
         @Override
         public double getNewSpeedX(double current_x) {
             return current_x;
@@ -27,6 +31,8 @@ public enum Blocks implements ChangingSpeed, Visible {
     },
 
     Mud() {
+        public boolean isPassable(){return false;}
+
         @Override
         public double getNewSpeedX(double current_x) {
             return 0.3 * current_x;
@@ -48,6 +54,8 @@ public enum Blocks implements ChangingSpeed, Visible {
     },
 
     Ice() {
+        public boolean isPassable(){return false;}
+
         @Override
         public double getNewSpeedX(double current_x) {
             return current_x;
@@ -66,5 +74,29 @@ public enum Blocks implements ChangingSpeed, Visible {
             DrawCanvas.drawCell(canvas, top_left_corner_y * cellWidth, top_left_corner_x * cellHeight,
                     color, cellWidth, cellHeight);
         }
-    }
+    },
+
+    ExternalBlock(){
+        @Override
+        public void drawYourself(Canvas canvas, double top_left_corner_x, double top_left_y, double cellHeight, double cellWidth) {
+
+        }
+
+        @Override
+        public double getNewSpeedX(double current_x) {
+            return 0;
+        }
+
+        @Override
+        public double getNewSpeedY(double current_y) {
+            return 0;
+        }
+
+        @Override
+        public boolean isPassable() {
+            return false;
+        }
+    };
+    
+    public abstract boolean isPassable();
 }
