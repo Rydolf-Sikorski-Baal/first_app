@@ -1,6 +1,8 @@
 package code_files.entity_movement;
 
+import code_files.PointDouble;
 import code_files.entities.entities_tree.Entity;
+import javafx.scene.canvas.Canvas;
 
 // описывет столкновение объектов, но не его эффект
 
@@ -25,12 +27,15 @@ public class Collision implements code_files.interfaces.Collision {
     private void getNextTickEntity(){
         entity.moveTick();
     }
+    private void returnEntityBack(){entity.moveBack();}
 
     private void constructInformation(){
         currentCoords = interception.getCoords(entity);
 
         getNextTickEntity();
         nextTickCoords = interception.getCoords(entity);
+
+        returnEntityBack();
     }
 
     private void setPositionInfo(){

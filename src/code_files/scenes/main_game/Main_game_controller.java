@@ -150,10 +150,10 @@ public class Main_game_controller implements Initializable {
         @Override
         public void run(){
             while(isStarted) {
-                ((AccordingToSpeed)hero.movement).changeSpeedX(0.5);
+                ((AccordingToSpeed)hero.movement).changeSpeedX(7);
 
-                /*draw.drawCell(Map, hero.position.getY(), hero.position.getX(),
-                        Color.WHITE, ((Rectangle)hero.shape).y_size, ((Rectangle)hero.shape).x_size);*/
+                draw.drawCell(Map, hero.position.getY(), hero.position.getX(),
+                        Color.WHITE, ((Rectangle)hero.shape).y_size, ((Rectangle)hero.shape).x_size);
                 entityMovement.moveTick(hero, curr_level);
                 draw.drawEntity(Map, hero, cellWidth, cellHeight);
                 try {

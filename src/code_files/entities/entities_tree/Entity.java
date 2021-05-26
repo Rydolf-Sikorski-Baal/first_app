@@ -22,4 +22,5 @@ public abstract class Entity implements Visible {
     public abstract void setPosition(double new_x, double new_y);
 
     public abstract void moveTick();
+    public abstract void moveBack();
 }

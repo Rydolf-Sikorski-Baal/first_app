@@ -21,6 +21,11 @@ public class Hero extends Entity {
         movement.moveTick(this);
     }
 
+    @Override
+    public void moveBack() {
+        movement.moveBack(this);
+    }
+
     public Hero(Shape _shape, PointDouble _position, Movement _movement){
         shape = _shape;
         position =_position;

@@ -8,7 +8,7 @@ import java.awt.geom.Point2D;
 @AllArgsConstructor
 @Getter
 public class PointDouble extends Point2D {
-    double x, y;
+    private double x, y;
 
     @Override
     public void setLocation(double _x, double _y) {

@@ -9,7 +9,7 @@ import lombok.Setter;
 public class AccordingToSpeed extends Movement{
     private final double MAX_PULSE = 30;
 
-    public double speed_x, speed_y;
+    private double speed_x, speed_y;
 
     public void changeSpeedY(double deltaSpeed){
         speed_y += deltaSpeed;
@@ -48,6 +48,17 @@ public class AccordingToSpeed extends Movement{
 
         double newX = currX + speed_x;
         double newY = currY + speed_y;
+
+        entity.position.setLocation(newX, newY);
+    }
+
+    @Override
+    public void moveBack(Entity entity) {
+        double currX = entity.position.getX();
+        double currY = entity.position.getY();
+
+        double newX = currX - speed_x;
+        double newY = currY - speed_y;
 
         entity.position.setLocation(newX, newY);
     }
