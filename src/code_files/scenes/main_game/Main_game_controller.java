@@ -1,15 +1,14 @@
 package code_files.scenes.main_game;
 
-import code_files.blocks.Blocks;
-import code_files.entity_movement.Collision;
 import code_files.PointDouble;
-import code_files.entity_movement.EntityMovement;
-import code_files.entity_movement.PositionInfo;
 import code_files.entities.entities_tree.Entity;
 import code_files.entities.entities_tree.Hero;
 import code_files.entities.movement_tree.AccordingToSpeed;
 import code_files.entities.shape_tree.Rectangle;
-import code_files.logic.*;
+import code_files.entity_movement.Collision;
+import code_files.entity_movement.EntityMovement;
+import code_files.logic.DrawCanvas;
+import code_files.logic.Level;
 import code_files.logic.SceneSwitcher;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -25,7 +24,6 @@ import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.Vector;
 
 public class Main_game_controller implements Initializable {
     private int curr_level_number;
@@ -69,8 +67,8 @@ public class Main_game_controller implements Initializable {
         initToMenu();
 
         startLevel(curr_level_number);
-        collision = new Collision(cellHeight, cellWidth);
-        entityMovement = new EntityMovement(cellHeight, cellWidth);
+        collision = Collision.getCollision(cellHeight, cellWidth);
+        entityMovement = EntityMovement.getEntityMovement(cellHeight, cellWidth);
 
         objectsThread.start();
     }
@@ -156,6 +154,8 @@ public class Main_game_controller implements Initializable {
                         Color.WHITE, ((Rectangle)hero.shape).y_size, ((Rectangle)hero.shape).x_size);
                 entityMovement.moveTick(hero, curr_level);
                 draw.drawEntity(Map, hero, cellWidth, cellHeight);
+
+
                 try {
                     sleep(1000);
                 } catch (InterruptedException e) {

@@ -12,7 +12,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.naming.OperationNotSupportedException;
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,16 +21,32 @@ import java.util.function.Consumer;
 import static java.lang.Math.abs;
 
 public class EntityMovement {
-    Collision collision;
-    double cellHeight, cellWeight;
-    Map<String, Consumer<Entity>> moveTickFunctions;
+    private Collision collision;
+    private double cellHeight, cellWeight;
+    private Map<String, Consumer<Entity>> moveTickFunctions;
 
-    Level level;
+    private Level level;
 
-    public EntityMovement(double _cellHeight, double _cellWidth){
+    class ClassPair {
+        Class<?> first, second;
+
+        ClassPair(Object firstValue, Object secondValue) {
+            first = firstValue.getClass();
+            second = secondValue.getClass();
+        }
+    }
+
+    private static EntityMovement entityMovement;
+    public static EntityMovement getEntityMovement(double _cellHeight, double _cellWidth){
+        if (entityMovement == null){
+            entityMovement = new EntityMovement(_cellHeight, _cellWidth);
+        }
+        return entityMovement;
+    }
+    private EntityMovement(double _cellHeight, double _cellWidth){
         cellHeight = _cellHeight;
         cellWeight = _cellWidth;
-        collision = new Collision(cellHeight, cellWeight);
+        collision = Collision.getCollision(cellHeight, cellWeight);
 
         moveTickFunctions = new HashMap<>();
 
@@ -64,10 +79,10 @@ public class EntityMovement {
     }
 
     //прямоугольник по скорости
-    final int INFINITY = 1000 * 1000 * 1000;
-    final double epsilon = 5;
+    private final int INFINITY = 1000 * 1000 * 1000;
+    private final double epsilon = 1;
 
-    enum Side{
+    private enum Side{
         None, Top, Bottom, Left, Right
     }
     @AllArgsConstructor
@@ -78,8 +93,8 @@ public class EntityMovement {
         private Side side;
     }
 
-    final double tickTime = 100;
-    double wastedTime;
+    private final double tickTime = 100;
+    private double wastedTime;
     private void moveRectangleAccordingToSpeed(Entity entity){
         wastedTime = 0;
         while(abs(tickTime - wastedTime) > epsilon
@@ -87,7 +102,7 @@ public class EntityMovement {
 
             PositionInfo positionInfo = collision.getPositionInfo(entity, level.cellHeight, level.cellWidth);
             Vector<Point> currentPosition = positionInfo.getCurrentInnerCoords();
-            Vector<Point> nextPosition = positionInfo.getNextInnerCoords();
+            Vector<Point> nextPosition = positionInfo.getNextTickInnerCoords();
 
             int minimumX = INFINITY;
             int maximumX = -INFINITY;
@@ -128,7 +143,7 @@ public class EntityMovement {
 
             if ((wastedTime + nextCollide.getRequiredTime() * tickTime) - tickTime > epsilon) {
                 nextCollide.setSide(Side.None);
-                nextCollide.setRequiredTime((tickTime - wastedTime)/tickTime);
+                nextCollide.setRequiredTime((tickTime - wastedTime) / tickTime);
                 wastedTime = tickTime;
             }else {
                 wastedTime += nextCollide.getRequiredTime() * tickTime;
@@ -141,7 +156,7 @@ public class EntityMovement {
     private CollideInformation getTimeToBlock_RectangleAccordingToSpeed(Entity entity,
                                                             int blockX, int blockY,
                                                             double cellHeight, double cellWidth){
-        double koeff = 0.00;
+        double koeff = 0.75;
 
         double speedX = Math.abs(((AccordingToSpeed) entity.movement).getSpeed_x());
         double speedY = Math.abs(((AccordingToSpeed)entity.movement).getSpeed_y());
@@ -166,9 +181,9 @@ public class EntityMovement {
 
         double timeX = tickTime, timeY = tickTime;
         if (direction.x < 0)
-            timeX = (entityBottomRightCorner.getX() - blockTopLeftCorner.getX()) / speedX;
+            timeX = (entityTopLeftCorner.getX() - blockBottomRightCorner.getX()) / speedX;
         if (direction.x > 0)
-            timeX = (blockBottomRightCorner.getX() - entityTopLeftCorner.getX()) / speedX;
+            timeX = (blockTopLeftCorner.getX() - entityBottomRightCorner.getX()) / speedX;
 
         if (direction.y < 0)
             timeY = (entityTopLeftCorner.getY() - blockBottomRightCorner.getY()) /speedY;
@@ -191,7 +206,7 @@ public class EntityMovement {
         }
 
         PointDouble newEntityTopLeftCorner = new PointDouble(entity.position.getX() + res * ((AccordingToSpeed) entity.movement).getSpeed_x(),
-                entity.position.getY() + res*((AccordingToSpeed) entity.movement).getSpeed_y());
+                entity.position.getY() + res * ((AccordingToSpeed) entity.movement).getSpeed_y());
         PointDouble newEntityBottomRightCorner = new PointDouble(newEntityTopLeftCorner.getX() + rectangle.x_size,
                 newEntityTopLeftCorner.getY() + rectangle.y_size);
 
@@ -206,7 +221,7 @@ public class EntityMovement {
             side = Side.None;
         }
 
-        return new CollideInformation(koeff * res, side);
+        return new CollideInformation((res < 1 ? res * koeff : res), side);
     }
 
     private void moveCountingCollision(Entity entity, CollideInformation collideInformation){

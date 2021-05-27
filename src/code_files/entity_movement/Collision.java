@@ -1,27 +1,32 @@
 package code_files.entity_movement;
 
-import code_files.PointDouble;
 import code_files.entities.entities_tree.Entity;
-import javafx.scene.canvas.Canvas;
 
 // описывет столкновение объектов, но не его эффект
 
 public class Collision implements code_files.interfaces.Collision {
-    Interception interception;
+    private Interception interception;
 
-    Coords currentCoords, nextTickCoords;
+    private Coords currentCoords, nextTickCoords;
 
-    double cellHeight, cellWeight;
+    private double cellHeight, cellWeight;
 
     private PositionInfo positionInfo;
 
     private Entity entity;
 
-    public Collision(double _cellHeight, double _cellWidth){
+    private static Collision collision;
+    public static Collision getCollision(double _cellHeight, double _cellWidth){
+        if (collision == null){
+            collision = new Collision(_cellHeight, _cellWidth);
+        }
+        return collision;
+    }
+    private Collision(double _cellHeight, double _cellWidth){
         cellHeight = _cellHeight;
         cellWeight = _cellWidth;
 
-        interception = new Interception(cellHeight, cellWeight);
+        interception = Interception.getInterception(_cellHeight, _cellWidth);
     }
 
     private void getNextTickEntity(){
@@ -30,10 +35,10 @@ public class Collision implements code_files.interfaces.Collision {
     private void returnEntityBack(){entity.moveBack();}
 
     private void constructInformation(){
-        currentCoords = interception.getCoords(entity);
+        currentCoords = interception.getCoords(entity, cellHeight,cellWeight);
 
         getNextTickEntity();
-        nextTickCoords = interception.getCoords(entity);
+        nextTickCoords = interception.getCoords(entity, cellHeight, cellWeight);
 
         returnEntityBack();
     }

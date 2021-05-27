@@ -1,10 +1,6 @@
 package code_files.logic;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.Scanner;
 
 // отвечает за редакцию уровней

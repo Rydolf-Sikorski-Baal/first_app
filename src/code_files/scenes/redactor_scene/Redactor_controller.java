@@ -1,5 +1,7 @@
 package code_files.scenes.redactor_scene;
 
+import code_files.logic.DrawCanvas;
+import code_files.logic.Level;
 import code_files.logic.Redactor;
 import code_files.logic.SceneSwitcher;
 import javafx.collections.FXCollections;
@@ -13,8 +15,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import code_files.logic.DrawCanvas;
-import code_files.logic.Level;
 
 import java.awt.*;
 import java.io.FileNotFoundException;

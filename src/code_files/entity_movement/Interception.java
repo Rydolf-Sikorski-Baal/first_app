@@ -36,14 +36,17 @@ class Interception {
         }
     }
 
-    Map<ClassPair, BiFunction<Entity, Entity, Boolean>> interceptors;
-    Map<Class<?>, CoordsFunction> positionFunctions;
+    private Map<ClassPair, BiFunction<Entity, Entity, Boolean>> interceptors;
+    private Map<Class<?>, CoordsFunction> positionFunctions;
 
-
-    Interception(double _cellHeight, double _cellWeight) {
-        cellHeight = _cellHeight;
-        cellWeight = _cellWeight;
-
+    private static Interception interception;
+    public static Interception getInterception(double _cellHeight, double _cellWeight){
+        if (interception == null){
+            interception = new Interception(_cellHeight, _cellWeight);
+        }
+        return interception;
+    }
+    private Interception(double _cellHeight, double _cellWeight) {
         positionFunctions = new HashMap<>();
 
         //прямоугольник
@@ -51,7 +54,10 @@ class Interception {
         positionFunctions.put(Rectangle.class, rectangleFunctions);
     }
 
-    public Coords getCoords(Entity entity) {
+    public Coords getCoords(Entity entity, double _cellHeight, double _cellWeight) {
+        cellHeight = _cellHeight;
+        cellWeight = _cellWeight;
+
         return positionFunctions.get(entity.shape.getClass()).function.apply(entity);
     }
 
@@ -112,7 +118,7 @@ class Interception {
         return currCoords;
     }
 
-    Vector<Point> makeAdjacentSideCoords(int delta, double position, double cellSize,
+    private Vector<Point> makeAdjacentSideCoords(int delta, double position, double cellSize,
                                          int start, int end, int y) {
         Vector<Point> adjacentCoords = new Vector<Point>(0);
 
@@ -123,7 +129,7 @@ class Interception {
         return adjacentCoords;
     }
 
-    Vector<Point> makeAdjacentUpDownCoords(int delta, double position, double cellSize,
+    private Vector<Point> makeAdjacentUpDownCoords(int delta, double position, double cellSize,
                                            int start, int end, int x) {
         Vector<Point> adjacentCoords = new Vector<Point>(0);
 
