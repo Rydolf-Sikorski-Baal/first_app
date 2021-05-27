@@ -1,4 +1,4 @@
-package code_files.logic;
+package code_files.level_system;
 
 import code_files.blocks.Blocks;
 import code_files.entities.entities_tree.Entity;

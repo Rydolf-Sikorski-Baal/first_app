@@ -7,7 +7,7 @@ import code_files.entities.movement_tree.AccordingToSpeed;
 import code_files.entities.movement_tree.Movement;
 import code_files.entities.shape_tree.Rectangle;
 import code_files.entities.shape_tree.Shape;
-import code_files.logic.Level;
+import code_files.level_system.Level;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

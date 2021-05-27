@@ -8,7 +8,7 @@ import code_files.entities.shape_tree.Rectangle;
 import code_files.entity_movement.Collision;
 import code_files.entity_movement.EntityMovement;
 import code_files.logic.DrawCanvas;
-import code_files.logic.Level;
+import code_files.level_system.Level;
 import code_files.logic.SceneSwitcher;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -31,11 +31,6 @@ public class Main_game_controller implements Initializable {
     private volatile boolean isStarted;
     private DrawCanvas draw = new DrawCanvas();
     private Hero hero;
-
-    private Collision collision;
-
-    private static int row, column;
-    private double cellHeight, cellWidth;
 
     private SceneSwitcher sceneSwitcher = new SceneSwitcher();
     private ObjectsThread objectsThread = new ObjectsThread();
@@ -88,7 +83,7 @@ public class Main_game_controller implements Initializable {
     }
 
     private void initHero() {
-        hero = new Hero(new Rectangle(30, 30),
+        hero = new Hero(new Rectangle(),
                 new PointDouble(curr_level.hero_start_x, curr_level.hero_start_y),
                 new AccordingToSpeed());
 
@@ -99,16 +94,16 @@ public class Main_game_controller implements Initializable {
     private void initCanvas() {
         Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
 
-        Map.setWidth(600);
-        Map.setHeight(400);
+        Map.setWidth();
+        Map.setHeight();
 
-        this.cellHeight = Map.getHeight() / (row + 2);
-        this.cellWidth = Map.getWidth() / (column + 2);
+        this.cellHeight = Map.getHeight() / ();
+        this.cellWidth = Map.getWidth() / ();
     }
 
     private void initToMenu() {
         ToMenu.setText("ToMenu");
-        ToMenu.setPrefSize(200, 50);
+        ToMenu.setPrefSize();
 
         EventHandler<KeyEvent> heroMoveEventHandler = event -> {
             KeyCode code = event.getCode();
@@ -127,14 +122,14 @@ public class Main_game_controller implements Initializable {
                     AccordingToSpeed accordingToSpeed = (AccordingToSpeed) hero.movement;
 
                     if (code == KeyCode.A) {
-                        accordingToSpeed.changeSpeedY(-1);
+                        accordingToSpeed.changeSpeedY();
                     }
                     if (code == KeyCode.D) {
-                        accordingToSpeed.changeSpeedY(1);
+                        accordingToSpeed.changeSpeedY();
                     }
 
                     if (code == KeyCode.SPACE){
-                        accordingToSpeed.changeSpeedX(-400);
+                        accordingToSpeed.changeSpeedX();
                     }
                 }
             }
