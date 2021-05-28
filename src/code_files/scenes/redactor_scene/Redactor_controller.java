@@ -1,7 +1,7 @@
 package code_files.scenes.redactor_scene;
 
-import code_files.logic.DrawCanvas;
 import code_files.level_system.Level;
+import code_files.logic.DrawCanvas;
 import code_files.logic.Redactor;
 import code_files.logic.SceneSwitcher;
 import javafx.collections.FXCollections;
