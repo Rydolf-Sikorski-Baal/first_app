@@ -11,7 +11,6 @@ import lombok.NonNull;
 public abstract class Entity implements Visible {
     @NonNull
     public Shape shape;
-    @NonNull
     public PointDouble position;
     @NonNull
     public Movement movement;

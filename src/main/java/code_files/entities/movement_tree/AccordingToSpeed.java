@@ -3,7 +3,11 @@ package code_files.entities.movement_tree;
 import code_files.entities.entities_tree.Entity;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
+@Component
+@Scope("prototype")
 @Getter
 @Setter
 public class AccordingToSpeed extends Movement{

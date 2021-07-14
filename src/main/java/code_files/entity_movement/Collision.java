@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Collision implements code_files.interfaces.Collision {
-    private Interception interception;
+    private final Interception interception;
 
     private Coords currentCoords, nextTickCoords;
 

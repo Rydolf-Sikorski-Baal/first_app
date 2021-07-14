@@ -1,11 +1,16 @@
 package code_files.entities.entities_tree;
 
 import code_files.PointDouble;
+import code_files.entities.movement_tree.AccordingToSpeed;
 import code_files.entities.movement_tree.Movement;
+import code_files.entities.shape_tree.Rectangle;
 import code_files.entities.shape_tree.Shape;
 import javafx.scene.canvas.Canvas;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
-//@AllArgsConstructor
+@Component
+@Scope("prototype")
 public class Hero extends Entity {
     @Override
     public void setPosition(PointDouble new_position) {
@@ -26,10 +31,9 @@ public class Hero extends Entity {
         movement.moveBack(this);
     }
 
-    public Hero(Shape _shape, PointDouble _position, Movement _movement){
-        shape = _shape;
-        position =_position;
-        movement = _movement;
+    public Hero(Rectangle rectangle, AccordingToSpeed movement){
+        this.shape = rectangle;
+        this.movement = movement;
     }
 
     @Override

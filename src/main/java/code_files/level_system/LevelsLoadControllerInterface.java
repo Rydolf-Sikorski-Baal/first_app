@@ -5,6 +5,6 @@ import code_files.level_system.level.Level;
 import java.io.IOException;
 import java.util.Vector;
 
-public interface LevelsLoadContrInterface {
+public interface LevelsLoadControllerInterface {
     public void updateFromThisLevel(Level level, Vector<Level> levelVector) throws IOException;
 }

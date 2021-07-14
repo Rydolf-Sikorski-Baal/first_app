@@ -84,7 +84,6 @@ public class Main_game_controller implements Initializable {
 
     private void initHero() {
         hero = new Hero(new Rectangle(),
-                new PointDouble(curr_level.hero_start_x, curr_level.hero_start_y),
                 new AccordingToSpeed());
 
         curr_level.list_of_entities = new Entity[1];
