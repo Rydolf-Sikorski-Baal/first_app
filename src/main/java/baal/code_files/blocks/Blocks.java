@@ -1,10 +1,9 @@
 package baal.code_files.blocks;
 
-import baal.code_files.graphics_system.DrawCanvas;
 import baal.code_files.interfaces.BlocksVis;
 import baal.code_files.interfaces.ChangingSpeed;
-import baal.code_files.interfaces.Visible;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 public enum Blocks implements ChangingSpeed, BlocksVis {
@@ -24,10 +23,11 @@ public enum Blocks implements ChangingSpeed, BlocksVis {
         @Override
         public void drawYourself(javafx.scene.canvas.Canvas canvas, double top_left_corner_x, double top_left_corner_y,
                                  double cellHeight, double cellWidth) {
-            javafx.scene.paint.Color color = Color.WHITE;
+            GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
 
-            DrawCanvas.drawCell(canvas, top_left_corner_y * cellWidth, top_left_corner_x * cellHeight,
-                    color, cellWidth, cellHeight);
+            graphicsContext.setFill(Color.WHITE);
+            graphicsContext.fillRect(top_left_corner_y * cellWidth, top_left_corner_x * cellHeight,
+                    cellWidth, cellHeight);
         }
     },
 
@@ -49,8 +49,11 @@ public enum Blocks implements ChangingSpeed, BlocksVis {
                                  double cellHeight, double cellWidth) {
             javafx.scene.paint.Color color = Color.rgb(130, 80, 45);
 
-            DrawCanvas.drawCell(canvas, top_left_corner_y * cellWidth, top_left_corner_x * cellHeight,
-                    color, cellWidth, cellHeight);
+            GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
+
+            graphicsContext.setFill(color);
+            graphicsContext.fillRect(top_left_corner_y * cellWidth, top_left_corner_x * cellHeight,
+                    cellWidth, cellHeight);
         }
     },
 
@@ -72,8 +75,11 @@ public enum Blocks implements ChangingSpeed, BlocksVis {
                                  double cellHeight, double cellWidth) {
             Color color = Color.LIGHTBLUE;
 
-            DrawCanvas.drawCell(canvas, top_left_corner_y * cellWidth, top_left_corner_x * cellHeight,
-                    color, cellWidth, cellHeight);
+            GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
+
+            graphicsContext.setFill(color);
+            graphicsContext.fillRect(top_left_corner_y * cellWidth, top_left_corner_x * cellHeight,
+                    cellWidth, cellHeight);
         }
     },
 

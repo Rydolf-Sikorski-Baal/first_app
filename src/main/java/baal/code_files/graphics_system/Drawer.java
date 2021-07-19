@@ -4,8 +4,6 @@ import baal.code_files.entities.entities_tree.Entity;
 import baal.code_files.level_system.level.Level;
 import org.springframework.stereotype.Component;
 
-import java.awt.*;
-
 // отвечает за всё изображение полотен
 
 @Component

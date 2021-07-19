@@ -11,12 +11,11 @@ import javafx.scene.input.MouseEvent;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 @Component
-@FxmlView("menu.fxml")
+@FxmlView("menu")
 public class Menu_controller implements Initializable{
     private final SceneSwitcher sceneSwitcher = new SceneSwitcher();
 
@@ -28,9 +27,6 @@ public class Menu_controller implements Initializable{
 
     @FXML
     Button RedactorButton;
-
-    public Menu_controller() throws IOException {
-    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) { initMenu();}

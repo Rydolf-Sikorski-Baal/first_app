@@ -1,6 +1,6 @@
 package baal.code_files.logic;
 
-import baal.code_files.Main_game_controller;
+import baal.code_files.main_game.Main_game_controller;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;

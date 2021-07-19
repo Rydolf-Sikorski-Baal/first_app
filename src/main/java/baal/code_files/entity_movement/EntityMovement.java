@@ -89,7 +89,8 @@ public class EntityMovement {
         while(abs(tickTime - wastedTime) > epsilon
                 && ((((AccordingToSpeed)entity.movement).getSpeed_x() != 0) || (((AccordingToSpeed)entity.movement).getSpeed_y() != 0))) {
 
-            PositionInfo positionInfo = collision.getPositionInfo(entity, level.cellHeight, level.cellWidth);
+            PositionInfo positionInfo = collision.getPositionInfo(entity, level.getLevelCellsSizes().getHeight(),
+                    level.getLevelCellsSizes().getWidth());
             Vector<Point> currentPosition = positionInfo.getCurrentInnerCoords();
             Vector<Point> nextPosition = positionInfo.getNextTickInnerCoords();
 
@@ -121,7 +122,8 @@ public class EntityMovement {
 
                     if (!block.isPassable()) {
                         CollideInformation collideInformation = getTimeToBlock_RectangleAccordingToSpeed(entity,
-                                blockX, blockY, level.cellHeight, level.cellWidth);
+                                blockX, blockY, level.getLevelCellsSizes().getHeight(),
+                                level.getLevelCellsSizes().getWidth());
 
                         if (collideInformation.getRequiredTime() < nextCollide.getRequiredTime()) {
                             nextCollide.setRequiredTime(collideInformation.getRequiredTime());

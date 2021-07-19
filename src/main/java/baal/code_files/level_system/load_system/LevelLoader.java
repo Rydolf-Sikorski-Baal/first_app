@@ -2,6 +2,7 @@ package baal.code_files.level_system.load_system;
 
 import baal.code_files.level_system.level.Level;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 

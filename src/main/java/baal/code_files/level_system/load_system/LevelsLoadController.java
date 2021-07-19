@@ -2,14 +2,12 @@ package baal.code_files.level_system.load_system;
 
 import baal.code_files.level_system.level.Level;
 import lombok.Getter;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.Vector;
 
 @Component
-@Scope("prototype")
 @Getter
 public class LevelsLoadController implements LevelsLoadControllerInterface {
     private final LevelLoaderInterface levelLoader;
@@ -22,5 +20,10 @@ public class LevelsLoadController implements LevelsLoadControllerInterface {
         for (String fileName : level.getLevelConnections().getLevelFileNamesVector()){
             levelVector.add(levelLoader.loadLevel(fileName));
         }
+    }
+
+    @Override
+    public void loadThisLevel(String levelFileName, Vector<Level> levelVector) throws IOException {
+        levelVector.add(levelLoader.loadLevel(levelFileName));
     }
 }

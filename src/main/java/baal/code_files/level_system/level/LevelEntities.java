@@ -7,8 +7,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.Vector;
 
-@Component
-@Scope("prototype")
 @Data
 public class LevelEntities implements LevelEntitiesInterface {
     Vector<Entity> entityVector;

@@ -6,8 +6,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.Vector;
 
-@Component
-@Scope("prototype")
 @Data
 public class LevelConnections implements LevelConnectionsInterface {
     Vector<String> levelFileNamesVector;

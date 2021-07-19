@@ -6,5 +6,8 @@ import java.io.IOException;
 import java.util.Vector;
 
 public interface LevelsLoadControllerInterface {
-    public void updateFromThisLevel(Level level, Vector<Level> levelVector) throws IOException;
+    LevelLoaderInterface getLevelLoader();
+
+    void updateFromThisLevel(Level level, Vector<Level> levelVector) throws IOException;
+    void loadThisLevel(String levelFileName, Vector<Level> levelVector) throws IOException;
 }
