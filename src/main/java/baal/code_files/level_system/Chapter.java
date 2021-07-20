@@ -10,7 +10,7 @@ import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.Vector;
 
-//@Component
+@Component
 public class Chapter implements ChapterInterface {
     @Getter private final LevelsLoadControllerInterface levelsLoadController;
     private final ChapterSettings chapterSettings;

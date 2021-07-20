@@ -1,23 +1,29 @@
 package baal.code_files.main_game.threads;
 
-import baal.code_files.level_system.Chapter;
-import baal.code_files.level_system.load_system.LevelsLoadController;
+import baal.ApplicationContextProvider;
 import baal.code_files.level_system.load_system.LevelsLoadControllerInterface;
 import baal.code_files.main_game.Main_game_controller;
-import lombok.var;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
+import javax.annotation.PostConstruct;
 
 @Component
 public class LevelLoadThread extends Thread {
-    //private final Main_game_controller main_game_controller;
+    private final ApplicationContextProvider applicationContextProvider;
+    private Main_game_controller main_game_controller;
     private final LevelsLoadControllerInterface levelsLoadController;
 
-    public LevelLoadThread(//Main_game_controller main_game_controller,
+    public LevelLoadThread(ApplicationContextProvider applicationContextProvider,
                            LevelsLoadControllerInterface levelsLoadController) {
-        //this.main_game_controller = main_game_controller;
+        this.applicationContextProvider = applicationContextProvider;
         this.levelsLoadController = levelsLoadController;
+    }
+    
+    @PostConstruct
+    void setMain_game_controller(){
+        this.main_game_controller = this.applicationContextProvider
+                .getApplicationContext()
+                .getBean(Main_game_controller.class);
     }
 
     @Override

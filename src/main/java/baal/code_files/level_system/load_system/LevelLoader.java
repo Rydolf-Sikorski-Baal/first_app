@@ -2,7 +2,6 @@ package baal.code_files.level_system.load_system;
 
 import baal.code_files.level_system.level.Level;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +13,7 @@ import java.io.IOException;
 public class LevelLoader implements LevelLoaderInterface{
     public Level loadLevel(String levelFileName) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        File file = new File(String.format("src/resources/levels/%s.txt", levelFileName));
+        File file = new File(levelFileName);
 
         return objectMapper.readValue(file, Level.class);
     }

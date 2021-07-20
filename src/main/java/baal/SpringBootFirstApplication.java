@@ -13,6 +13,7 @@ public class SpringBootFirstApplication {
 
     @Bean
     public ChapterSettings chapterSettings(){
-        return new ChapterSettings("first");
+        return new ChapterSettings
+                ("src/main/resources/baal/code_files/level_system/first");
     }
 }
