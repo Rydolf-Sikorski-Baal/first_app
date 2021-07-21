@@ -2,6 +2,7 @@ package baal.code_files.level_system.level;
 
 import baal.code_files.entities.entities_tree.Entity;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 

@@ -1,6 +1,7 @@
 package baal.code_files.level_system.level;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -11,5 +12,6 @@ public class LevelSettings implements LevelSettingsInterface{
 
     private final double defaultSpeedX, defaultSpeedY;
     private final double defaultSpeedDeltaX, defaultSpeedDeltaY;
+
     private final boolean isKeepSpeedFromPreviousLevel;
 }

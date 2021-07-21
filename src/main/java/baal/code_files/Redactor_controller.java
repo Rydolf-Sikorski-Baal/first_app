@@ -3,13 +3,12 @@ package baal.code_files;
 import baal.code_files.level_system.level.Level;
 import baal.code_files.level_system.load_system.LevelLoaderInterface;
 import baal.code_files.level_system.save_system.LevelSaverInterface;
-import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import lombok.SneakyThrows;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -23,7 +22,7 @@ public class Redactor_controller implements Initializable{
 
 
 
-    public Redactor_controller(@Qualifier("levelFakeLoader")
+    public Redactor_controller(@Qualifier("levelPrimitiveLoader")
                                        LevelLoaderInterface levelLoader,
                                @Qualifier("levelJsonSaver")
                                        LevelSaverInterface levelSaver) {
@@ -31,10 +30,14 @@ public class Redactor_controller implements Initializable{
         this.levelSaver = levelSaver;
     }
 
+    @SneakyThrows
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initMenu();
         initCanvas();
+
+        loadLevel("src/main/java/technical_files/Levels/level_1");
+        saveLevel();
     }
 
     private void initCanvas() {
@@ -43,7 +46,7 @@ public class Redactor_controller implements Initializable{
 
     private void initMenu(){}
 
-    private void setLevel(String levelFilePath) throws IOException {
+    private void loadLevel(String levelFilePath) throws IOException {
         level = levelLoader.loadLevel(levelFilePath);
     }
     private void saveLevel(){

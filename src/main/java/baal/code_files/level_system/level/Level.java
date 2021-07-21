@@ -5,22 +5,24 @@ package baal.code_files.level_system.level;
 import baal.code_files.blocks.Blocks;
 import baal.code_files.graphics_system.LevelCellsSizes;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 @Data
 public class Level implements LevelInterface{
-    @NonNull private LevelSettingsInterface levelSettings;
-    @NonNull private LevelEntitiesInterface levelEntities;
-    @NonNull private LevelConnectionsInterface levelConnections;
+    @NonNull private LevelSettings levelSettings;
+    @NonNull private LevelEntities levelEntities;
+    @NonNull private LevelConnections levelConnections;
 
-    private Blocks[][] levelMap;
+    @NonNull private Blocks[][] levelMap;
 
-    private LevelCellsSizes levelCellsSizes;
+   private LevelCellsSizes levelCellsSizes;
 
     @Override
     public Blocks getBlockByCoords(int x, int y) {
         if (x < 0 || levelSettings.getRow() <= x) return Blocks.ExternalBlock;
         if (y < 0 || levelSettings.getColumn() <= y) return Blocks.ExternalBlock;
+        if (levelMap == null) throw new RuntimeException("карта уровня не загруженна");
         return levelMap[x][y];
     }
 }

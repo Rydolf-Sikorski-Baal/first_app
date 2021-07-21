@@ -21,7 +21,7 @@ import java.util.ResourceBundle;
 public class Main_game_controller implements Initializable {
     public volatile Level curr_level;
     public volatile boolean isStarted;
-    //public volatile Chapter chapter;
+    public volatile Chapter chapter;
     private final Drawer drawer;
 
     private final EntityMovementThread entityMovementThread;
@@ -38,12 +38,12 @@ public class Main_game_controller implements Initializable {
 
     public Main_game_controller(Drawer drawer,
                                 EntityMovementThread entityMovementThread,
-                                LevelLoadThread levelLoadThread//,
-                                /*Chapter chapter*/) {
+                                LevelLoadThread levelLoadThread,
+                                Chapter chapter) {
         this.drawer = drawer;
         this.entityMovementThread = entityMovementThread;
         this.levelLoadThread = levelLoadThread;
-        //this.chapter = chapter;
+        this.chapter = chapter;
     }
 
     @Override
