@@ -3,7 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.*?>
 <GridPane xmlns="http://javafx.com/javafx"
-          xmlns:fx="http://javafx.com/javafx"
+          xmlns:fx="http://javafx.com/fxml"
           fx:controller="baal.code_files.Menu_controller"
           alignment="center" hgap="10" vgap="10">
 

@@ -1,34 +1,52 @@
 package baal.code_files;
 
 import baal.code_files.level_system.level.Level;
-import baal.code_files.logic.Redactor;
-import baal.code_files.logic.SceneSwitcher;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
+import baal.code_files.level_system.load_system.LevelLoaderInterface;
+import baal.code_files.level_system.save_system.LevelSaverInterface;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import net.rgielen.fxweaver.core.FxmlView;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.awt.*;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 @Component
-@FxmlView("redactor.fxml")
+@FxmlView("redactor_scene.fxml")
 public class Redactor_controller implements Initializable{
+    private final LevelLoaderInterface levelLoader;
+    private final LevelSaverInterface levelSaver;
+    private Level level;
+
+
+
+    public Redactor_controller(@Qualifier("levelFakeLoader")
+                                       LevelLoaderInterface levelLoader,
+                               @Qualifier("levelJsonSaver")
+                                       LevelSaverInterface levelSaver) {
+        this.levelLoader = levelLoader;
+        this.levelSaver = levelSaver;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        initMenu();
+        initCanvas();
+    }
 
+    private void initCanvas() {
+
+    }
+
+    private void initMenu(){}
+
+    private void setLevel(String levelFilePath) throws IOException {
+        level = levelLoader.loadLevel(levelFilePath);
+    }
+    private void saveLevel(){
+        levelSaver.saveLevel(level, levelSaver.getPathForThisLevel(level));
     }
 }

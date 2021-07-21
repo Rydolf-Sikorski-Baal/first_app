@@ -21,8 +21,8 @@ import java.util.ResourceBundle;
 public class Main_game_controller implements Initializable {
     public volatile Level curr_level;
     public volatile boolean isStarted;
-    public volatile Chapter chapter;
-    private Drawer drawer;
+    //public volatile Chapter chapter;
+    private final Drawer drawer;
 
     private final EntityMovementThread entityMovementThread;
     private final LevelLoadThread levelLoadThread;
@@ -38,12 +38,12 @@ public class Main_game_controller implements Initializable {
 
     public Main_game_controller(Drawer drawer,
                                 EntityMovementThread entityMovementThread,
-                                LevelLoadThread levelLoadThread,
-                                Chapter chapter) {
+                                LevelLoadThread levelLoadThread//,
+                                /*Chapter chapter*/) {
         this.drawer = drawer;
         this.entityMovementThread = entityMovementThread;
         this.levelLoadThread = levelLoadThread;
-        this.chapter = chapter;
+        //this.chapter = chapter;
     }
 
     @Override
@@ -56,7 +56,7 @@ public class Main_game_controller implements Initializable {
     }
 
     private void startLevel(){
-        if (curr_level == null) throw new RuntimeException("не загружен уровень");
+        //if (curr_level == null) throw new RuntimeException("не загружен уровень");
 
         levelLoadThread.start();
         entityMovementThread.start();

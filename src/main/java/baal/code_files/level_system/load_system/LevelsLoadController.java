@@ -2,6 +2,7 @@ package baal.code_files.level_system.load_system;
 
 import baal.code_files.level_system.level.Level;
 import lombok.Getter;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -12,7 +13,8 @@ import java.util.Vector;
 public class LevelsLoadController implements LevelsLoadControllerInterface {
     private final LevelLoaderInterface levelLoader;
 
-    public LevelsLoadController(LevelLoader levelLoader) {
+    public LevelsLoadController(@Qualifier("levelJsonLoader")
+                                        LevelLoaderInterface levelLoader) {
         this.levelLoader = levelLoader;
     }
 

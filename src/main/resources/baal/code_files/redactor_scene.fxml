@@ -3,16 +3,18 @@
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<GridPane fx:controller="baal.code_files.Redactor_controller"
-          xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10">
+<GridPane xmlns="http://javafx.com/javafx"
+          xmlns:fx="http://javafx.com/fxml"
+          fx:controller="baal.code_files.Redactor_controller"
+          alignment="center" hgap="10" vgap="10">
 
-    <Button fx:id="ToMenu" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-    <Button fx:id="SetLevel" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-    <Button fx:id="RedactorButton" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+    <Button fx:id="toMenu" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+    <Button fx:id="setLevel" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+    <Button fx:id="redactorButton" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
 
-    <ComboBox fx:id="RedactorComboBox" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
-    <ComboBox fx:id="RedactorCellComboBox" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+    <ComboBox fx:id="redactorComboBox" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+    <ComboBox fx:id="redactorCellComboBox" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
 
-    <Canvas fx:id="RedactorMap" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+    <Canvas fx:id="redactorMap" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
 
 </GridPane>

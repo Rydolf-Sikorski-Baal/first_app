@@ -22,7 +22,6 @@ public class EntityMovementThread extends Thread {
         this.entityMovement = entityMovement;
     }
 
-    @PostConstruct
     void setMain_game_controller(){
         this.main_game_controller = this.applicationContextProvider
                 .getApplicationContext()
@@ -32,6 +31,7 @@ public class EntityMovementThread extends Thread {
     @SneakyThrows
     @Override
     public void run() {
+        setMain_game_controller();
         Level level = this.main_game_controller.curr_level;
         boolean isStarted = this.main_game_controller.isStarted;
 

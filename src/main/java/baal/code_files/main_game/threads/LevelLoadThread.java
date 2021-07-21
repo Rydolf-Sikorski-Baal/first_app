@@ -19,7 +19,6 @@ public class LevelLoadThread extends Thread {
         this.levelsLoadController = levelsLoadController;
     }
     
-    @PostConstruct
     void setMain_game_controller(){
         this.main_game_controller = this.applicationContextProvider
                 .getApplicationContext()
@@ -28,6 +27,7 @@ public class LevelLoadThread extends Thread {
 
     @Override
     public void run(){
+        setMain_game_controller();
         /*try {
             wait();
         } catch (InterruptedException e) {

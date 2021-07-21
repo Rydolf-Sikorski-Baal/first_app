@@ -6,8 +6,6 @@ import baal.code_files.blocks.Blocks;
 import baal.code_files.graphics_system.LevelCellsSizes;
 import lombok.Data;
 import lombok.NonNull;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 
 @Data
 public class Level implements LevelInterface{

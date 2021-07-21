@@ -10,7 +10,7 @@ import java.io.IOException;
 
 @Component
 @Scope("prototype")
-public class LevelLoader implements LevelLoaderInterface{
+public class LevelJsonLoader implements LevelLoaderInterface{
     public Level loadLevel(String levelFileName) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         File file = new File(levelFileName);
