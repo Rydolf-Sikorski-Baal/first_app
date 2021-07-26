@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import lombok.SneakyThrows;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -18,16 +19,18 @@ import java.util.ResourceBundle;
 public class Redactor_controller implements Initializable{
     private final LevelLoaderInterface levelLoader;
     private final LevelSaverInterface levelSaver;
+    private final String levelFilePathPattern;
     private Level level;
-
-
 
     public Redactor_controller(@Qualifier("levelPrimitiveLoader")
                                        LevelLoaderInterface levelLoader,
                                @Qualifier("levelJsonSaver")
-                                       LevelSaverInterface levelSaver) {
+                                       LevelSaverInterface levelSaver,
+                               @Value("$levelFilePathPattern")
+                                       String levelFilePathPattern) {
         this.levelLoader = levelLoader;
         this.levelSaver = levelSaver;
+        this.levelFilePathPattern = levelFilePathPattern;
     }
 
     @SneakyThrows
@@ -35,9 +38,6 @@ public class Redactor_controller implements Initializable{
     public void initialize(URL location, ResourceBundle resources) {
         initMenu();
         initCanvas();
-
-        loadLevel("src/main/java/technical_files/Levels/level_1");
-        saveLevel();
     }
 
     private void initCanvas() {
@@ -50,6 +50,6 @@ public class Redactor_controller implements Initializable{
         level = levelLoader.loadLevel(levelFilePath);
     }
     private void saveLevel(){
-        levelSaver.saveLevel(level, levelSaver.getPathForThisLevel(level));
+        //levelSaver.saveLevel(level, );
     }
 }

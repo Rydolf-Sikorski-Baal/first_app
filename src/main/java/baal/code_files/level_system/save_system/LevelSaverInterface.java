@@ -5,5 +5,4 @@ import baal.code_files.level_system.level.LevelInterface;
 
 public interface LevelSaverInterface {
     void saveLevel(LevelInterface level, String FilePath);
-    String getPathForThisLevel(Level level);
 }

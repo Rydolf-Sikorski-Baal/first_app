@@ -56,7 +56,7 @@ public class Main_game_controller implements Initializable {
     }
 
     private void startLevel(){
-        //if (curr_level == null) throw new RuntimeException("не загружен уровень");
+        if (curr_level == null) throw new RuntimeException("не загружен уровень");
 
         levelLoadThread.start();
         entityMovementThread.start();

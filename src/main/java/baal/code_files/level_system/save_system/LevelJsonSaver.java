@@ -19,9 +19,4 @@ public class LevelJsonSaver implements LevelSaverInterface {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.writeValue(file, level);
     }
-
-    @Override
-    public String getPathForThisLevel(Level level) {
-        return String.format("src/main/resources/baal/code_files/level_system/%s", "first");
-    }
 }
