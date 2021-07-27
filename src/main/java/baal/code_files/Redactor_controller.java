@@ -26,7 +26,7 @@ public class Redactor_controller implements Initializable{
                                        LevelLoaderInterface levelLoader,
                                @Qualifier("levelJsonSaver")
                                        LevelSaverInterface levelSaver,
-                               @Value("$levelFilePathPattern")
+                               @Value("${levelFilePathPattern}")
                                        String levelFilePathPattern) {
         this.levelLoader = levelLoader;
         this.levelSaver = levelSaver;
