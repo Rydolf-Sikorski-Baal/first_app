@@ -1,17 +1,15 @@
 package baal.code_files.level_system.level;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
+import lombok.NonNull;
 
 @Data
 public class LevelSettings implements LevelSettingsInterface{
-    private final int row, column;
-    private final double heroStartX, heroStartY;
+    @NonNull private int row, column;
+    @NonNull private double heroStartX, heroStartY;
 
-    private final double defaultSpeedX, defaultSpeedY;
-    private final double defaultSpeedDeltaX, defaultSpeedDeltaY;
+    @NonNull private double defaultSpeedX, defaultSpeedY;
+    @NonNull private double defaultSpeedDeltaX, defaultSpeedDeltaY;
 
-    private final boolean isKeepSpeedFromPreviousLevel;
+    @NonNull private boolean isKeepSpeedFromPreviousLevel;
 }

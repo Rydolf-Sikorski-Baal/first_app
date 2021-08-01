@@ -5,14 +5,14 @@
 <?import javafx.scene.layout.*?>
 <GridPane xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
-          fx:controller="baal.code_files.Redactor_controller"
+          fx:controller="baal.code_files.redactor.Redactor_controller"
           alignment="center" hgap="10" vgap="10">
 
     <Button fx:id="toMenu" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
     <Button fx:id="setLevel" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-    <Button fx:id="redactorButton" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+    <Button fx:id="saveLevel" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
 
-    <ComboBox fx:id="redactorComboBox" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+    <ComboBox fx:id="redactorLevelComboBox" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
     <ComboBox fx:id="redactorCellComboBox" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
 
     <Canvas fx:id="redactorMap" GridPane.columnIndex="0" GridPane.rowIndex="3"/>

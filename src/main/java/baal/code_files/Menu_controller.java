@@ -1,10 +1,8 @@
 package baal.code_files;
 
 import baal.ApplicationContextProvider;
-import baal.JavaFxApplication;
 import baal.code_files.main_game.Main_game_controller;
-import javafx.application.Application;
-import javafx.event.ActionEvent;
+import baal.code_files.redactor.Redactor_controller;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

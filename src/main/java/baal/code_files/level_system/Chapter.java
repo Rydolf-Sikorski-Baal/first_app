@@ -21,7 +21,7 @@ public class Chapter implements ChapterInterface {
         this.chapterSettings = chapterSettings;
     }
 
-    @PostConstruct
+    //@PostConstruct
     private void loadChapter() throws IOException {
         levelsLoadController.loadThisLevel(chapterSettings.firstLevelFilePath, levelVector);
         levelsLoadController.updateFromThisLevel(levelVector.get(0), levelVector);
