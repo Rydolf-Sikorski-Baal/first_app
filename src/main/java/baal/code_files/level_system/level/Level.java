@@ -13,7 +13,7 @@ public class Level implements LevelInterface{
 
     @NonNull private Blocks[][] levelMap;
 
-    private LevelCellsSizes levelCellsSizes;
+    @NonNull private LevelCellsSizes levelCellsSizes;
 
     @Override
     public Blocks getBlockByCoords(int x, int y) {

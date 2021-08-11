@@ -1,7 +1,7 @@
 package baal.code_files.main_game;
 
 import baal.code_files.graphics_system.Drawer;
-import baal.code_files.level_system.Chapter;
+import baal.code_files.chapter_system.Chapter;
 import baal.code_files.level_system.level.Level;
 import baal.code_files.main_game.threads.EntityMovementThread;
 import baal.code_files.main_game.threads.LevelLoadThread;
@@ -48,11 +48,18 @@ public class Main_game_controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        initMenu();
+        initCanvas();
+
         startLevel();
     }
 
-    public void setLevel(Level level){
-        this.curr_level = level;
+    private void initCanvas() {
+
+    }
+
+    private void initMenu() {
+
     }
 
     private void startLevel(){

@@ -1,6 +1,5 @@
 package baal.code_files.redactor;
 
-import baal.code_files.graphics_system.Drawer;
 import baal.code_files.graphics_system.DrawerInterface;
 import baal.code_files.level_system.level.LevelInterface;
 import baal.code_files.level_system.load_system.LevelLoaderInterface;

@@ -1,4 +1,4 @@
-package baal.code_files.level_system;
+package baal.code_files.chapter_system;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;

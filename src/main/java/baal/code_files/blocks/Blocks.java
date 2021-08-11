@@ -5,105 +5,69 @@ import baal.code_files.interfaces.ChangingSpeed;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import lombok.SneakyThrows;
+import org.yaml.snakeyaml.Yaml;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.util.Map;
 
 public enum Blocks implements ChangingSpeed, BlocksVis {
-    Air() {
-        public boolean isPassable(){return true;}
+    Air(),
+    Mud(),
+    Ice(),
+    ExternalBlock();
 
-        @Override
-        public double getNewSpeedX(double current_x) {
-            return current_x;
-        }
+    @SneakyThrows
+    Blocks() {
+        Yaml yaml = new Yaml();
+        InputStream inputStream = new FileInputStream(new File("src/main/resources/baal/code_files/blocks/blocks"));
+        Map<String, Object> map = yaml.load(inputStream);
 
-        @Override
-        public double getNewSpeedY(double current_y) {
-            return current_y;
-        }
+        @SuppressWarnings("unchecked")
+        Map<String, Object> block = (Map<String, Object>) map.get(this.name());
 
-        @Override
-        public void drawYourself(javafx.scene.canvas.Canvas canvas, double top_left_corner_x, double top_left_corner_y,
-                                 double cellHeight, double cellWidth) {
-            GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
+        this.isPassable = (boolean) block.get("isPassable");
+        this.xSpeedChangeCoefficient = (double) block.get("xSpeedChangeCoefficient");
+        this.ySpeedChangeCoefficient = (double) block.get("ySpeedChangeCoefficient");
 
-            graphicsContext.setFill(Color.WHITE);
-            graphicsContext.fillRect(top_left_corner_y * cellWidth, top_left_corner_x * cellHeight,
-                    cellWidth, cellHeight);
-        }
-    },
+        @SuppressWarnings("unchecked")
+        Map<String, Object> color = (Map<String, Object>) block.get("color");
+        this.colorRed = (int) color.get("Red");
+        this.colorGreen = (int) color.get("Green");
+        this.colorBlue = (int) color.get("Blue");
+        this.opacity = (int) color.get("opacity");
+    }
 
-    Mud() {
-        public boolean isPassable(){return false;}
+    private final boolean isPassable;
+    private final double xSpeedChangeCoefficient, ySpeedChangeCoefficient;
+    private final int colorRed, colorGreen, colorBlue;
+    private final int opacity;
 
-        @Override
-        public double getNewSpeedX(double current_x) {
-            return 0.3 * current_x;
-        }
+    public boolean isPassable() {return isPassable;}
 
-        @Override
-        public double getNewSpeedY(double current_y) {
-            return 0.3 * current_y;
-        }
+    @Override
+    public double getNewSpeedX(double current_x) {
+        return xSpeedChangeCoefficient * current_x;
+    }
 
-        @Override
-        public void drawYourself(javafx.scene.canvas.Canvas canvas, double top_left_corner_x, double top_left_corner_y,
-                                 double cellHeight, double cellWidth) {
-            javafx.scene.paint.Color color = Color.rgb(130, 80, 45);
+    @Override
+    public double getNewSpeedY(double current_y) {
+        return ySpeedChangeCoefficient * current_y;
+    }
 
-            GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
+    @Override
+    public void drawYourself(javafx.scene.canvas.Canvas canvas, double top_left_corner_x, double top_left_corner_y,
+                             double cellHeight, double cellWidth) {
+        Color color = new Color(this.colorRed, this.colorGreen, this.colorBlue,
+                this.opacity);
 
-            graphicsContext.setFill(color);
-            graphicsContext.fillRect(top_left_corner_y * cellWidth, top_left_corner_x * cellHeight,
-                    cellWidth, cellHeight);
-        }
-    },
+        GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
 
-    Ice() {
-        public boolean isPassable(){return false;}
-
-        @Override
-        public double getNewSpeedX(double current_x) {
-            return current_x;
-        }
-
-        @Override
-        public double getNewSpeedY(double current_y) {
-            return current_y;
-        }
-
-        @Override
-        public void drawYourself(javafx.scene.canvas.Canvas canvas, double top_left_corner_x, double top_left_corner_y,
-                                 double cellHeight, double cellWidth) {
-            Color color = Color.LIGHTBLUE;
-
-            GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
-
-            graphicsContext.setFill(color);
-            graphicsContext.fillRect(top_left_corner_y * cellWidth, top_left_corner_x * cellHeight,
-                    cellWidth, cellHeight);
-        }
-    },
-
-    ExternalBlock(){
-        @Override
-        public void drawYourself(Canvas canvas, double top_left_corner_x, double top_left_y, double cellHeight, double cellWidth) {
-
-        }
-
-        @Override
-        public double getNewSpeedX(double current_x) {
-            return 0;
-        }
-
-        @Override
-        public double getNewSpeedY(double current_y) {
-            return 0;
-        }
-
-        @Override
-        public boolean isPassable() {
-            return false;
-        }
-    };
-    
-    public abstract boolean isPassable();
+        graphicsContext.setFill(color);
+        graphicsContext.fillRect(top_left_corner_y * cellWidth, top_left_corner_x * cellHeight,
+                cellWidth, cellHeight);
+    }
 }

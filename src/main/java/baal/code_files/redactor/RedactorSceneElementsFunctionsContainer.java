@@ -2,23 +2,17 @@ package baal.code_files.redactor;
 
 import baal.ApplicationContextProvider;
 import baal.code_files.Menu_controller;
-import baal.code_files.graphics_system.Drawer;
 import baal.code_files.graphics_system.DrawerInterface;
-import baal.code_files.level_system.level.Level;
 import baal.code_files.level_system.level.LevelInterface;
 import baal.code_files.level_system.load_system.LevelLoaderInterface;
 import baal.code_files.level_system.save_system.LevelSaverInterface;
-import javafx.scene.CacheHint;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxWeaver;
-import org.jetbrains.annotations.NotNull;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.awt.*;
 import java.io.IOException;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;

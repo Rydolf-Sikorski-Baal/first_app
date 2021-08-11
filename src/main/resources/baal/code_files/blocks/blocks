@@ -1,0 +1,36 @@
+Air:
+  isPassable: true
+  xSpeedChangeCoefficient: 1.0
+  ySpeedChangeCoefficient: 1.0
+  color:
+    Red: 0
+    Green: 0
+    Blue: 0
+    opacity: 1
+Mud:
+  isPassable: false
+  xSpeedChangeCoefficient: 1.0
+  ySpeedChangeCoefficient: 1.0
+  color:
+    Red: 1
+    Green: 0
+    Blue: 0
+    opacity: 0
+Ice:
+  isPassable: false
+  xSpeedChangeCoefficient: 0.5
+  ySpeedChangeCoefficient: 0.5
+  color:
+    Red: 0
+    Green: 1
+    Blue: 0
+    opacity: 0
+ExternalBlock:
+  isPassable: false
+  xSpeedChangeCoefficient: 0.0
+  ySpeedChangeCoefficient: 0.0
+  color:
+    Red: 0
+    Green: 0
+    Blue: 0
+    opacity: 0

@@ -10,8 +10,8 @@ public class Drawer implements DrawerInterface{
     private LevelInterface level;
 
     private void drawThisLevel(){
-        if (level.getLevelCellsSizes() == null)
-            level.setLevelCellsSizes(getLevelCellsSizesForThisLevel(level));
+        setBackScreen();
+        level.setLevelCellsSizes(getLevelCellsSizesForThisLevel(level));
 
         for (int row = 0; row <= level.getLevelSettings().getRow(); row++)
             for (int column = 0; column <= level.getLevelSettings().getColumn(); column++) {
@@ -28,6 +28,10 @@ public class Drawer implements DrawerInterface{
                         level.getLevelCellsSizes().getHeight(),
                         level.getLevelCellsSizes().getWidth());
         }
+    }
+
+    private void setBackScreen() {
+        (canvas.getGraphicsContext2D()).clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
     }
 
     @Override
