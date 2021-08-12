@@ -19,8 +19,11 @@ public class LevelsLoadController implements LevelsLoadControllerInterface {
     }
 
     public void updateFromThisLevel(Level level, Vector<Level> levelVector) throws IOException {
-        for (String fileName : level.getLevelConnections().getLevelFileNamesVector()){
-            levelVector.add(levelLoader.loadLevel(fileName));
+        if (levelVector == null) levelVector = new Vector<>();
+        if (level.getLevelConnections().getLevelFileNamesVector() != null){
+            for (String fileName : level.getLevelConnections().getLevelFileNamesVector()) {
+                levelVector.add(levelLoader.loadLevel(fileName));
+            }
         }
     }
 

@@ -12,6 +12,4 @@
     <Button fx:id="ToMenu" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
 
     <Canvas fx:id="canvas" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-
-    <Label fx:id="checkThread" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
 </GridPane>

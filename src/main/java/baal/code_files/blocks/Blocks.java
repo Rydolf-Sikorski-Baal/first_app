@@ -35,16 +35,16 @@ public enum Blocks implements ChangingSpeed, BlocksVis {
 
         @SuppressWarnings("unchecked")
         Map<String, Object> color = (Map<String, Object>) block.get("color");
-        this.colorRed = (int) color.get("Red");
-        this.colorGreen = (int) color.get("Green");
-        this.colorBlue = (int) color.get("Blue");
-        this.opacity = (int) color.get("opacity");
+        this.colorRed = (double) color.get("Red");
+        this.colorGreen = (double) color.get("Green");
+        this.colorBlue = (double) color.get("Blue");
+        this.opacity = (double) color.get("opacity");
     }
 
     private final boolean isPassable;
     private final double xSpeedChangeCoefficient, ySpeedChangeCoefficient;
-    private final int colorRed, colorGreen, colorBlue;
-    private final int opacity;
+    private final double colorRed, colorGreen, colorBlue;
+    private final double opacity;
 
     public boolean isPassable() {return isPassable;}
 
