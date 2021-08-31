@@ -12,4 +12,6 @@
     <Button fx:id="ToMenu" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
 
     <Canvas fx:id="canvas" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+
+    <Label fx:id="label" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
 </GridPane>

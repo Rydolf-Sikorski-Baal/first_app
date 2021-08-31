@@ -2,7 +2,6 @@ package baal.code_files.blocks;
 
 import baal.code_files.interfaces.BlocksVis;
 import baal.code_files.interfaces.ChangingSpeed;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import lombok.SneakyThrows;
@@ -10,7 +9,6 @@ import org.yaml.snakeyaml.Yaml;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Map;
 

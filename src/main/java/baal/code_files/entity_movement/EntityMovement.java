@@ -10,6 +10,7 @@ import baal.code_files.level_system.level.Level;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.awt.*;
@@ -22,7 +23,7 @@ import static java.lang.Math.abs;
 
 @Component
 public class EntityMovement {
-    private Collision collision;
+    private final Collision collision;
     private Map<String, Consumer<Entity>> moveTickFunctions;
 
     private Level level;
@@ -36,7 +37,10 @@ public class EntityMovement {
         }
     }
 
-    private EntityMovement(){
+    private EntityMovement(@Qualifier("collision")
+                                   Collision collision){
+        this.collision = collision;
+
         moveTickFunctions = new HashMap<>();
 
         moveTickFunctions.put("class baal.code_files.entities.shape_tree.Rectangle_class baal.code_files.entities.movement_tree.AccordingToSpeed",
@@ -69,7 +73,7 @@ public class EntityMovement {
 
     //прямоугольник по скорости
     private final int INFINITY = 1000 * 1000 * 1000;
-    private final double epsilon = 1;
+    private final double epsilon = 3;
 
     private enum Side{
         None, Top, Bottom, Left, Right
@@ -206,18 +210,18 @@ public class EntityMovement {
         PointDouble interceptionBottomRight = new PointDouble(Math.min(newEntityBottomRightCorner.getX(), blockBottomRightCorner.getX()),
                 Math.min(newEntityBottomRightCorner.getY(), blockBottomRightCorner.getY()));
 
-        if ((interceptionTopLeft.getX() - cellHeight * 4.1 > interceptionBottomRight.getX()) ||
-                (interceptionTopLeft.getY() - cellWidth * 4.1 > interceptionBottomRight.getY())) {
+        if ((interceptionTopLeft.getX() - 7 * cellHeight > interceptionBottomRight.getX()) ||
+                (interceptionTopLeft.getY() - 7 * cellWidth > interceptionBottomRight.getY())) {
             res = 1;
             side = Side.None;
         }
 
-        return new CollideInformation((res < 1 ? res * koeff : res), side);
+        return new CollideInformation((100 * res + epsilon < 100 ? res * koeff : 1), side);
     }
 
     private void moveCountingCollision(Entity entity, CollideInformation collideInformation){
-        double newX = entity.position.getX() + ((AccordingToSpeed)entity.movement).getSpeed_x() * collideInformation.getRequiredTime();
-        double newY = entity.position.getY() + ((AccordingToSpeed)entity.movement).getSpeed_y() * collideInformation.getRequiredTime();
+        double newX = entity.position.getX() + ((AccordingToSpeed)entity.movement).getSpeed_x() * (collideInformation.getRequiredTime() - 0.005);
+        double newY = entity.position.getY() + ((AccordingToSpeed)entity.movement).getSpeed_y() * (collideInformation.getRequiredTime() - 0.005);
         entity.position.setLocation(newX, newY);
 
         if (collideInformation.getSide().equals(Side.Top)){
