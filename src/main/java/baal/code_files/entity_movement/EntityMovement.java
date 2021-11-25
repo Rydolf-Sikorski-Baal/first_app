@@ -162,10 +162,10 @@ public class EntityMovement {
         PointDouble entityBottomRightCorner = new PointDouble(entityTopLeftCorner.getX() + rectangle.x_size,
                 entityTopLeftCorner.getY() + rectangle.y_size);
 
-        PointDouble blockTopLeftCorner = new PointDouble(blockX * cellHeight,
-                blockY * cellWidth);
-        PointDouble blockBottomRightCorner = new PointDouble(blockX * cellHeight + cellHeight,
-                blockY * cellWidth + cellWidth);
+        PointDouble blockTopLeftCorner = new PointDouble(blockX,
+                blockY);
+        PointDouble blockBottomRightCorner = new PointDouble(blockX + 1,
+                blockY + 1);
 
         Point direction = new Point(0, 0);
         if (blockBottomRightCorner.getX() < entityTopLeftCorner.getX()) direction.x = -1;
@@ -181,7 +181,7 @@ public class EntityMovement {
             timeX = (blockTopLeftCorner.getX() - entityBottomRightCorner.getX()) / speedX;
 
         if (direction.y < 0)
-            timeY = (entityTopLeftCorner.getY() - blockBottomRightCorner.getY()) /speedY;
+            timeY = (entityTopLeftCorner.getY() - blockBottomRightCorner.getY()) / speedY;
         if (direction.y > 0)
             timeY = (blockTopLeftCorner.getY() - entityBottomRightCorner.getY()) / speedY;
 
@@ -210,8 +210,8 @@ public class EntityMovement {
         PointDouble interceptionBottomRight = new PointDouble(Math.min(newEntityBottomRightCorner.getX(), blockBottomRightCorner.getX()),
                 Math.min(newEntityBottomRightCorner.getY(), blockBottomRightCorner.getY()));
 
-        if ((interceptionTopLeft.getX() - 7 * cellHeight > interceptionBottomRight.getX()) ||
-                (interceptionTopLeft.getY() - 7 * cellWidth > interceptionBottomRight.getY())) {
+        if ((interceptionBottomRight.getX() - interceptionTopLeft.getX() < -0.01) ||
+            (interceptionBottomRight.getY() - interceptionTopLeft.getY() < -0.01)) {
             res = 1;
             side = Side.None;
         }
@@ -220,8 +220,8 @@ public class EntityMovement {
     }
 
     private void moveCountingCollision(Entity entity, CollideInformation collideInformation){
-        double newX = entity.position.getX() + ((AccordingToSpeed)entity.movement).getSpeed_x() * (collideInformation.getRequiredTime() - 0.005);
-        double newY = entity.position.getY() + ((AccordingToSpeed)entity.movement).getSpeed_y() * (collideInformation.getRequiredTime() - 0.005);
+        double newX = entity.position.getX() + ((AccordingToSpeed)entity.movement).getSpeed_x() * (collideInformation.getRequiredTime());
+        double newY = entity.position.getY() + ((AccordingToSpeed)entity.movement).getSpeed_y() * (collideInformation.getRequiredTime());
         entity.position.setLocation(newX, newY);
 
         if (collideInformation.getSide().equals(Side.Top)){

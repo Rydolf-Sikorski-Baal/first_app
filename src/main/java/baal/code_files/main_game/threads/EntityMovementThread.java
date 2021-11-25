@@ -47,7 +47,7 @@ public class EntityMovementThread extends Thread {
             tick_number++;
 
             for (Entity entity : level.getLevelEntities().getEntityVector()) {
-                ((AccordingToSpeed)entity.movement).changeSpeedX(0.5);
+                ((AccordingToSpeed)entity.movement).changeSpeedX(0.01);
                 entityMovement.moveTick(entity, level);
             }
 

@@ -101,14 +101,14 @@ public class Main_game_controller implements Initializable {
         curr_level = levelLoader.loadLevel(firstLevelFilePath);
 
         Rectangle rectangle = new Rectangle();
-        rectangle.setX_size(20);
-        rectangle.setY_size(20);
+        rectangle.setX_size(0.5);
+        rectangle.setY_size(0.5);
         AccordingToSpeed accordingToSpeed = new AccordingToSpeed();
         accordingToSpeed.setSpeed_x(curr_level.getLevelSettings().getDefaultSpeedX());
         accordingToSpeed.setSpeed_y(curr_level.getLevelSettings().getDefaultSpeedY());
         Hero hero = new Hero(rectangle, accordingToSpeed, new HeroControls());
-        hero.setPosition(curr_level.getLevelCellsSizes().getHeight() * curr_level.getLevelSettings().getHeroStartX(),
-                         curr_level.getLevelCellsSizes().getWidth() * curr_level.getLevelSettings().getHeroStartY());
+        hero.setPosition(curr_level.getLevelSettings().getHeroStartX(),
+                         curr_level.getLevelSettings().getHeroStartY());
         hero.connect();
 
         Vector<Entity> entityVector = new Vector<>();

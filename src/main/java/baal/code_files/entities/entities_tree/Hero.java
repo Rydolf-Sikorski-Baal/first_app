@@ -50,8 +50,8 @@ public class Hero extends Entity {
         double left_top_y = this.position.getY();
         
         graphicsContext.setFill(Color.RED);
-        
-        graphicsContext.fillRect(left_top_y, left_top_x,
-                ((Rectangle)shape).getX_size(), ((Rectangle)shape).getY_size());
+
+        graphicsContext.fillRect(left_top_y * cellHeight, left_top_x * cellWidth,
+                ((Rectangle)shape).getY_size() * cellHeight, ((Rectangle)shape).getX_size() * cellWidth);
     }
 }

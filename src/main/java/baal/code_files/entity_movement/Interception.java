@@ -1,8 +1,11 @@
 package baal.code_files.entity_movement;
 
+import baal.ApplicationContextProvider;
 import baal.code_files.entities.entities_tree.Entity;
 import baal.code_files.entities.entities_tree.Hero;
 import baal.code_files.entities.shape_tree.Rectangle;
+import baal.code_files.graphics_system.LevelCellsSizes;
+import baal.code_files.level_system.level.Level;
 import org.springframework.stereotype.Component;
 
 import java.awt.*;
@@ -17,7 +20,7 @@ import static java.lang.Math.min;
 
 @Component
 class Interception {
-    private final double epsilon = 5;
+    private final double epsilon = 0.005;
     private final int INFINITY = 1000 * 1000 * 1000;
     private double cellHeight, cellWeight;
 
@@ -117,7 +120,7 @@ class Interception {
                                          int start, int end, int y) {
         Vector<Point> adjacentCoords = new Vector<Point>(0);
 
-        if ((position % cellSize) < epsilon)
+        if ((position % 1) < epsilon)
             for (int curr = start; curr <= end; curr++)
                 adjacentCoords.add(new Point(curr, y + delta));
 
@@ -128,7 +131,10 @@ class Interception {
                                            int start, int end, int x) {
         Vector<Point> adjacentCoords = new Vector<Point>(0);
 
-        if ((position % cellSize) < epsilon)
+        if (position < 0) {
+            position = 228;
+        }
+        if ((position % 1) < epsilon)
             for (int curr = start; curr <= end; curr++)
                 adjacentCoords.add(new Point(x + delta, curr));
 
@@ -160,28 +166,28 @@ class Interception {
 
         Vector<Point> listOfPositions = new Vector<Point>(0);
 
-        int stepSize = max((int) (x_size / cellHeight), (int) (y_size / cellWeight)) + 1;
+        int stepSize = max((int) x_size, (int) y_size) + 1;
         int[] step = new int[2 * stepSize + 1];
         for (int curr = -stepSize, i = 0; curr <= stepSize; curr++, i++)
             step[i] = curr;
 
-        int approximate_position_x = (int) (x / cellHeight) + (x % cellHeight > 0 ? 1 : 0);
-        int approximate_position_y = (int) (y / cellWeight) + (y % cellWeight > 0 ? 1 : 0);
+        int approximate_position_x = (int) (x) + (x % 1 > 0 ? 1 : 0);
+        int approximate_position_y = (int) (y) + (y % 1 > 0 ? 1 : 0);
 
         for (int i = 0; i < step.length; i++)
             for (int j = 0; j < step.length; j++) {
                 int pretend_position_x = approximate_position_x + step[i];
                 int pretend_position_y = approximate_position_y + step[j];
 
-                double pretend_x_double = ((double) pretend_position_x) * cellHeight;
-                double pretend_y_double = ((double) pretend_position_y) * cellWeight;
+                double pretend_x_double = pretend_position_x;
+                double pretend_y_double = pretend_position_y;
 
                 double areaInterseptionOfPretendent = getAreaIntersection_Rectangle(x, y,
                         x + x_size,
                         y + y_size,
                         pretend_x_double, pretend_y_double,
-                        pretend_x_double + cellHeight,
-                        pretend_y_double + cellWeight);
+                        pretend_x_double + 1,
+                        pretend_y_double + 1);
 
                 if (areaInterseptionOfPretendent > epsilon) {
                     Point curr_cord = new Point(pretend_position_x, pretend_position_y);

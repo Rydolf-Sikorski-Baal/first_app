@@ -11,13 +11,13 @@ public class HeroControls extends Controllable {
     public void doThisOperation(ControlsCodes controlsCode) {
         AccordingToSpeed accordingToSpeed = (AccordingToSpeed) entity.movement;
         if (controlsCode == ControlsCodes.Jump){
-            accordingToSpeed.changeSpeedX(-1);
+            accordingToSpeed.changeSpeedX(-0.12);
         }
         if (controlsCode == ControlsCodes.Left){
-            accordingToSpeed.changeSpeedY(-1);
+            accordingToSpeed.changeSpeedY(-0.12);
         }
         if (controlsCode == ControlsCodes.Right){
-            accordingToSpeed.changeSpeedY(1);
+            accordingToSpeed.changeSpeedY(0.12);
         }
     }
 }

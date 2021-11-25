@@ -24,6 +24,5 @@ public enum ControlsCodes {
         Map<String, Object> map = yaml.load(inputStream);
 
         this.keyCode = KeyCode.getKeyCode((String) map.get(this.name()));
-        int x =5;
     }
 }
