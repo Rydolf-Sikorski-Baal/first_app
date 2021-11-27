@@ -50,9 +50,9 @@ public class Main_game_controller implements Initializable {
     private final LevelLoaderInterface levelLoader;
     private final String firstLevelFilePath;
 
-    private final EntityMovementThread entityMovementThread;
-    private final LevelLoadThread levelLoadThread;
-    private final TriggerCheckThread triggerCheckThread;
+    private EntityMovementThread entityMovementThread;
+    private LevelLoadThread levelLoadThread;
+    private TriggerCheckThread triggerCheckThread;
 
     @FXML
     Button ToMenu;
@@ -66,12 +66,6 @@ public class Main_game_controller implements Initializable {
 
     public Main_game_controller(@Qualifier("drawer")
                                         DrawerInterface drawer,
-                                @Qualifier("entityMovementThread")
-                                        EntityMovementThread entityMovementThread,
-                                @Qualifier("levelLoadThread")
-                                        LevelLoadThread levelLoadThread,
-                                @Qualifier("triggerCheckThread")
-                                        TriggerCheckThread triggerCheckThread,
                                 @Qualifier("chapter")
                                         ChapterInterface chapter,
                                 @Qualifier("levelJsonLoader")
@@ -80,12 +74,9 @@ public class Main_game_controller implements Initializable {
                                         String firstLevelFilePath,
                                 ApplicationContextProvider applicationContextProvider) {
         this.drawer = drawer;
-        this.entityMovementThread = entityMovementThread;
-        this.levelLoadThread = levelLoadThread;
         this.chapter = chapter;
         this.levelLoader = levelLoader;
         this.firstLevelFilePath = firstLevelFilePath;
-        this.triggerCheckThread = triggerCheckThread;
         this.applicationContextProvider = applicationContextProvider;
     }
 
@@ -146,19 +137,33 @@ public class Main_game_controller implements Initializable {
         label.setText(String.valueOf(tik_number));
     }
 
-    private void startLevel(){
-        if (curr_level == null) throw new RuntimeException("не загружен уровень");
+    private void assignThreads(){
+        levelLoadThread = applicationContextProvider.getApplicationContext().getBean(LevelLoadThread.class);
+        entityMovementThread = applicationContextProvider.getApplicationContext().getBean(EntityMovementThread.class);
+        triggerCheckThread = applicationContextProvider.getApplicationContext().getBean(TriggerCheckThread.class);
+    }
 
-        this.isStarted = true;
-
+    private void startThreads(){
         levelLoadThread.start();
         entityMovementThread.start();
         triggerCheckThread.start();
     }
 
+    private void startLevel(){
+        if (curr_level == null) throw new RuntimeException("не загружен уровень");
+
+        this.isStarted = true;
+
+        assignThreads();
+        startThreads();
+    }
+
     ApplicationContextProvider applicationContextProvider;
     @SuppressWarnings("SameParameterValue")
+    @SneakyThrows
     private void setScene(Class<?> controllerClass){
+        this.isStarted = false;
+
         FxWeaver fxWeaver
                 = (applicationContextProvider.getApplicationContext()).getBean(FxWeaver.class);
         Stage stage = (Stage) canvas.getScene().getWindow();

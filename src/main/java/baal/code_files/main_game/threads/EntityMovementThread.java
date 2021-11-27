@@ -15,6 +15,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Component
+@Scope("prototype")
 public class EntityMovementThread extends Thread {
     private final ApplicationContextProvider applicationContextProvider;
     @Setter private Main_game_controller main_game_controller;

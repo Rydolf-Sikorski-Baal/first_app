@@ -5,11 +5,13 @@ import baal.code_files.level_system.load_system.LevelsLoadControllerInterface;
 import baal.code_files.main_game.Main_game_controller;
 import lombok.Setter;
 import lombok.SneakyThrows;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
 @Component
+@Scope("prototype")
 public class LevelLoadThread extends Thread {
     private final ApplicationContextProvider applicationContextProvider;
     @Setter private Main_game_controller main_game_controller;
