@@ -49,6 +49,7 @@ public class Main_game_controller implements Initializable {
 
     private final LevelLoaderInterface levelLoader;
     private final String firstLevelFilePath;
+    private final String secondLevelFilePath;
 
     private EntityMovementThread entityMovementThread;
     private LevelLoadThread levelLoadThread;
@@ -72,11 +73,14 @@ public class Main_game_controller implements Initializable {
                                         LevelLoaderInterface levelLoader,
                                 @Value("${firstLevelFilePath}")
                                         String firstLevelFilePath,
+                                @Value("${secondLevelFilePath}")
+                                        String secondLevelFilePath,
                                 ApplicationContextProvider applicationContextProvider) {
         this.drawer = drawer;
         this.chapter = chapter;
         this.levelLoader = levelLoader;
         this.firstLevelFilePath = firstLevelFilePath;
+        this.secondLevelFilePath = secondLevelFilePath;
         this.applicationContextProvider = applicationContextProvider;
     }
 
@@ -90,7 +94,7 @@ public class Main_game_controller implements Initializable {
 
     @SneakyThrows
     private void initCanvas() {
-        curr_level = levelLoader.loadLevel(firstLevelFilePath);
+        curr_level = levelLoader.loadLevel(secondLevelFilePath);
 
         Rectangle rectangle = new Rectangle();
         rectangle.setX_size(0.5);

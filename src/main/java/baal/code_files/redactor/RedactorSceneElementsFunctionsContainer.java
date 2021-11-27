@@ -50,7 +50,7 @@ public class RedactorSceneElementsFunctionsContainer implements RedactorSceneEle
     private LevelSaverInterface levelSaver;
     private void saveLevel(LevelInterface level,
                            String levelFilePathPattern){
-        String levelFilePath = String.format(levelFilePathPattern, "first");
+        String levelFilePath = String.format(levelFilePathPattern, levelComboBox.getValue());
         levelSaver.saveLevel(level, levelFilePath);
     }
 
