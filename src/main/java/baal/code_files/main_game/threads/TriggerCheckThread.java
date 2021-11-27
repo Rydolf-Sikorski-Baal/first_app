@@ -12,6 +12,8 @@ import lombok.SneakyThrows;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import java.util.Objects;
+
 @Component
 @Scope("prototype")
 public class TriggerCheckThread extends Thread{
@@ -50,8 +52,14 @@ public class TriggerCheckThread extends Thread{
             PositionTrigger positionTrigger = new PositionTrigger();
             if (positionTrigger.check(collision.getPositionInfo(this.main_game_controller.curr_level.getLevelEntities().getEntityVector().get(0), 50 ,50))){
                 positionTrigger.ifTrue(this.main_game_controller.curr_level);
+
+                if (!Objects.equals(this.main_game_controller.currLevelFilePath, "src/main/resources/baal/code_files/level_system/second"))
+                    this.main_game_controller.changeLevel("src/main/resources/baal/code_files/level_system/second");
             }else{
                 positionTrigger.ifFalse(this.main_game_controller.curr_level);
+
+                if (!Objects.equals(this.main_game_controller.currLevelFilePath, "src/main/resources/baal/code_files/level_system/first"))
+                    this.main_game_controller.changeLevel("src/main/resources/baal/code_files/level_system/first");
             }
 
             sleep(100);

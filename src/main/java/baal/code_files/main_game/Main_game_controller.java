@@ -55,6 +55,8 @@ public class Main_game_controller implements Initializable {
     private LevelLoadThread levelLoadThread;
     private TriggerCheckThread triggerCheckThread;
 
+    public String currLevelFilePath;
+
     @FXML
     Button ToMenu;
 
@@ -82,6 +84,8 @@ public class Main_game_controller implements Initializable {
         this.firstLevelFilePath = firstLevelFilePath;
         this.secondLevelFilePath = secondLevelFilePath;
         this.applicationContextProvider = applicationContextProvider;
+
+        currLevelFilePath = firstLevelFilePath;
     }
 
     @Override
@@ -94,23 +98,6 @@ public class Main_game_controller implements Initializable {
 
     @SneakyThrows
     private void initCanvas() {
-        curr_level = levelLoader.loadLevel(secondLevelFilePath);
-
-        Rectangle rectangle = new Rectangle();
-        rectangle.setX_size(0.5);
-        rectangle.setY_size(0.5);
-        AccordingToSpeed accordingToSpeed = new AccordingToSpeed();
-        accordingToSpeed.setSpeed_x(curr_level.getLevelSettings().getDefaultSpeedX());
-        accordingToSpeed.setSpeed_y(curr_level.getLevelSettings().getDefaultSpeedY());
-        Hero hero = new Hero(rectangle, accordingToSpeed, new HeroControls());
-        hero.setPosition(curr_level.getLevelSettings().getHeroStartX(),
-                         curr_level.getLevelSettings().getHeroStartY());
-        hero.connect();
-
-        Vector<Entity> entityVector = new Vector<>();
-        entityVector.add(hero);
-        curr_level.getLevelEntities().setEntityVector(entityVector);
-
         canvas.setWidth(400);
         canvas.setHeight(400);
     }
@@ -153,13 +140,61 @@ public class Main_game_controller implements Initializable {
         triggerCheckThread.start();
     }
 
-    private void startLevel(){
-        if (curr_level == null) throw new RuntimeException("не загружен уровень");
+    @SneakyThrows
+    private void startLevel() {
+        Vector<Entity> entityVectorK = curr_level == null ? null : curr_level.getLevelEntities().getEntityVector();
+        curr_level = levelLoader.loadLevel(currLevelFilePath);
+        double positionX = curr_level.getLevelSettings().getHeroStartX(),
+                positionY = curr_level.getLevelSettings().getHeroStartY();
+        double speedX = curr_level.getLevelSettings().getDefaultSpeedX(),
+                speedY = curr_level.getLevelSettings().getDefaultSpeedY();
+        if (entityVectorK != null){
+            positionX = entityVectorK.get(0).position.getX();
+            positionY = entityVectorK.get(0).position.getY();
+
+            speedX = ((AccordingToSpeed)entityVectorK.get(0).movement).getSpeed_x();
+            speedY = ((AccordingToSpeed)entityVectorK.get(0).movement).getSpeed_y();
+        }
+
+        curr_level = levelLoader.loadLevel(currLevelFilePath);
+
+        if (curr_level.getLevelEntities().getEntityVector() == null) {
+            Rectangle rectangle = new Rectangle();
+            rectangle.setX_size(0.5);
+            rectangle.setY_size(0.5);
+            AccordingToSpeed accordingToSpeed = new AccordingToSpeed();
+            accordingToSpeed.setSpeed_x(speedX);
+            accordingToSpeed.setSpeed_y(speedY);
+            Hero hero = new Hero(rectangle, accordingToSpeed, new HeroControls());
+
+            hero.setPosition(positionX, positionY);
+            hero.connect();
+
+            Vector<Entity> entityVector = new Vector<>();
+            entityVector.add(hero);
+            curr_level.getLevelEntities().setEntityVector(entityVector);
+        }
 
         this.isStarted = true;
 
         assignThreads();
         startThreads();
+    }
+
+    private void closeLevelThreads(){
+        this.isStarted = false;
+    }
+
+    private void closeLevel(){
+        closeLevelThreads();
+    }
+
+    public void changeLevel(String newLevelFilePath){
+        closeLevel();
+
+        currLevelFilePath = newLevelFilePath;
+
+        startLevel();
     }
 
     ApplicationContextProvider applicationContextProvider;
