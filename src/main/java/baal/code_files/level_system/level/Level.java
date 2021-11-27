@@ -10,6 +10,7 @@ public class Level implements LevelInterface{
     @NonNull private LevelSettings levelSettings;
     @NonNull private LevelEntities levelEntities;
     @NonNull private LevelConnections levelConnections;
+    @NonNull private LevelTriggers levelTriggers;
 
     @NonNull private Blocks[][] levelMap;
 

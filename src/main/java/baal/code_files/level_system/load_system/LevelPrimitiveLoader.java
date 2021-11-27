@@ -2,10 +2,7 @@ package baal.code_files.level_system.load_system;
 
 import baal.code_files.blocks.Blocks;
 import baal.code_files.graphics_system.LevelCellsSizes;
-import baal.code_files.level_system.level.Level;
-import baal.code_files.level_system.level.LevelConnections;
-import baal.code_files.level_system.level.LevelEntities;
-import baal.code_files.level_system.level.LevelSettings;
+import baal.code_files.level_system.level.*;
 import org.springframework.stereotype.Component;
 
 import java.io.FileReader;
@@ -41,6 +38,6 @@ public class LevelPrimitiveLoader implements LevelLoaderInterface{
         LevelConnections levelConnections = new LevelConnections();
         LevelCellsSizes levelCellsSizes = new LevelCellsSizes(50, 50);
 
-        return new Level(levelSettings, levelEntities, levelConnections, levelMap, levelCellsSizes);
+        return new Level(levelSettings, levelEntities, levelConnections, new LevelTriggers(), levelMap, levelCellsSizes);
     }
 }

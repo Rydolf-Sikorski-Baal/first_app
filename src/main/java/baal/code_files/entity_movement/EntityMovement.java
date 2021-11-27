@@ -210,8 +210,8 @@ public class EntityMovement {
         PointDouble interceptionBottomRight = new PointDouble(Math.min(newEntityBottomRightCorner.getX(), blockBottomRightCorner.getX()),
                 Math.min(newEntityBottomRightCorner.getY(), blockBottomRightCorner.getY()));
 
-        if ((interceptionBottomRight.getX() - interceptionTopLeft.getX() < -0.01) ||
-            (interceptionBottomRight.getY() - interceptionTopLeft.getY() < -0.01)) {
+        if ((interceptionBottomRight.getX() - interceptionTopLeft.getX() < -0.00005) ||
+            (interceptionBottomRight.getY() - interceptionTopLeft.getY() < -0.00005)) {
             res = 1;
             side = Side.None;
         }

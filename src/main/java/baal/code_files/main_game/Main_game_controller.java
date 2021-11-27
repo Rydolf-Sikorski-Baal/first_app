@@ -14,6 +14,7 @@ import baal.code_files.level_system.load_system.LevelLoaderInterface;
 import baal.code_files.main_game.controls.ControlsCodes;
 import baal.code_files.main_game.threads.EntityMovementThread;
 import baal.code_files.main_game.threads.LevelLoadThread;
+import baal.code_files.main_game.threads.TriggerCheckThread;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -32,14 +33,8 @@ import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.yaml.snakeyaml.Yaml;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.net.URL;
-import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Vector;
 
@@ -55,8 +50,9 @@ public class Main_game_controller implements Initializable {
     private final LevelLoaderInterface levelLoader;
     private final String firstLevelFilePath;
 
-    private EntityMovementThread entityMovementThread;
+    private final EntityMovementThread entityMovementThread;
     private final LevelLoadThread levelLoadThread;
+    private final TriggerCheckThread triggerCheckThread;
 
     @FXML
     Button ToMenu;
@@ -70,8 +66,12 @@ public class Main_game_controller implements Initializable {
 
     public Main_game_controller(@Qualifier("drawer")
                                         DrawerInterface drawer,
-                                EntityMovementThread entityMovementThread,
-                                LevelLoadThread levelLoadThread,
+                                @Qualifier("entityMovementThread")
+                                        EntityMovementThread entityMovementThread,
+                                @Qualifier("levelLoadThread")
+                                        LevelLoadThread levelLoadThread,
+                                @Qualifier("triggerCheckThread")
+                                        TriggerCheckThread triggerCheckThread,
                                 @Qualifier("chapter")
                                         ChapterInterface chapter,
                                 @Qualifier("levelJsonLoader")
@@ -85,6 +85,7 @@ public class Main_game_controller implements Initializable {
         this.chapter = chapter;
         this.levelLoader = levelLoader;
         this.firstLevelFilePath = firstLevelFilePath;
+        this.triggerCheckThread = triggerCheckThread;
         this.applicationContextProvider = applicationContextProvider;
     }
 
@@ -152,6 +153,7 @@ public class Main_game_controller implements Initializable {
 
         levelLoadThread.start();
         entityMovementThread.start();
+        triggerCheckThread.start();
     }
 
     ApplicationContextProvider applicationContextProvider;
