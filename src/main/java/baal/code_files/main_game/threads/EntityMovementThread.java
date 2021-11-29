@@ -48,7 +48,10 @@ public class EntityMovementThread extends Thread {
             tick_number++;
 
             for (Entity entity : level.getLevelEntities().getEntityVector()) {
-                ((AccordingToSpeed)entity.movement).changeSpeedX(0.01);
+                ((AccordingToSpeed)entity.movement)
+                        .changeSpeedX(this.main_game_controller.curr_level.getLevelSettings().getDefaultSpeedDeltaX());
+                ((AccordingToSpeed)entity.movement)
+                        .changeSpeedY(this.main_game_controller.curr_level.getLevelSettings().getDefaultSpeedDeltaY());
                 entityMovement.moveTick(entity, level);
             }
 
