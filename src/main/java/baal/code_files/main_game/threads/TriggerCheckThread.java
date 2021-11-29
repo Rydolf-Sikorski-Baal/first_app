@@ -1,12 +1,11 @@
 package baal.code_files.main_game.threads;
 
 import baal.ApplicationContextProvider;
-import baal.code_files.entities.entities_tree.Hero;
 import baal.code_files.entity_movement.Collision;
 import baal.code_files.level_system.event.PositionTrigger;
 import baal.code_files.level_system.event.Trigger;
+import baal.code_files.main_game.LevelChange;
 import baal.code_files.main_game.Main_game_controller;
-import javafx.scene.paint.Color;
 import lombok.Setter;
 import lombok.SneakyThrows;
 import org.springframework.context.annotation.Scope;
@@ -20,10 +19,12 @@ public class TriggerCheckThread extends Thread{
     private final ApplicationContextProvider applicationContextProvider;
     @Setter private Main_game_controller main_game_controller;
     private final Collision collision;
+    private final LevelChange levelChange;
 
-    public TriggerCheckThread(ApplicationContextProvider applicationContextProvider, Collision collision) {
+    public TriggerCheckThread(ApplicationContextProvider applicationContextProvider, Collision collision, LevelChange levelChange) {
         this.applicationContextProvider = applicationContextProvider;
         this.collision = collision;
+        this.levelChange = levelChange;
     }
 
     @Override
@@ -54,12 +55,14 @@ public class TriggerCheckThread extends Thread{
                 positionTrigger.ifTrue(this.main_game_controller.curr_level);
 
                 if (!Objects.equals(this.main_game_controller.currLevelFilePath, "src/main/resources/baal/code_files/level_system/second"))
-                    this.main_game_controller.changeLevel("src/main/resources/baal/code_files/level_system/second");
+                    this.levelChange.changeLevelByFlags("src/main/resources/baal/code_files/level_system/second",
+                            true,true);
             }else{
                 positionTrigger.ifFalse(this.main_game_controller.curr_level);
 
                 if (!Objects.equals(this.main_game_controller.currLevelFilePath, "src/main/resources/baal/code_files/level_system/first"))
-                    this.main_game_controller.changeLevel("src/main/resources/baal/code_files/level_system/first");
+                    this.levelChange.changeLevelByFlags("src/main/resources/baal/code_files/level_system/first",
+                            true, true);
             }
 
             sleep(100);

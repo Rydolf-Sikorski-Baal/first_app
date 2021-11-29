@@ -3,11 +3,7 @@ package baal.code_files.main_game;
 import baal.ApplicationContextProvider;
 import baal.code_files.Menu_controller;
 import baal.code_files.chapter_system.ChapterInterface;
-import baal.code_files.entities.controllability_tree.HeroControls;
 import baal.code_files.entities.entities_tree.Entity;
-import baal.code_files.entities.entities_tree.Hero;
-import baal.code_files.entities.movement_tree.AccordingToSpeed;
-import baal.code_files.entities.shape_tree.Rectangle;
 import baal.code_files.graphics_system.DrawerInterface;
 import baal.code_files.level_system.level.Level;
 import baal.code_files.level_system.load_system.LevelLoaderInterface;
@@ -27,6 +23,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.SneakyThrows;
 import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.core.FxmlView;
@@ -41,11 +38,14 @@ import java.util.Vector;
 @Component
 @FxmlView("main_game.fxml")
 @Getter
+@Setter
 public class Main_game_controller implements Initializable {
     public volatile Level curr_level;
     public volatile boolean isStarted;
     public volatile ChapterInterface chapter;
     private final DrawerInterface drawer;
+
+    private final LevelChange levelChange;
 
     private final LevelLoaderInterface levelLoader;
     private final String firstLevelFilePath;
@@ -71,6 +71,8 @@ public class Main_game_controller implements Initializable {
                                         DrawerInterface drawer,
                                 @Qualifier("chapter")
                                         ChapterInterface chapter,
+                                @Qualifier("levelChange")
+                                        LevelChange levelChange,
                                 @Qualifier("levelJsonLoader")
                                         LevelLoaderInterface levelLoader,
                                 @Value("${firstLevelFilePath}")
@@ -80,6 +82,7 @@ public class Main_game_controller implements Initializable {
                                 ApplicationContextProvider applicationContextProvider) {
         this.drawer = drawer;
         this.chapter = chapter;
+        this.levelChange = levelChange;
         this.levelLoader = levelLoader;
         this.firstLevelFilePath = firstLevelFilePath;
         this.secondLevelFilePath = secondLevelFilePath;
@@ -93,7 +96,7 @@ public class Main_game_controller implements Initializable {
         initMenu();
         initCanvas();
 
-        startLevel();
+        levelChange.changeLevelByFlags(firstLevelFilePath, false, false);
     }
 
     @SneakyThrows
@@ -126,75 +129,6 @@ public class Main_game_controller implements Initializable {
         ToMenu.setOnKeyPressed(controlsEventHandler);
 
         label.setText(String.valueOf(tik_number));
-    }
-
-    private void assignThreads(){
-        levelLoadThread = applicationContextProvider.getApplicationContext().getBean(LevelLoadThread.class);
-        entityMovementThread = applicationContextProvider.getApplicationContext().getBean(EntityMovementThread.class);
-        triggerCheckThread = applicationContextProvider.getApplicationContext().getBean(TriggerCheckThread.class);
-    }
-
-    private void startThreads(){
-        levelLoadThread.start();
-        entityMovementThread.start();
-        triggerCheckThread.start();
-    }
-
-    @SneakyThrows
-    private void startLevel() {
-        Vector<Entity> entityVectorK = curr_level == null ? null : curr_level.getLevelEntities().getEntityVector();
-        curr_level = levelLoader.loadLevel(currLevelFilePath);
-        double positionX = curr_level.getLevelSettings().getHeroStartX(),
-                positionY = curr_level.getLevelSettings().getHeroStartY();
-        double speedX = curr_level.getLevelSettings().getDefaultSpeedX(),
-                speedY = curr_level.getLevelSettings().getDefaultSpeedY();
-        if (entityVectorK != null){
-            positionX = entityVectorK.get(0).position.getX();
-            positionY = entityVectorK.get(0).position.getY();
-
-            speedX = ((AccordingToSpeed)entityVectorK.get(0).movement).getSpeed_x();
-            speedY = ((AccordingToSpeed)entityVectorK.get(0).movement).getSpeed_y();
-        }
-
-        curr_level = levelLoader.loadLevel(currLevelFilePath);
-
-        if (curr_level.getLevelEntities().getEntityVector() == null) {
-            Rectangle rectangle = new Rectangle();
-            rectangle.setX_size(0.5);
-            rectangle.setY_size(0.5);
-            AccordingToSpeed accordingToSpeed = new AccordingToSpeed();
-            accordingToSpeed.setSpeed_x(speedX);
-            accordingToSpeed.setSpeed_y(speedY);
-            Hero hero = new Hero(rectangle, accordingToSpeed, new HeroControls());
-
-            hero.setPosition(positionX, positionY);
-            hero.connect();
-
-            Vector<Entity> entityVector = new Vector<>();
-            entityVector.add(hero);
-            curr_level.getLevelEntities().setEntityVector(entityVector);
-        }
-
-        this.isStarted = true;
-
-        assignThreads();
-        startThreads();
-    }
-
-    private void closeLevelThreads(){
-        this.isStarted = false;
-    }
-
-    private void closeLevel(){
-        closeLevelThreads();
-    }
-
-    public void changeLevel(String newLevelFilePath){
-        closeLevel();
-
-        currLevelFilePath = newLevelFilePath;
-
-        startLevel();
     }
 
     ApplicationContextProvider applicationContextProvider;
