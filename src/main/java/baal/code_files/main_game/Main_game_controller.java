@@ -127,8 +127,6 @@ public class Main_game_controller implements Initializable {
             }
         };
         ToMenu.setOnKeyPressed(controlsEventHandler);
-
-        label.setText(String.valueOf(tik_number));
     }
 
     ApplicationContextProvider applicationContextProvider;

@@ -6,12 +6,13 @@ import baal.code_files.entities.movement_tree.AccordingToSpeed;
 import baal.code_files.entities.shape_tree.Rectangle;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import lombok.Setter;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
+import java.util.Objects;
 
 public class Hero extends Entity {
     @Setter public Color myColor = Color.RED;
@@ -56,5 +57,9 @@ public class Hero extends Entity {
 
         graphicsContext.fillRect(left_top_y * cellHeight, left_top_x * cellWidth,
                 ((Rectangle)shape).getY_size() * cellHeight, ((Rectangle)shape).getX_size() * cellWidth);
+
+        Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("Grandi_Casate_Italiane_nel_1499.png")));
+        ImageView imageView = new ImageView(image);
+        ((GridPane)canvas.getParent()).getChildren().add(imageView);
     }
 }
