@@ -1,9 +1,11 @@
 package baal.code_files.entities.entities_tree;
 
 import baal.code_files.PointDouble;
+import baal.code_files.blocks.Blocks;
 import baal.code_files.entities.controllability_tree.HeroControls;
 import baal.code_files.entities.movement_tree.AccordingToSpeed;
 import baal.code_files.entities.shape_tree.Rectangle;
+import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -16,6 +18,7 @@ import java.util.Objects;
 
 public class Hero extends Entity {
     @Setter public Color myColor = Color.RED;
+    Image image;
 
     @Override
     public void setPosition(PointDouble new_position) {
@@ -58,8 +61,11 @@ public class Hero extends Entity {
         graphicsContext.fillRect(left_top_y * cellHeight, left_top_x * cellWidth,
                 ((Rectangle)shape).getY_size() * cellHeight, ((Rectangle)shape).getX_size() * cellWidth);
 
-        Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("Grandi_Casate_Italiane_nel_1499.png")));
-        ImageView imageView = new ImageView(image);
-        ((GridPane)canvas.getParent()).getChildren().add(imageView);
+        if (image == null)
+            image = new Image(Objects.requireNonNull(getClass()
+                    .getResourceAsStream("123.png")));
+
+        canvas.getGraphicsContext2D().drawImage(image, position.getY() * cellWidth, position.getX() * cellHeight,
+                0.5 * cellWidth, 0.5 * cellHeight);
     }
 }

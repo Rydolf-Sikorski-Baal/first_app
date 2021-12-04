@@ -2,7 +2,10 @@ package baal.code_files.graphics_system;
 
 import baal.code_files.entities.entities_tree.Entity;
 import baal.code_files.level_system.level.LevelInterface;
+import javafx.scene.image.Image;
 import org.springframework.stereotype.Component;
+
+import java.util.Objects;
 
 @Component
 public class Drawer implements DrawerInterface{
@@ -30,8 +33,14 @@ public class Drawer implements DrawerInterface{
         }
     }
 
+    private Image image;
     private void setBackScreen() {
-        (canvas.getGraphicsContext2D()).clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        if (image == null)
+            image = new Image(Objects.requireNonNull(getClass()
+                    .getResourceAsStream("Forest_background_7.png")));
+
+        canvas.getGraphicsContext2D().drawImage(image, 0, 0,
+                canvas.getWidth(), canvas.getHeight());
     }
 
     @Override

@@ -14,6 +14,7 @@ import baal.code_files.main_game.threads.TriggerCheckThread;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -21,6 +22,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
@@ -64,6 +66,9 @@ public class Main_game_controller implements Initializable {
     Canvas canvas;
 
     @FXML
+    Group group;
+
+    @FXML
     public volatile Label label;
     public volatile int tik_number = 0;
 
@@ -101,11 +106,14 @@ public class Main_game_controller implements Initializable {
 
     @SneakyThrows
     private void initCanvas() {
-        canvas.setWidth(400);
-        canvas.setHeight(400);
+        canvas.setWidth(800);
+        canvas.setHeight(800);
     }
 
     private void initMenu() {
+        //group.prefHeight(500);
+        //group.prefWidth(500);
+
         ToMenu.setText("Menu");
         ToMenu.setOnMousePressed(event -> setScene(Menu_controller.class));
 
