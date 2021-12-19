@@ -2,7 +2,6 @@ package baal.code_files.blocks;
 
 import baal.code_files.interfaces.BlocksVis;
 import baal.code_files.interfaces.ChangingSpeed;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import lombok.SneakyThrows;
@@ -10,6 +9,7 @@ import org.yaml.snakeyaml.Yaml;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Map;
 import java.util.Objects;
@@ -20,12 +20,20 @@ public enum Blocks implements ChangingSpeed, BlocksVis {
     Ice(),
     ExternalBlock();
 
+    private final Map<String, Object> map;
+    {
+        Yaml yaml = new Yaml();
+        InputStream inputStream = null;
+        try {
+            inputStream = new FileInputStream(new File("src/main/resources/baal/code_files/blocks/blocks"));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        map = yaml.load(inputStream);
+    }
+
     @SneakyThrows
     Blocks() {
-        Yaml yaml = new Yaml();
-        InputStream inputStream = new FileInputStream(new File("src/main/resources/baal/code_files/blocks/blocks"));
-        Map<String, Object> map = yaml.load(inputStream);
-
         @SuppressWarnings("unchecked")
         Map<String, Object> block = (Map<String, Object>) map.get(this.name());
 

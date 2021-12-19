@@ -1,10 +1,7 @@
 package baal.code_files.entities.controllability_tree;
 
-import baal.code_files.entities.entities_tree.Entity;
 import baal.code_files.entities.movement_tree.AccordingToSpeed;
 import baal.code_files.main_game.controls.ControlsCodes;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 
 public class HeroControls extends Controllable {
     @Override

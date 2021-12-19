@@ -1,11 +1,8 @@
 package baal.code_files.entity_movement;
 
-import baal.ApplicationContextProvider;
 import baal.code_files.entities.entities_tree.Entity;
 import baal.code_files.entities.entities_tree.Hero;
 import baal.code_files.entities.shape_tree.Rectangle;
-import baal.code_files.graphics_system.LevelCellsSizes;
-import baal.code_files.level_system.level.Level;
 import org.springframework.stereotype.Component;
 
 import java.awt.*;
