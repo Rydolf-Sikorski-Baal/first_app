@@ -7,9 +7,10 @@ public interface LevelInterface {
     LevelSettingsInterface getLevelSettings();
     LevelEntitiesInterface getLevelEntities();
     LevelConnectionsInterface getLevelConnections();
+    LevelTriggers getLevelTriggers();
     Blocks[][] getLevelMap();
     LevelCellsSizes getLevelCellsSizes();
-    Blocks getBlockByCoords(int x, int y);
+    Blocks getBlockByCords(int x, int y);
 
     void setLevelCellsSizes(LevelCellsSizes levelCellsSizes);
 

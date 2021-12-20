@@ -72,7 +72,7 @@ class Interception {
     }
 
     private Coords makeCoords_Rectangle(Entity _entity) {
-        Hero currEntity = (Hero) _entity;
+        Entity currEntity = _entity;
         baal.code_files.entities.shape_tree.Rectangle rectangle = (baal.code_files.entities.shape_tree.Rectangle) _entity.shape;
 
         Vector<Point> InnerCoords = makeInnerCoords_Rectangle(currEntity, rectangle);
@@ -154,7 +154,7 @@ class Interception {
         return y_length * x_length;
     }
 
-    private Vector<Point> makeInnerCoords_Rectangle(Hero _entity, Rectangle rectangle) {
+    private Vector<Point> makeInnerCoords_Rectangle(Entity _entity, Rectangle rectangle) {
         double x_size = rectangle.x_size;
         double y_size = rectangle.y_size;
 

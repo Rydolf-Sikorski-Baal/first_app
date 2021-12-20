@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 public class AccordingToSpeed extends Movement{
     private final double MAX_PULSE = 30;
 
-    private double speed_x, speed_y;
+    private double speed_x = 0, speed_y = 0;
 
     public void changeSpeedY(double deltaSpeed){
         speed_y += deltaSpeed;

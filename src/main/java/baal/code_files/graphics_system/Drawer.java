@@ -1,6 +1,7 @@
 package baal.code_files.graphics_system;
 
 import baal.code_files.entities.entities_tree.Entity;
+import baal.code_files.level_system.level.LevelEntities;
 import baal.code_files.level_system.level.LevelInterface;
 import javafx.scene.image.Image;
 import org.springframework.stereotype.Component;
@@ -18,7 +19,7 @@ public class Drawer implements DrawerInterface{
 
         for (int row = 0; row <= level.getLevelSettings().getRow(); row++)
             for (int column = 0; column <= level.getLevelSettings().getColumn(); column++) {
-                (level.getBlockByCoords(row, column))
+                (level.getBlockByCords(row, column))
                         .drawYourself(canvas,
                                 row, column,
                                 level.getLevelCellsSizes().getHeight(),

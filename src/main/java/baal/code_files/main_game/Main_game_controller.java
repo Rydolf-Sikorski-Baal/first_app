@@ -6,6 +6,7 @@ import baal.code_files.chapter_system.ChapterInterface;
 import baal.code_files.entities.entities_tree.Entity;
 import baal.code_files.graphics_system.DrawerInterface;
 import baal.code_files.level_system.level.Level;
+import baal.code_files.level_system.level.LevelInterface;
 import baal.code_files.level_system.load_system.LevelLoaderInterface;
 import baal.code_files.main_game.controls.ControlsCodes;
 import baal.code_files.main_game.threads.EntityMovementThread;
@@ -41,7 +42,7 @@ import java.util.Vector;
 @Getter
 @Setter
 public class Main_game_controller implements Initializable {
-    public volatile Level curr_level;
+    public volatile LevelInterface curr_level;
     public volatile boolean isStarted;
     public volatile ChapterInterface chapter;
     private final DrawerInterface drawer;
@@ -63,9 +64,6 @@ public class Main_game_controller implements Initializable {
 
     @FXML
     Canvas canvas;
-
-    @FXML
-    Group group;
 
     @FXML
     public volatile Label label;
@@ -110,9 +108,6 @@ public class Main_game_controller implements Initializable {
     }
 
     private void initMenu() {
-        //group.prefHeight(500);
-        //group.prefWidth(500);
-
         ToMenu.setText("Menu");
         ToMenu.setOnMousePressed(event -> setScene(Menu_controller.class));
 

@@ -7,6 +7,7 @@ import baal.code_files.entities.movement_tree.AccordingToSpeed;
 import baal.code_files.entities.movement_tree.Movement;
 import baal.code_files.entities.shape_tree.Rectangle;
 import baal.code_files.level_system.level.Level;
+import baal.code_files.level_system.level.LevelInterface;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,7 +27,7 @@ public class EntityMovement {
     private final Collision collision;
     private Map<String, Consumer<Entity>> moveTickFunctions;
 
-    private Level level;
+    private LevelInterface level;
 
     class ClassPair {
         Class<?> first, second;
@@ -47,7 +48,7 @@ public class EntityMovement {
                 this::moveRectangleAccordingToSpeed);
     }
 
-    public void moveTick(Entity entity, Level _level){
+    public void moveTick(Entity entity, LevelInterface _level){
         level = _level;
 
         String entityTypeInformation = (entity.shape.getClass()).toString() + "_" +
@@ -122,7 +123,7 @@ public class EntityMovement {
             CollideInformation nextCollide = new CollideInformation(INFINITY, Side.None);
             for (int blockX = minimumX; blockX <= maximumX; blockX++)
                 for (int blockY = minimumY; blockY <= maximumY; blockY++) {
-                    Blocks block = level.getBlockByCoords(blockX, blockY);
+                    Blocks block = level.getBlockByCords(blockX, blockY);
 
                     if (!block.isPassable()) {
                         CollideInformation collideInformation = getTimeToBlock_RectangleAccordingToSpeed(entity,

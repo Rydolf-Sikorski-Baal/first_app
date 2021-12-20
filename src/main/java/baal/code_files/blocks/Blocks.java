@@ -7,7 +7,6 @@ import javafx.scene.paint.Color;
 import lombok.SneakyThrows;
 import org.yaml.snakeyaml.Yaml;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -25,7 +24,7 @@ public enum Blocks implements ChangingSpeed, BlocksVis {
         Yaml yaml = new Yaml();
         InputStream inputStream = null;
         try {
-            inputStream = new FileInputStream(new File("src/main/resources/baal/code_files/blocks/blocks"));
+            inputStream = new FileInputStream("src/main/resources/baal/code_files/blocks/blocks");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

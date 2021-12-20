@@ -15,9 +15,9 @@ public class LevelFakeLoader implements LevelLoaderInterface{
         var levelConnections = new LevelConnections();
         var levelEntities = new LevelEntities();
         var levelSettings = new LevelSettings(6, 6,
-                                              1,1,
-                                              0, 0,
-                                              0, 0,
+                                              1.0,1.0,
+                                              0.0, 0.0,
+                                              0.0, 0.0,
                                               false);
 
         return new Level(levelSettings, levelEntities, levelConnections, new LevelTriggers(), new Blocks[6][6], new LevelCellsSizes(50,50));

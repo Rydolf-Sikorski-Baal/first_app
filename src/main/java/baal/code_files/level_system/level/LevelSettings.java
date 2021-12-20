@@ -1,15 +1,26 @@
 package baal.code_files.level_system.level;
 
-import lombok.Data;
-import lombok.NonNull;
+import lombok.*;
 
-@Data
+
+@ToString
+@EqualsAndHashCode
+@RequiredArgsConstructor
 public class LevelSettings implements LevelSettingsInterface{
-    @NonNull private int row, column;
-    @NonNull private double heroStartX, heroStartY;
+    @Getter(onMethod = @__(@Override))
+    @NonNull private Integer row,
+                             column;
+    @Getter(onMethod = @__(@Override))
+    @NonNull private Double heroStartX,
+                            heroStartY;
 
-    @NonNull private double defaultSpeedX, defaultSpeedY;
-    @NonNull private double defaultSpeedDeltaX, defaultSpeedDeltaY;
+    @Getter(onMethod = @__(@Override))
+    @NonNull private Double defaultSpeedX,
+                            defaultSpeedY;
+    @Getter(onMethod = @__(@Override))
+    @NonNull private Double defaultSpeedDeltaX,
+                            defaultSpeedDeltaY;
 
-    @NonNull private boolean isKeepSpeedFromPreviousLevel;
+    @Getter(onMethod = @__(@Override))
+    @NonNull private Boolean isKeepSpeedFromPreviousLevel;
 }

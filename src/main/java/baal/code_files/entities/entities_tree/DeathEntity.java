@@ -1,25 +1,22 @@
 package baal.code_files.entities.entities_tree;
 
-import baal.code_files.PointDouble;
-import baal.code_files.entities.controllability_tree.HeroControls;
+import baal.code_files.entities.controllability_tree.Uncontrollable;
 import baal.code_files.entities.movement_tree.AccordingToSpeed;
+import baal.code_files.entities.movement_tree.NoMovement;
 import baal.code_files.entities.shape_tree.Rectangle;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
-import lombok.Setter;
 
 import java.util.Objects;
 
-public class Hero extends Entity {
-    @Setter public Color myColor = Color.RED;
+public class DeathEntity extends Entity {
     Image image;
 
-    public Hero(Rectangle rectangle, AccordingToSpeed movement, HeroControls heroControls){
+    public DeathEntity(Rectangle rectangle, AccordingToSpeed accordingToSpeed, Uncontrollable uncontrollable){
         this.shape = rectangle;
-        this.movement = movement;
-        this.controllability = heroControls;
+        this.movement = accordingToSpeed;
+        this.controllability = uncontrollable;
     }
 
     @Override

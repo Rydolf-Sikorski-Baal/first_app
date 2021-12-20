@@ -2,6 +2,8 @@ package baal.code_files.main_game;
 
 import baal.ApplicationContextProvider;
 import baal.code_files.entities.controllability_tree.HeroControls;
+import baal.code_files.entities.controllability_tree.Uncontrollable;
+import baal.code_files.entities.entities_tree.DeathEntity;
 import baal.code_files.entities.entities_tree.Entity;
 import baal.code_files.entities.entities_tree.Hero;
 import baal.code_files.entities.movement_tree.AccordingToSpeed;
@@ -104,8 +106,12 @@ public class LevelChange {
         hero.setPosition(positionX, positionY);
         hero.connect();
 
+        DeathEntity deathEntity = new DeathEntity(rectangle, new AccordingToSpeed(), new Uncontrollable());
+        deathEntity.setPosition(5.0, 5.0);
+
         Vector<Entity> entityVector = new Vector<>();
         entityVector.add(hero);
+        entityVector.add(deathEntity);
         this.main_game_controller.curr_level.getLevelEntities().setEntityVector(entityVector);
 
         assignThreads();

@@ -30,9 +30,9 @@ public class LevelPrimitiveLoader implements LevelLoaderInterface{
         }
 
         LevelSettings levelSettings = new LevelSettings(row, column,
-                                                        hero_start_x, hero_start_y,
-                                                        0, 0,
-                                                        0, 0,
+                                                        (double)hero_start_x, (double)hero_start_y,
+                                                        0.0, 0.0,
+                                                        0.0, 0.0,
                                                         false);
         LevelEntities levelEntities = new LevelEntities();
         LevelConnections levelConnections = new LevelConnections();

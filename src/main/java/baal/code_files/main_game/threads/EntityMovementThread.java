@@ -5,6 +5,7 @@ import baal.code_files.entities.entities_tree.Entity;
 import baal.code_files.entities.movement_tree.AccordingToSpeed;
 import baal.code_files.entity_movement.EntityMovement;
 import baal.code_files.level_system.level.Level;
+import baal.code_files.level_system.level.LevelInterface;
 import baal.code_files.main_game.Main_game_controller;
 import javafx.application.Platform;
 import lombok.Setter;
@@ -42,7 +43,7 @@ public class EntityMovementThread extends Thread {
                 .getApplicationContext()
                 .getBean(Main_game_controller.class));
 
-        Level level = this.main_game_controller.getCurr_level();
+        LevelInterface level = this.main_game_controller.getCurr_level();
 
         while (this.main_game_controller.isStarted) {
             tick_number++;
