@@ -56,12 +56,7 @@ public class Menu_controller implements Initializable{
         Exit.setText("EXIT");
         Exit.setPrefSize(200, 50);
 
-        Exit.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                System.exit(0);
-            }
-        });
+        Exit.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> System.exit(0));
 
         EventHandler<KeyEvent> closeEventHandler = event ->{
             KeyCode code = event.getCode();
@@ -90,6 +85,7 @@ public class Menu_controller implements Initializable{
         Parent root = fxWeaver.loadView(controllerClass);
         Scene scene = new Scene(root);
         stage.setScene(scene);
+        stage.setFullScreen(true);
         stage.show();
     }
 }

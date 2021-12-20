@@ -21,7 +21,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
@@ -106,9 +108,6 @@ public class Main_game_controller implements Initializable {
     }
 
     private void initMenu() {
-        ToMenu.setText("Menu");
-        ToMenu.setOnMousePressed(event -> setScene(Menu_controller.class));
-
         EventHandler<KeyEvent> controlsEventHandler = event -> {
             KeyCode keyCode = event.getCode();
             Vector<Entity> entityVector = curr_level.getLevelEntities().getEntityVector();
@@ -125,11 +124,30 @@ public class Main_game_controller implements Initializable {
                 for (Entity entity : entityVector)
                     entity.controllability.doThisOperation(ControlsCodes.Right);
             }
+            if (keyCode.equals(KeyCode.E)){
+                this.setStage(GameMenuController.class);
+            }
         };
         ToMenu.setOnKeyPressed(controlsEventHandler);
     }
 
     ApplicationContextProvider applicationContextProvider;
+
+    @SuppressWarnings("SameParameterValue")
+    @SneakyThrows
+    private void setStage(Class<?> controllerClass){
+        FxWeaver fxWeaver
+                = (applicationContextProvider.getApplicationContext()).getBean(FxWeaver.class);
+        Stage stage = new Stage();
+
+        Parent root = fxWeaver.loadView(controllerClass);
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initStyle(StageStyle.TRANSPARENT);
+        stage.show();
+    }
+
     @SuppressWarnings("SameParameterValue")
     @SneakyThrows
     private void setScene(Class<?> controllerClass){
