@@ -25,7 +25,7 @@ public class LevelChange {
     @Autowired ApplicationContextProvider applicationContextProvider;
 
     @Data
-    private class Flags{
+    private static class Flags{
         private final boolean isPositionRequiresSaving;
         private final boolean isMovementRequiresSaving;
     }
@@ -36,12 +36,12 @@ public class LevelChange {
         this.flags = flags;
 
         changeLevel(levelFilePath);
-    };
+    }
     public void changeLevelByFlags(String levelFilePath,
                                    boolean isPositionRequiresSaving,
                                    boolean isMovementRequiresSaving){
         flags = new Flags(isPositionRequiresSaving,
-                          isMovementRequiresSaving);
+                isMovementRequiresSaving);
 
         changeLevel(levelFilePath);
     }
@@ -107,7 +107,7 @@ public class LevelChange {
         hero.connect();
 
         DeathEntity deathEntity = new DeathEntity(rectangle, new AccordingToSpeed(), new Uncontrollable());
-        deathEntity.setPosition(5.0, 5.0);
+        deathEntity.setPosition(3.0, 2.0);
 
         Vector<Entity> entityVector = new Vector<>();
         entityVector.add(hero);

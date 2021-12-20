@@ -2,7 +2,6 @@ package baal.code_files.level_system.event;
 
 import baal.code_files.entities.entities_tree.Hero;
 import baal.code_files.entity_movement.PositionInfo;
-import baal.code_files.level_system.level.Level;
 import baal.code_files.level_system.level.LevelInterface;
 import javafx.scene.paint.Color;
 import lombok.val;

@@ -1,7 +1,6 @@
 package baal.code_files.graphics_system;
 
 import baal.code_files.entities.entities_tree.Entity;
-import baal.code_files.level_system.level.LevelEntities;
 import baal.code_files.level_system.level.LevelInterface;
 import javafx.scene.image.Image;
 import org.springframework.stereotype.Component;

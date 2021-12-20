@@ -2,10 +2,8 @@ package baal.code_files.entities.entities_tree;
 
 import baal.code_files.entities.controllability_tree.Uncontrollable;
 import baal.code_files.entities.movement_tree.AccordingToSpeed;
-import baal.code_files.entities.movement_tree.NoMovement;
 import baal.code_files.entities.shape_tree.Rectangle;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 import java.util.Objects;

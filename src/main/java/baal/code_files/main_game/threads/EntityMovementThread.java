@@ -4,8 +4,8 @@ import baal.ApplicationContextProvider;
 import baal.code_files.entities.entities_tree.Entity;
 import baal.code_files.entities.movement_tree.AccordingToSpeed;
 import baal.code_files.entity_movement.EntityMovement;
-import baal.code_files.level_system.level.Level;
 import baal.code_files.level_system.level.LevelInterface;
+import baal.code_files.main_game.LevelChange;
 import baal.code_files.main_game.Main_game_controller;
 import javafx.application.Platform;
 import lombok.Setter;
@@ -29,10 +29,13 @@ public class EntityMovementThread extends Thread {
                                 @Qualifier("entityMovement")
                                         EntityMovement entityMovement,
                                 @Value("${tickInMillisecond}")
-                                        int tickInMillisecond) {
+                                        int tickInMillisecond,
+                                @Qualifier("levelChange")
+                                        LevelChange levelChange) {
         this.applicationContextProvider = applicationContextProvider;
         this.entityMovement = entityMovement;
         this.tickInMillisecond = tickInMillisecond;
+        this.levelChange = levelChange;
     }
 
     public volatile int tick_number = 0;
@@ -56,6 +59,8 @@ public class EntityMovementThread extends Thread {
                 entityMovement.moveTick(entity, level);
             }
 
+            checkEntitiesCollision(level);
+
             Platform.runLater(
                     () -> {
                         this.main_game_controller.getDrawer().drawThisLevel(main_game_controller.getCanvas(), main_game_controller.getCurr_level());
@@ -65,5 +70,38 @@ public class EntityMovementThread extends Thread {
 
             sleep(tickInMillisecond);
         }
+    }
+
+    private final LevelChange levelChange;
+    private void checkEntitiesCollision(LevelInterface level) {
+        for (Entity firstEntity : level.getLevelEntities().getEntityVector()){
+            for (Entity secondEntity : level.getLevelEntities().getEntityVector()){
+                if (firstEntity != secondEntity){
+                    if (isIntersect(firstEntity, secondEntity)){
+                        levelChange.changeLevelByFlags("src/main/resources/baal/code_files/level_system/first",
+                                false, false);
+                    }
+                }
+            }
+        }
+    }
+
+    private boolean isIntersect(Entity firstEntity, Entity secondEntity) {
+        double firstX = firstEntity.position.getX();
+        double firstY = firstEntity.position.getY();
+
+        double secondX = secondEntity.position.getX();
+        double secondY = secondEntity.position.getY();
+
+        double xMin = Math.min(firstX + 0.5, secondX + 0.5);
+        double xMax = Math.max(firstX, secondY);
+        double xRes = (xMax - xMin > 0 ? xMax - xMin : 0);
+
+        double yMin = Math.min(firstY + 0.5, secondY + 0.5);
+        double yMax = Math.max(firstY, secondY);
+        double yRes = (yMax - yMin > 0 ? yMax - yMin : 0);
+
+        double res = 10 * (xRes * yRes);
+        return res > 0.05;
     }
 }

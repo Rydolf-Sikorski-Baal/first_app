@@ -1,7 +1,6 @@
 package baal.code_files.level_system.event;
 
 import baal.code_files.entity_movement.PositionInfo;
-import baal.code_files.level_system.level.Level;
 import baal.code_files.level_system.level.LevelInterface;
 
 import java.util.function.Consumer;

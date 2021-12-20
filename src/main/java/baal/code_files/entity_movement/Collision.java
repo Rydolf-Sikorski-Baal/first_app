@@ -27,10 +27,10 @@ public class Collision implements baal.code_files.interfaces.Collision {
     private void returnEntityBack(){entity.moveBack();}
 
     private void constructInformation(){
-        currentCoords = interception.getCoords(entity, cellHeight,cellWeight);
+        currentCoords = interception.getCords(entity);
 
         getNextTickEntity();
-        nextTickCoords = interception.getCoords(entity, cellHeight, cellWeight);
+        nextTickCoords = interception.getCords(entity);
 
         returnEntityBack();
     }
