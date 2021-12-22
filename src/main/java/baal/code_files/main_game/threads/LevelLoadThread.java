@@ -31,6 +31,7 @@ public class LevelLoadThread extends Thread {
                 .getBean(Main_game_controller.class));
 
         loadFromThisLevel();
+        this.setName("load");
     }
 
     private void loadFromThisLevel() throws IOException {

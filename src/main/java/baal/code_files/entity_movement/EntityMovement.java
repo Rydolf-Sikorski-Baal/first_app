@@ -56,21 +56,6 @@ public class EntityMovement {
         moveTickFunctions.get(entityTypeInformation).accept(entity);
     }
 
-    public static class EntityTypeInformation {
-        private Class<?> shapeClass;
-        private Class<?> movementClass;
-
-        EntityTypeInformation(Entity entity){
-            shapeClass = entity.shape.getClass();
-            movementClass = entity.movement.getClass();
-        }
-
-        EntityTypeInformation(baal.code_files.entities.shape_tree.Shape shape, Movement movement){
-            shapeClass = shape.getClass();
-            movementClass = movement.getClass();
-        }
-    }
-
     //прямоугольник по скорости
     private final int INFINITY = 1000 * 1000 * 1000;
     private final double epsilon = 3;
@@ -81,15 +66,16 @@ public class EntityMovement {
     @AllArgsConstructor
     @Getter
     @Setter
+    static
     class CollideInformation{
         private double requiredTime;
         private Side side;
     }
 
     private final double tickTime = 100;
-    private double wastedTime;
+
     private void moveRectangleAccordingToSpeed(Entity entity){
-        wastedTime = 0;
+        double wastedTime = 0;
         while(abs(tickTime - wastedTime) > epsilon
                 && ((((AccordingToSpeed)entity.movement).getSpeed_x() != 0) || (((AccordingToSpeed)entity.movement).getSpeed_y() != 0))) {
 

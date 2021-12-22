@@ -1,7 +1,6 @@
 package baal.code_files.main_game;
 
 import baal.ApplicationContextProvider;
-import baal.code_files.Menu_controller;
 import baal.code_files.chapter_system.ChapterInterface;
 import baal.code_files.entities.entities_tree.Entity;
 import baal.code_files.graphics_system.DrawerInterface;
@@ -136,6 +135,8 @@ public class Main_game_controller implements Initializable {
     @SuppressWarnings("SameParameterValue")
     @SneakyThrows
     private void setStage(Class<?> controllerClass){
+        this.isStarted = false;
+
         FxWeaver fxWeaver
                 = (applicationContextProvider.getApplicationContext()).getBean(FxWeaver.class);
         Stage stage = new Stage();
@@ -143,12 +144,13 @@ public class Main_game_controller implements Initializable {
         Parent root = fxWeaver.loadView(controllerClass);
         Scene scene = new Scene(root);
         stage.setScene(scene);
+        stage.setWidth(300);
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.show();
     }
 
-    @SuppressWarnings("SameParameterValue")
+    @SuppressWarnings("all")
     @SneakyThrows
     private void setScene(Class<?> controllerClass){
         this.isStarted = false;

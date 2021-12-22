@@ -37,9 +37,11 @@ public class TriggerCheckThread extends Thread{
     }
 
     @SneakyThrows
+    @SuppressWarnings("all")
     private void checkTriggers(){
-        while (this.main_game_controller.isStarted) {
-            if (this.main_game_controller.curr_level.getLevelTriggers().getLevelTriggersVector() != null) {
+        this.setName("trigger");
+        while (this.main_game_controller.isStarted && !this.isInterrupted()) {
+            /*if (this.main_game_controller.curr_level.getLevelTriggers().getLevelTriggersVector() != null) {
                 for (Trigger trigger : this.main_game_controller.curr_level.getLevelTriggers().getLevelTriggersVector()) {
                     if (trigger.check(collision.getPositionInfo(this.main_game_controller.curr_level.getLevelEntities().getEntityVector().get(0), 50, 50))) {
                         trigger.ifTrue(this.main_game_controller.curr_level);
@@ -47,25 +49,22 @@ public class TriggerCheckThread extends Thread{
                         trigger.ifFalse(this.main_game_controller.curr_level);
                     }
                 }
-            }
+            }*/
 
             //убрать
             PositionTrigger positionTrigger = new PositionTrigger();
+            if (this.main_game_controller.curr_level != null)
             if (positionTrigger.check(collision.getPositionInfo(this.main_game_controller.curr_level.getLevelEntities().getEntityVector().get(0), 50 ,50))){
-                positionTrigger.ifTrue(this.main_game_controller.curr_level);
-
                 if (!Objects.equals(this.main_game_controller.currLevelFilePath, "src/main/resources/baal/code_files/level_system/second"))
                     this.levelChange.changeLevelByFlags("src/main/resources/baal/code_files/level_system/second",
                             true,true);
             }else{
-                positionTrigger.ifFalse(this.main_game_controller.curr_level);
-
                 if (!Objects.equals(this.main_game_controller.currLevelFilePath, "src/main/resources/baal/code_files/level_system/first"))
                     this.levelChange.changeLevelByFlags("src/main/resources/baal/code_files/level_system/first",
                             true, true);
             }
 
-            sleep(100);
+            sleep(1000);
         }
     }
 }

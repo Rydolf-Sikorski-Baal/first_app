@@ -8,8 +8,10 @@ import baal.code_files.level_system.level.LevelInterface;
 import baal.code_files.main_game.LevelChange;
 import baal.code_files.main_game.Main_game_controller;
 import javafx.application.Platform;
+import javafx.concurrent.Task;
 import lombok.Setter;
 import lombok.SneakyThrows;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
@@ -40,6 +42,7 @@ public class EntityMovementThread extends Thread {
 
     public volatile int tick_number = 0;
     @SneakyThrows
+    @SuppressWarnings("all")
     @Override
     public void run() {
         setMain_game_controller(applicationContextProvider
@@ -48,7 +51,8 @@ public class EntityMovementThread extends Thread {
 
         LevelInterface level = this.main_game_controller.getCurr_level();
 
-        while (this.main_game_controller.isStarted) {
+        this.setName("movement");
+        while (this.main_game_controller.isStarted && !this.isInterrupted()) {
             tick_number++;
 
             for (Entity entity : level.getLevelEntities().getEntityVector()) {
@@ -59,21 +63,22 @@ public class EntityMovementThread extends Thread {
                 entityMovement.moveTick(entity, level);
             }
 
-            checkEntitiesCollision(level);
+            //checkEntitiesCollision(level);
 
             Platform.runLater(
-                    () -> {
-                        this.main_game_controller.getDrawer().drawThisLevel(main_game_controller.getCanvas(), main_game_controller.getCurr_level());
-                        this.main_game_controller.label.setText(String.valueOf(tick_number));
-                    }
+                () -> {
+                    this.main_game_controller.getDrawer().drawThisLevel(main_game_controller.getCanvas(), main_game_controller.getCurr_level());
+                    this.main_game_controller.label.setText(String.valueOf(tick_number));
+                }
             );
+
 
             sleep(tickInMillisecond);
         }
     }
 
     private final LevelChange levelChange;
-    private void checkEntitiesCollision(LevelInterface level) {
+    private void checkEntitiesCollision(@NotNull LevelInterface level) {
         for (Entity firstEntity : level.getLevelEntities().getEntityVector()){
             for (Entity secondEntity : level.getLevelEntities().getEntityVector()){
                 if (firstEntity != secondEntity){
@@ -102,6 +107,6 @@ public class EntityMovementThread extends Thread {
         double yRes = (yMax - yMin > 0 ? yMax - yMin : 0);
 
         double res = 10 * (xRes * yRes);
-        return res > 0.05;
+        return res > 5;
     }
 }

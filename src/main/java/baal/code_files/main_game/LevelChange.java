@@ -58,7 +58,10 @@ public class LevelChange {
     }
 
     private void closeLevelThreads(){
-        main_game_controller.isStarted = false;
+        if (this.main_game_controller.getEntityMovementThread() != null)
+            this.main_game_controller.getEntityMovementThread().interrupt();
+        if (this.main_game_controller.getTriggerCheckThread() != null)
+            this.main_game_controller.getTriggerCheckThread().interrupt();
     }
 
     private void closeLevel(){
