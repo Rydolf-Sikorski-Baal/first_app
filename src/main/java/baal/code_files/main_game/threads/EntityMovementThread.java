@@ -107,6 +107,6 @@ public class EntityMovementThread extends Thread {
         double yRes = (yMax - yMin > 0 ? yMax - yMin : 0);
 
         double res = 10 * (xRes * yRes);
-        return res > 5;
+        return res > 1;
     }
 }

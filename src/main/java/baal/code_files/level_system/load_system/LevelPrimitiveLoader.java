@@ -38,6 +38,6 @@ public class LevelPrimitiveLoader implements LevelLoaderInterface{
         LevelConnections levelConnections = new LevelConnections();
         LevelCellsSizes levelCellsSizes = new LevelCellsSizes(50, 50);
 
-        return new Level(levelSettings, levelEntities, levelConnections, new LevelTriggers(), levelMap, levelCellsSizes);
+        return new Level(levelSettings, levelEntities, levelConnections, levelMap, levelCellsSizes);
     }
 }

@@ -1,6 +1,7 @@
 package baal.code_files.main_game.threads;
 
 import baal.ApplicationContextProvider;
+import baal.code_files.level_system.builder_system.LevelBuilderDirectorInterface;
 import baal.code_files.level_system.load_system.LevelsLoadControllerInterface;
 import baal.code_files.main_game.Main_game_controller;
 import lombok.Setter;
@@ -15,12 +16,12 @@ import java.io.IOException;
 public class LevelLoadThread extends Thread {
     private final ApplicationContextProvider applicationContextProvider;
     @Setter private Main_game_controller main_game_controller;
-    private final LevelsLoadControllerInterface levelsLoadController;
+    private final LevelBuilderDirectorInterface levelBuilderDirector;
 
     public LevelLoadThread(ApplicationContextProvider applicationContextProvider,
-                           LevelsLoadControllerInterface levelsLoadController) {
+                           LevelsLoadControllerInterface levelsLoadController, LevelBuilderDirectorInterface levelBuilderDirector) {
         this.applicationContextProvider = applicationContextProvider;
-        this.levelsLoadController = levelsLoadController;
+        this.levelBuilderDirector = levelBuilderDirector;
     }
     
     @SneakyThrows
@@ -35,7 +36,7 @@ public class LevelLoadThread extends Thread {
     }
 
     private void loadFromThisLevel() throws IOException {
-        levelsLoadController.updateFromThisLevel(main_game_controller.curr_level,
-                main_game_controller.chapter.getLevelVector());
+        this.main_game_controller.curr_level =
+                levelBuilderDirector.build(this.main_game_controller.currLevelFilePath);
     }
 }

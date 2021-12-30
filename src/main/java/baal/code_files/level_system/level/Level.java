@@ -2,6 +2,7 @@ package baal.code_files.level_system.level;
 
 import baal.code_files.blocks.Blocks;
 import baal.code_files.graphics_system.LevelCellsSizes;
+import baal.code_files.level_system.event.Event;
 import lombok.*;
 
 @ToString
@@ -16,7 +17,7 @@ public class Level implements LevelInterface{
     @Getter(onMethod = @__(@Override))
     @NonNull private LevelConnections levelConnections;
     @Getter(onMethod = @__(@Override))
-    @NonNull private LevelTriggers levelTriggers;
+    private LevelEvents levelEvents;
 
     @Getter(onMethod = @__(@Override))
     @NonNull private Blocks[][] levelMap;
@@ -37,5 +38,10 @@ public class Level implements LevelInterface{
         if (levelMap == null) throw new RuntimeException("не установлена карта редактора");
 
         levelMap[x][y] = block;
+    }
+
+    @Override
+    public void addEvent(Event event) {
+        this.getLevelEvents().getLevelEventsVector().add(event);
     }
 }

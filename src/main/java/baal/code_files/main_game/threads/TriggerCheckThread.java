@@ -2,16 +2,14 @@ package baal.code_files.main_game.threads;
 
 import baal.ApplicationContextProvider;
 import baal.code_files.entity_movement.Collision;
-import baal.code_files.level_system.event.PositionTrigger;
-import baal.code_files.level_system.event.Trigger;
+import baal.code_files.level_system.event.Event;
 import baal.code_files.main_game.LevelChange;
 import baal.code_files.main_game.Main_game_controller;
 import lombok.Setter;
 import lombok.SneakyThrows;
 import org.springframework.context.annotation.Scope;
+import org.springframework.scheduling.Trigger;
 import org.springframework.stereotype.Component;
-
-import java.util.Objects;
 
 @Component
 @Scope("prototype")
@@ -41,29 +39,18 @@ public class TriggerCheckThread extends Thread{
     private void checkTriggers(){
         this.setName("trigger");
         while (this.main_game_controller.isStarted && !this.isInterrupted()) {
-            /*if (this.main_game_controller.curr_level.getLevelTriggers().getLevelTriggersVector() != null) {
-                for (Trigger trigger : this.main_game_controller.curr_level.getLevelTriggers().getLevelTriggersVector()) {
-                    if (trigger.check(collision.getPositionInfo(this.main_game_controller.curr_level.getLevelEntities().getEntityVector().get(0), 50, 50))) {
-                        trigger.ifTrue(this.main_game_controller.curr_level);
-                    } else {
-                        trigger.ifFalse(this.main_game_controller.curr_level);
+            if (this.main_game_controller.curr_level.getLevelEvents().getLevelEventsVector() != null) {
+                for (Event event : this.main_game_controller.curr_level.getLevelEvents().getLevelEventsVector()){
+                    if (event.check(this.main_game_controller.curr_level)){
+                        event.ifTrue(this.main_game_controller.curr_level);
+                        if(this.main_game_controller.currLevelFilePath != "src/main/resources/baal/code_files/level_system/second")
+                                levelChange.changeLevelByFlags("src/main/resources/baal/code_files/level_system/second",
+                                true, true);
+                    }else{
+                        event.ifFalse(this.main_game_controller.curr_level);
                     }
                 }
-            }*/
-
-            //убрать
-            PositionTrigger positionTrigger = new PositionTrigger();
-            if (this.main_game_controller.curr_level != null)
-            if (positionTrigger.check(collision.getPositionInfo(this.main_game_controller.curr_level.getLevelEntities().getEntityVector().get(0), 50 ,50))){
-                if (!Objects.equals(this.main_game_controller.currLevelFilePath, "src/main/resources/baal/code_files/level_system/second"))
-                    this.levelChange.changeLevelByFlags("src/main/resources/baal/code_files/level_system/second",
-                            true,true);
-            }else{
-                if (!Objects.equals(this.main_game_controller.currLevelFilePath, "src/main/resources/baal/code_files/level_system/first"))
-                    this.levelChange.changeLevelByFlags("src/main/resources/baal/code_files/level_system/first",
-                            true, true);
             }
-
             sleep(1000);
         }
     }

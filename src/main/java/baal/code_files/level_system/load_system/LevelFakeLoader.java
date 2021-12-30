@@ -20,6 +20,6 @@ public class LevelFakeLoader implements LevelLoaderInterface{
                                               0.0, 0.0,
                                               false);
 
-        return new Level(levelSettings, levelEntities, levelConnections, new LevelTriggers(), new Blocks[6][6], new LevelCellsSizes(50,50));
+        return null;
     }
 }

@@ -48,7 +48,6 @@ public class Main_game_controller implements Initializable {
 
     private final LevelChange levelChange;
 
-    private final LevelLoaderInterface levelLoader;
     private final String firstLevelFilePath;
     private final String secondLevelFilePath;
 
@@ -74,8 +73,6 @@ public class Main_game_controller implements Initializable {
                                         ChapterInterface chapter,
                                 @Qualifier("levelChange")
                                         LevelChange levelChange,
-                                @Qualifier("levelJsonLoader")
-                                        LevelLoaderInterface levelLoader,
                                 @Value("${firstLevelFilePath}")
                                         String firstLevelFilePath,
                                 @Value("${secondLevelFilePath}")
@@ -84,7 +81,6 @@ public class Main_game_controller implements Initializable {
         this.drawer = drawer;
         this.chapter = chapter;
         this.levelChange = levelChange;
-        this.levelLoader = levelLoader;
         this.firstLevelFilePath = firstLevelFilePath;
         this.secondLevelFilePath = secondLevelFilePath;
         this.applicationContextProvider = applicationContextProvider;

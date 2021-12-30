@@ -32,11 +32,11 @@ public class LevelChange {
 
     private Flags flags;
 
-    public void changeLevelByFlags(String levelFilePath, Flags flags){
+    /*public void changeLevelByFlags(String levelFilePath, Flags flags){
         this.flags = flags;
 
         changeLevel(levelFilePath);
-    }
+    }*/
     public void changeLevelByFlags(String levelFilePath,
                                    boolean isPositionRequiresSaving,
                                    boolean isMovementRequiresSaving){
@@ -85,11 +85,14 @@ public class LevelChange {
                         .getLevelEntities().getEntityVector().get(0).movement)
                         .getSpeed_y();
 
-        main_game_controller.curr_level = main_game_controller
-                .getLevelLoader()
-                .loadLevel(main_game_controller.currLevelFilePath);
+        main_game_controller
+                .setLevelLoadThread(applicationContextProvider
+                        .getApplicationContext()
+                        .getBean(LevelLoadThread.class));
+        main_game_controller.getLevelLoadThread().start();
         main_game_controller.isStarted = true;
 
+        while(main_game_controller.getLevelLoadThread().isAlive()){}
         if (!flags.isPositionRequiresSaving()) {
             positionX = main_game_controller.curr_level.getLevelSettings().getHeroStartX();
             positionY = main_game_controller.curr_level.getLevelSettings().getHeroStartY();
@@ -123,10 +126,6 @@ public class LevelChange {
 
     private void assignThreads(){
         main_game_controller
-                .setLevelLoadThread(applicationContextProvider
-                        .getApplicationContext()
-                        .getBean(LevelLoadThread.class));
-        main_game_controller
                 .setEntityMovementThread(applicationContextProvider
                         .getApplicationContext()
                         .getBean(EntityMovementThread.class));
@@ -137,7 +136,6 @@ public class LevelChange {
     }
 
     private void startThreads(){
-        main_game_controller.getLevelLoadThread().start();
         main_game_controller.getEntityMovementThread().start();
         main_game_controller.getTriggerCheckThread().start();
     }
