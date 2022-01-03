@@ -1,11 +1,9 @@
 package baal.code_files.level_system.builder_system;
 
 import baal.code_files.level_system.event.Event;
-import baal.code_files.level_system.event.HeroTerm;
 import baal.code_files.level_system.event.Term;
 import baal.code_files.level_system.level.LevelInterface;
 import baal.code_files.level_system.load_system.LevelLoaderInterface;
-import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.yaml.snakeyaml.Yaml;
@@ -21,10 +19,13 @@ import java.util.Map;
 public class JsonPlusStaticTriggerBuilder implements BuilderInterface {
 
     private final LevelLoaderInterface levelLoader;
+    private final EventBuilderDirectorInterface eventBuilderDirector;
 
     public JsonPlusStaticTriggerBuilder(@Qualifier("levelJsonLoader")
-                                                LevelLoaderInterface levelLoader) {
+                                                LevelLoaderInterface levelLoader,
+                                        EventBuilderDirectorInterface eventBuilderDirector) {
         this.levelLoader = levelLoader;
+        this.eventBuilderDirector = eventBuilderDirector;
     }
 
     private LevelInterface level;
@@ -48,28 +49,7 @@ public class JsonPlusStaticTriggerBuilder implements BuilderInterface {
         }
         Map<String, Object> map = yaml.load(inputStream);
 
-        ArrayList<Term> termList = new ArrayList<>();
-        for (Map.Entry<String, Object> entry : map.entrySet()){
-            Object obj = null;
-            try {
-                obj = Class
-                        .forName("baal.code_files.level_system.event.position.HeroPositionXOver")
-                        .newInstance();
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-
-            termList.add((Term) obj);
-        }
-        Event result = new Event();
-        level
-                .getLevelEvents()
-                .getLevelEventsVector()
-                .add(result);
+        Event event = eventBuilderDirector.build(map);
         return this;
     }
 
