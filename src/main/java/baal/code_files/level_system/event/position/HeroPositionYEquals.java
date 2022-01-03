@@ -6,7 +6,6 @@ import baal.code_files.entities.entities_tree.Hero;
 import java.util.function.Predicate;
 
 public class HeroPositionYEquals<T extends Hero> extends HeroPositionTerm<T>{
-    protected HeroPositionYEquals(double y) {
-        super(pointDouble -> pointDouble.getY() == y);
+    protected HeroPositionYEquals() {
     }
 }

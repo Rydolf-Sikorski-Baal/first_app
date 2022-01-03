@@ -32,11 +32,6 @@ public class LevelChange {
 
     private Flags flags;
 
-    /*public void changeLevelByFlags(String levelFilePath, Flags flags){
-        this.flags = flags;
-
-        changeLevel(levelFilePath);
-    }*/
     public void changeLevelByFlags(String levelFilePath,
                                    boolean isPositionRequiresSaving,
                                    boolean isMovementRequiresSaving){

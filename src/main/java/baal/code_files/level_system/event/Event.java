@@ -2,23 +2,20 @@ package baal.code_files.level_system.event;
 
 import baal.code_files.level_system.level.LevelInterface;
 import lombok.Getter;
-import lombok.NonNull;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
 public class Event {
-    @Getter protected final ArrayList<Term<?>> termsList;
-    @Getter protected final Consumer<LevelInterface> ifTrue;
-    @Getter protected final Consumer<LevelInterface> ifFalse;
+    @Getter
+    @Setter protected ArrayList<Term> termsList;
+    @Getter
+    @Setter protected Consumer<LevelInterface> ifTrue;
+    @Getter
+    @Setter protected Consumer<LevelInterface> ifFalse;
 
-    public Event(@NonNull ArrayList<Term<?>> termsList,
-                 @NonNull Consumer<LevelInterface> ifTrue,
-                 @NonNull Consumer<LevelInterface> ifFalse) {
-        this.termsList = termsList;
-        this.ifTrue = ifTrue;
-        this.ifFalse = ifFalse;
-    }
+    public Event() {}
 
     public boolean check(LevelInterface level){
         boolean res = true;

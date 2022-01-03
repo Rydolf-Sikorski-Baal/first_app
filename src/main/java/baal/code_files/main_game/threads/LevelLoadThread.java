@@ -35,7 +35,7 @@ public class LevelLoadThread extends Thread {
         this.setName("load");
     }
 
-    private void loadFromThisLevel() throws IOException {
+    private void loadFromThisLevel() throws IOException, ClassNotFoundException {
         this.main_game_controller.curr_level =
                 levelBuilderDirector.build(this.main_game_controller.currLevelFilePath);
     }

@@ -8,10 +8,10 @@ import org.jetbrains.annotations.NotNull;
 import java.util.function.Predicate;
 
 public abstract class HeroTerm<T extends Hero> extends Term<T>{
-    @NonNull private final Predicate<T> predicate;
+    private Predicate<T> predicate;
 
-    protected HeroTerm(@NotNull Predicate<T> predicate) {
-        this.predicate = predicate;
+    protected HeroTerm() {
+
     }
 
     @Override

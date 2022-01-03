@@ -7,7 +7,5 @@ import baal.code_files.level_system.event.HeroTerm;
 import java.util.function.Predicate;
 
 public abstract class HeroPositionTerm<T extends Hero> extends HeroTerm<T> {
-    protected HeroPositionTerm(Predicate<PointDouble> heroPositionPredicate) {
-        super(t -> heroPositionPredicate.test(t.position));
-    }
+    protected HeroPositionTerm() {}
 }
