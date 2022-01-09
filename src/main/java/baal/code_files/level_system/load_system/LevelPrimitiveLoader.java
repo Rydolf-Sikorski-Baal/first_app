@@ -2,7 +2,10 @@ package baal.code_files.level_system.load_system;
 
 import baal.code_files.blocks.Blocks;
 import baal.code_files.graphics_system.LevelCellsSizes;
-import baal.code_files.level_system.level.*;
+import baal.code_files.level_system.level.Level;
+import baal.code_files.level_system.level.LevelConnections;
+import baal.code_files.level_system.level.LevelEntities;
+import baal.code_files.level_system.level.LevelSettings;
 import org.springframework.stereotype.Component;
 
 import java.io.FileReader;

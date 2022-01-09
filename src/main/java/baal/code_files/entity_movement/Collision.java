@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 // описывет столкновение объектов, но не его эффект
 
 @Component
-public class Collision implements baal.code_files.interfaces.Collision {
+public class Collision implements baal.code_files.blocks.Collision {
     private final Interception interception;
 
     private Coords currentCoords, nextTickCoords;

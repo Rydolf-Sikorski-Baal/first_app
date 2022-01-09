@@ -1,4 +1,4 @@
-package baal.code_files.interfaces;
+package baal.code_files.blocks;
 
 public interface BlocksVis {
     void drawYourself(javafx.scene.canvas.Canvas canvas,

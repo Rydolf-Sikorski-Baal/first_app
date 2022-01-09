@@ -2,10 +2,8 @@ package baal.code_files.main_game.controls;
 
 import javafx.scene.input.KeyCode;
 import lombok.Getter;
-import lombok.SneakyThrows;
 import org.yaml.snakeyaml.Yaml;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;

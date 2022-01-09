@@ -1,6 +1,5 @@
 package baal.code_files.entity_movement;
 
-import baal.code_files.interfaces.PositionInfoInterf;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

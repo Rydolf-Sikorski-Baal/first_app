@@ -1,4 +1,4 @@
-package baal.code_files.interfaces;
+package baal.code_files.entities;
 
 public interface Visible {
 

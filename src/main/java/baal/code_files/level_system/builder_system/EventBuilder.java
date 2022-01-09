@@ -1,13 +1,17 @@
 package baal.code_files.level_system.builder_system;
 
+import baal.code_files.entities.movement_tree.AccordingToSpeed;
 import baal.code_files.level_system.event.Event;
 import baal.code_files.level_system.event.Term;
+import baal.code_files.level_system.level.LevelInterface;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Map;
 
+@Component
 public class EventBuilder implements EventBuilderInterface{
-    private Event event;
+    private final Event event = new Event();
 
     @Override
     public EventBuilderInterface loadTermsList(Map<String, Object> map) {
@@ -25,16 +29,23 @@ public class EventBuilder implements EventBuilderInterface{
             termList.add((Term) obj);
         }
         event.setTermsList(termList);
+
+        return this;
+    }
+
+    private void doSmt(LevelInterface levelInterface){
+        ((AccordingToSpeed)levelInterface.getLevelEntities().getEntityVector().get(0).movement).setSpeed_x(0);
     }
 
     @Override
     public EventBuilderInterface loadIfTrue(Map<String, Object> map) {
-
+        event.setIfTrue(this::doSmt);
+        return this;
     }
 
     @Override
     public EventBuilderInterface loadIfFalse(Map<String, Object> map) {
-
+        return this;
     }
 
     @Override

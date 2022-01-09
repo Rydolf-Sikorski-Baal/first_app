@@ -2,8 +2,6 @@ package baal.code_files.level_system.event;
 
 import baal.code_files.entities.entities_tree.Hero;
 import baal.code_files.level_system.level.LevelInterface;
-import lombok.NonNull;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Predicate;
 

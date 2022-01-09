@@ -8,7 +8,6 @@ import baal.code_files.main_game.Main_game_controller;
 import lombok.Setter;
 import lombok.SneakyThrows;
 import org.springframework.context.annotation.Scope;
-import org.springframework.scheduling.Trigger;
 import org.springframework.stereotype.Component;
 
 @Component

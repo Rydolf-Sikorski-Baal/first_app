@@ -4,7 +4,6 @@ import baal.code_files.PointDouble;
 import baal.code_files.blocks.Blocks;
 import baal.code_files.entities.entities_tree.Entity;
 import baal.code_files.entities.movement_tree.AccordingToSpeed;
-import baal.code_files.entities.movement_tree.Movement;
 import baal.code_files.entities.shape_tree.Rectangle;
 import baal.code_files.level_system.level.LevelInterface;
 import lombok.AllArgsConstructor;

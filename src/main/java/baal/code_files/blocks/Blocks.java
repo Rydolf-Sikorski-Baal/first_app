@@ -1,7 +1,5 @@
 package baal.code_files.blocks;
 
-import baal.code_files.interfaces.BlocksVis;
-import baal.code_files.interfaces.ChangingSpeed;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import lombok.SneakyThrows;

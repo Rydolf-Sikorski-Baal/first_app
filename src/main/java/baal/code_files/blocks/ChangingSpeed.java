@@ -1,4 +1,4 @@
-package baal.code_files.interfaces;
+package baal.code_files.blocks;
 
 public interface ChangingSpeed {
     public double getNewSpeedX(double current_x);

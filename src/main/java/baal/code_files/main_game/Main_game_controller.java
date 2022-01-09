@@ -5,7 +5,6 @@ import baal.code_files.chapter_system.ChapterInterface;
 import baal.code_files.entities.entities_tree.Entity;
 import baal.code_files.graphics_system.DrawerInterface;
 import baal.code_files.level_system.level.LevelInterface;
-import baal.code_files.level_system.load_system.LevelLoaderInterface;
 import baal.code_files.main_game.controls.ControlsCodes;
 import baal.code_files.main_game.threads.EntityMovementThread;
 import baal.code_files.main_game.threads.LevelLoadThread;

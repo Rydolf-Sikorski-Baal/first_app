@@ -1,7 +1,5 @@
 package baal.code_files.level_system.builder_system;
 
-import baal.code_files.level_system.event.Event;
-import baal.code_files.level_system.event.Term;
 import baal.code_files.level_system.level.LevelInterface;
 import baal.code_files.level_system.load_system.LevelLoaderInterface;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -12,11 +10,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Map;
 
 @Component
 public class JsonPlusStaticTriggerBuilder implements BuilderInterface {
+    private LevelInterface level;
 
     private final LevelLoaderInterface levelLoader;
     private final EventBuilderDirectorInterface eventBuilderDirector;
@@ -28,7 +26,6 @@ public class JsonPlusStaticTriggerBuilder implements BuilderInterface {
         this.eventBuilderDirector = eventBuilderDirector;
     }
 
-    private LevelInterface level;
     @Override
     public BuilderInterface loadJson(String levelFileName) throws IOException {
         level = this.levelLoader.loadLevel(levelFileName);
@@ -47,9 +44,13 @@ public class JsonPlusStaticTriggerBuilder implements BuilderInterface {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        Map<String, Object> map = yaml.load(inputStream);
 
-        Event event = eventBuilderDirector.build(map);
+        Map<String, Object> map = yaml.load(inputStream);
+        for (Map.Entry<String, Object> entry : map.entrySet()){
+            level.getLevelEvents().getLevelEventsVector()
+                    .add(eventBuilderDirector.build((Map<String, Object>) map.get(entry.getKey())));
+        }
+
         return this;
     }
 
