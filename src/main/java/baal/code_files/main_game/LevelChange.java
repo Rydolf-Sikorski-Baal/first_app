@@ -107,7 +107,10 @@ public class LevelChange {
         hero.setPosition(positionX, positionY);
         hero.connect();
 
-        DeathEntity deathEntity = new DeathEntity(rectangle, new AccordingToSpeed(), new Uncontrollable());
+        AccordingToSpeed accordingToSpeed2 = new AccordingToSpeed();
+        accordingToSpeed2.setSpeed_x(0);
+        accordingToSpeed2.setSpeed_y(0.01);
+        DeathEntity deathEntity = new DeathEntity(rectangle, accordingToSpeed2, new Uncontrollable());
         deathEntity.setPosition(3.0, 2.0);
 
         Vector<Entity> entityVector = new Vector<>();
