@@ -62,7 +62,7 @@ public class EntityMovementThread extends Thread {
                 entityMovement.moveTick(entity, level);
             }
 
-            //checkEntitiesCollision(level);
+            checkEntitiesCollision(level);
 
             Platform.runLater(
                 () -> {
@@ -90,7 +90,8 @@ public class EntityMovementThread extends Thread {
         }
     }
 
-    private boolean isIntersect(Entity firstEntity, Entity secondEntity) {
+    private boolean isIntersect(@NotNull Entity firstEntity,
+                                @NotNull Entity secondEntity) {
         double firstX = firstEntity.position.getX();
         double firstY = firstEntity.position.getY();
 
@@ -98,12 +99,12 @@ public class EntityMovementThread extends Thread {
         double secondY = secondEntity.position.getY();
 
         double xMin = Math.min(firstX + 0.5, secondX + 0.5);
-        double xMax = Math.max(firstX, secondY);
-        double xRes = (xMax - xMin > 0 ? xMax - xMin : 0);
+        double xMax = Math.max(firstX, secondX);
+        double xRes = (xMin - xMax > 0 ? xMin - xMax  : 0);
 
         double yMin = Math.min(firstY + 0.5, secondY + 0.5);
         double yMax = Math.max(firstY, secondY);
-        double yRes = (yMax - yMin > 0 ? yMax - yMin : 0);
+        double yRes = (yMin - yMax > 0 ? yMin - yMax : 0);
 
         double res = 10 * (xRes * yRes);
         return res > 1;
