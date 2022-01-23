@@ -1,7 +1,8 @@
-package baal.code_files.level_system.builder_system.workingon;
+package baal.code_files.level_system.builder_system;
 
 import baal.code_files.level_system.builder_system.ConsequenceType;
 import baal.code_files.level_system.event.Event;
+import baal.code_files.level_system.level.LevelInterface;
 import baal.code_files.main_game.LevelChange;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -13,11 +14,10 @@ import java.util.function.Consumer;
 @Component
 @RequiredArgsConstructor
 public class EventConsequenceFactory {
-    private Event event;
-
     private final LevelChange levelChange;
 
-    public void integrateConsequence(ConsequenceType ifTrue,
+    public void integrateConsequence(Event event,
+                                     ConsequenceType ifTrue,
                                      String ifTrueArguments,
                                      ConsequenceType ifFalse,
                                      String ifFalseArguments){
@@ -25,16 +25,24 @@ public class EventConsequenceFactory {
         event.setIfFalse(createConsequence(ifFalse, ifFalseArguments));
     }
 
-    private <T> Consumer<T> createConsequence(ConsequenceType type,
-                                              String arguments){
-        Consumer<T> consumer = null;
+    private Consumer<LevelInterface> createConsequence(ConsequenceType type,
+                                                       String arguments){
+        Consumer<LevelInterface> consumer = null;
         switch(type) {
             case NOTHING:
-                consumer = ;
+                consumer = this::doNothing;
                 break;
             case CHANGE_LEVEL:
-                consumer  ;
+                consumer = this::changeLevel;
                 break;
         }
+        return consumer;
+    }
+
+    private void doNothing(LevelInterface levelInterface) {
+    }
+    private void changeLevel(LevelInterface levelInterface){
+        levelChange.changeLevelByFlags("src/main/resources/baal/code_files/level_system/second",
+                true, true);
     }
 }

@@ -6,7 +6,6 @@ import java.util.Map;
 
 public interface EventBuilderInterface {
     EventBuilderInterface loadTermsList(Map<String, Object> map);
-    EventBuilderInterface loadIfTrue(Map<String, Object> map);
-    EventBuilderInterface loadIfFalse(Map<String, Object> map);
+    EventBuilderInterface loadConsequence(Map<String, Object> map);
     Event build();
 }

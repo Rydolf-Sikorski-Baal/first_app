@@ -1,11 +1,14 @@
 package baal.code_files.level_system.builder_system;
 
+import baal.code_files.entities.entities_tree.Hero;
 import baal.code_files.entities.movement_tree.AccordingToSpeed;
 import baal.code_files.level_system.event.Event;
 import baal.code_files.level_system.event.Term;
 import baal.code_files.level_system.level.LevelInterface;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -13,38 +16,40 @@ import java.util.Map;
 public class EventBuilder implements EventBuilderInterface{
     private final Event event = new Event();
 
+    private final EventConsequenceFactory consequenceFactory;
+
+    public EventBuilder(@Qualifier("eventConsequenceFactory")
+                                EventConsequenceFactory consequenceFactory) {
+        this.consequenceFactory = consequenceFactory;
+    }
+
     @Override
     public EventBuilderInterface loadTermsList(Map<String, Object> map) {
-        ArrayList<Term> termList = new ArrayList<>();
+        ArrayList<Term<Hero>> termList = new ArrayList<>();
         for (Map.Entry<String, Object> entry : map.entrySet()){
             Object obj = null;
             try {
+                Class[] params = {double.class};
                 obj = Class
-                        .forName("baal.code_files.level_system.event.position.HeroPositionXOver")
-                        .newInstance();
-            } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+                        .forName(entry.getKey())
+                        .getConstructor(params)
+                        .newInstance(10);
+            } catch (InstantiationException | IllegalAccessException | ClassNotFoundException | NoSuchMethodException | InvocationTargetException e) {
                 e.printStackTrace();
             }
 
-            termList.add((Term) obj);
+            termList.add((Term<Hero>) obj);
         }
         event.setTermsList(termList);
 
         return this;
     }
 
-    private void doSmt(LevelInterface levelInterface){
-        ((AccordingToSpeed)levelInterface.getLevelEntities().getEntityVector().get(0).movement).setSpeed_x(0);
-    }
-
     @Override
-    public EventBuilderInterface loadIfTrue(Map<String, Object> map) {
-        event.setIfTrue(this::doSmt);
-        return this;
-    }
-
-    @Override
-    public EventBuilderInterface loadIfFalse(Map<String, Object> map) {
+    public EventBuilderInterface loadConsequence(Map<String, Object> map){
+        consequenceFactory.integrateConsequence(event,
+                ConsequenceType.CHANGE_LEVEL, "",
+                ConsequenceType.NOTHING, "");
         return this;
     }
 

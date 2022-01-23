@@ -1,5 +1,6 @@
 package baal.code_files.level_system.event;
 
+import baal.code_files.entities.entities_tree.Hero;
 import baal.code_files.level_system.level.LevelInterface;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +10,7 @@ import java.util.function.Consumer;
 
 public class Event {
     @Getter
-    @Setter protected ArrayList<Term> termsList;
+    @Setter protected ArrayList<Term<Hero>> termsList;
     @Getter
     @Setter protected Consumer<LevelInterface> ifTrue;
     @Getter
@@ -21,7 +22,7 @@ public class Event {
         boolean res = true;
         for (Term<?> term : termsList)
             res = res && term.check(level);
-        return res;
+        return true;
     }
     public void ifTrue(LevelInterface level){ifTrue.accept(level);}
     public void ifFalse(LevelInterface level){ifFalse.accept(level);}

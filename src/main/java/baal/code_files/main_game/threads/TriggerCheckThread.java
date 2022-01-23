@@ -39,12 +39,9 @@ public class TriggerCheckThread extends Thread{
         this.setName("trigger");
         while (this.main_game_controller.isStarted && !this.isInterrupted()) {
             if (this.main_game_controller.curr_level.getLevelEvents().getLevelEventsVector() != null) {
-                for (Event event : this.main_game_controller.curr_level.getLevelEvents().getLevelEventsVector()){
-                    if (event.check(this.main_game_controller.curr_level)){
+                for(Event event : this.main_game_controller.curr_level.getLevelEvents().getLevelEventsVector()){
+                    if (event.check(this.main_game_controller.curr_level)) {
                         event.ifTrue(this.main_game_controller.curr_level);
-                        if(this.main_game_controller.currLevelFilePath != "src/main/resources/baal/code_files/level_system/second")
-                                levelChange.changeLevelByFlags("src/main/resources/baal/code_files/level_system/second",
-                                true, true);
                     }else{
                         event.ifFalse(this.main_game_controller.curr_level);
                     }
