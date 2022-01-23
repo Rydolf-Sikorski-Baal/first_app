@@ -13,6 +13,6 @@ public class EventBuilderDirector implements EventBuilderDirectorInterface {
 
     @Override
     public Event build(Map<String, Object> map){
-        return eventBuilder.loadTermsList(map).loadIfTrue(map).loadIfFalse(map).build();
+        return eventBuilder.loadTermsList(map).loadConsequence(map).build();
     }
 }
