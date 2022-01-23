@@ -4,7 +4,6 @@ import baal.ApplicationContextProvider;
 import baal.code_files.chapter_system.ChapterInterface;
 import baal.code_files.entities.entities_tree.Entity;
 import baal.code_files.graphics_system.DrawerInterface;
-import baal.code_files.level_system.level.LevelInterface;
 import baal.code_files.main_game.controls.ControlsCodes;
 import baal.code_files.main_game.threads.EntityMovementThread;
 import baal.code_files.main_game.threads.LevelLoadThread;
@@ -40,15 +39,7 @@ import java.util.Vector;
 @Getter
 @Setter
 public class Main_game_controller implements Initializable {
-    public volatile LevelInterface curr_level;
-    public volatile boolean isStarted;
-    public volatile ChapterInterface chapter;
-    private final DrawerInterface drawer;
-
-    private final LevelChange levelChange;
-
-    private final String firstLevelFilePath;
-    private final String secondLevelFilePath;
+    private final GameModel gameModel;
 
     private EntityMovementThread entityMovementThread;
     private LevelLoadThread levelLoadThread;
@@ -72,16 +63,12 @@ public class Main_game_controller implements Initializable {
                                         ChapterInterface chapter,
                                 @Qualifier("levelChange")
                                         LevelChange levelChange,
+                                @Qualifier("gameModel")
+                                        GameModel gameModel,
                                 @Value("${firstLevelFilePath}")
                                         String firstLevelFilePath,
-                                @Value("${secondLevelFilePath}")
-                                        String secondLevelFilePath,
                                 ApplicationContextProvider applicationContextProvider) {
-        this.drawer = drawer;
-        this.chapter = chapter;
-        this.levelChange = levelChange;
-        this.firstLevelFilePath = firstLevelFilePath;
-        this.secondLevelFilePath = secondLevelFilePath;
+        this.gameModel = gameModel;
         this.applicationContextProvider = applicationContextProvider;
 
         currLevelFilePath = firstLevelFilePath;
