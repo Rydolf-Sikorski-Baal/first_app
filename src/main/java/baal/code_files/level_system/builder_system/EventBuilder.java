@@ -1,10 +1,8 @@
 package baal.code_files.level_system.builder_system;
 
 import baal.code_files.entities.entities_tree.Hero;
-import baal.code_files.entities.movement_tree.AccordingToSpeed;
 import baal.code_files.level_system.event.Event;
 import baal.code_files.level_system.event.Term;
-import baal.code_files.level_system.level.LevelInterface;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 

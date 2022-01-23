@@ -1,12 +1,9 @@
 package baal.code_files.level_system.builder_system;
 
-import baal.code_files.level_system.builder_system.ConsequenceType;
 import baal.code_files.level_system.event.Event;
 import baal.code_files.level_system.level.LevelInterface;
 import baal.code_files.main_game.LevelChange;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.util.function.Consumer;

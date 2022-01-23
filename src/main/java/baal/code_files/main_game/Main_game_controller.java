@@ -79,7 +79,9 @@ public class Main_game_controller implements Initializable {
         initMenu();
         initCanvas();
 
-        levelChange.changeLevelByFlags(firstLevelFilePath, false, false);
+        gameModel.levelChange
+                .changeLevelByFlags(gameModel.firstLevelFilePath,
+                 false, false);
     }
 
     @SneakyThrows
@@ -91,7 +93,7 @@ public class Main_game_controller implements Initializable {
     private void initMenu() {
         EventHandler<KeyEvent> controlsEventHandler = event -> {
             KeyCode keyCode = event.getCode();
-            Vector<Entity> entityVector = curr_level.getLevelEntities().getEntityVector();
+            Vector<Entity> entityVector = gameModel.curr_level.getLevelEntities().getEntityVector();
 
             if (keyCode == ControlsCodes.Jump.getKeyCode()){
                 for (Entity entity : entityVector)
@@ -117,7 +119,7 @@ public class Main_game_controller implements Initializable {
     @SuppressWarnings("SameParameterValue")
     @SneakyThrows
     private void setStage(Class<?> controllerClass){
-        this.isStarted = false;
+        gameModel.isStarted = false;
 
         FxWeaver fxWeaver
                 = (applicationContextProvider.getApplicationContext()).getBean(FxWeaver.class);
@@ -135,7 +137,7 @@ public class Main_game_controller implements Initializable {
     @SuppressWarnings("all")
     @SneakyThrows
     private void setScene(Class<?> controllerClass){
-        this.isStarted = false;
+        gameModel.isStarted = false;
 
         FxWeaver fxWeaver
                 = (applicationContextProvider.getApplicationContext()).getBean(FxWeaver.class);

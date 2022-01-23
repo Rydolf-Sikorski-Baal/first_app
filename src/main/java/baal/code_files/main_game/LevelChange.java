@@ -23,6 +23,7 @@ import java.util.Vector;
 @Component("levelChange")
 public class LevelChange {
     @Autowired ApplicationContextProvider applicationContextProvider;
+    private final GameModel gameModel;
 
     @Data
     private static class Flags{
@@ -65,18 +66,18 @@ public class LevelChange {
 
     @SneakyThrows
     private void startLevel() {
-        double positionX = main_game_controller.curr_level == null ? 0 : main_game_controller.curr_level
+        double positionX = gameModel.curr_level == null ? 0 : gameModel.curr_level
                            .getLevelEntities().getEntityVector().get(0).position
                            .getX(),
-               positionY = main_game_controller.curr_level == null ? 0 : main_game_controller.curr_level
+               positionY = gameModel.curr_level == null ? 0 : gameModel.curr_level
                            .getLevelEntities().getEntityVector().get(0).position
                            .getY();
-        double speedX = main_game_controller.curr_level == null ? 0 :
-                        ((AccordingToSpeed)main_game_controller.curr_level
+        double speedX = gameModel.curr_level == null ? 0 :
+                        ((AccordingToSpeed)gameModel.curr_level
                         .getLevelEntities().getEntityVector().get(0).movement)
                         .getSpeed_x(),
-               speedY = main_game_controller.curr_level == null ? 0 :
-                        ((AccordingToSpeed)main_game_controller.curr_level
+               speedY = gameModel.curr_level == null ? 0 :
+                        ((AccordingToSpeed)gameModel.curr_level
                         .getLevelEntities().getEntityVector().get(0).movement)
                         .getSpeed_y();
 
@@ -85,16 +86,16 @@ public class LevelChange {
                         .getApplicationContext()
                         .getBean(LevelLoadThread.class));
         main_game_controller.getLevelLoadThread().start();
-        main_game_controller.isStarted = true;
+        gameModel.isStarted = true;
 
         while(main_game_controller.getLevelLoadThread().isAlive()){}
         if (!flags.isPositionRequiresSaving()) {
-            positionX = main_game_controller.curr_level.getLevelSettings().getHeroStartX();
-            positionY = main_game_controller.curr_level.getLevelSettings().getHeroStartY();
+            positionX = gameModel.curr_level.getLevelSettings().getHeroStartX();
+            positionY = gameModel.curr_level.getLevelSettings().getHeroStartY();
         }
         if (!flags.isMovementRequiresSaving()){
-            speedX = main_game_controller.curr_level.getLevelSettings().getDefaultSpeedX();
-            speedY = main_game_controller.curr_level.getLevelSettings().getDefaultSpeedY();
+            speedX = gameModel.curr_level.getLevelSettings().getDefaultSpeedX();
+            speedY = gameModel.curr_level.getLevelSettings().getDefaultSpeedY();
         }
         Rectangle rectangle = new Rectangle();
         rectangle.setX_size(0.5);
@@ -116,7 +117,7 @@ public class LevelChange {
         Vector<Entity> entityVector = new Vector<>();
         entityVector.add(hero);
         entityVector.add(deathEntity);
-        this.main_game_controller.curr_level.getLevelEntities().setEntityVector(entityVector);
+        gameModel.curr_level.getLevelEntities().setEntityVector(entityVector);
 
         assignThreads();
         startThreads();
