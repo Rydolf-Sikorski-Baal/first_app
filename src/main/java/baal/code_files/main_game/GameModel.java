@@ -14,8 +14,6 @@ public class GameModel {
     public volatile ChapterInterface chapter;
     public final DrawerInterface drawer;
 
-    public final LevelChange levelChange;
-
     public String currLevelFilePath;
     public final String firstLevelFilePath;
 
@@ -23,13 +21,10 @@ public class GameModel {
                                         DrawerInterface drawer,
                                 @Qualifier("chapter")
                                         ChapterInterface chapter,
-                                @Qualifier("levelChange")
-                                        LevelChange levelChange,
                                 @Value("${firstLevelFilePath}")
                                         String firstLevelFilePath) {
         this.drawer = drawer;
         this.chapter = chapter;
-        this.levelChange = levelChange;
         this.firstLevelFilePath = firstLevelFilePath;
 
         currLevelFilePath = firstLevelFilePath;

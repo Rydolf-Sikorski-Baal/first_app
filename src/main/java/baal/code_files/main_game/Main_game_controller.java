@@ -40,6 +40,7 @@ import java.util.Vector;
 @Setter
 public class Main_game_controller implements Initializable {
     private final GameModel gameModel;
+    private final LevelChange levelChange;
 
     private EntityMovementThread entityMovementThread;
     private LevelLoadThread levelLoadThread;
@@ -65,10 +66,13 @@ public class Main_game_controller implements Initializable {
                                         LevelChange levelChange,
                                 @Qualifier("gameModel")
                                         GameModel gameModel,
+                                @Qualifier("levelChange")
+                                        LevelChange levelChange1,
                                 @Value("${firstLevelFilePath}")
                                         String firstLevelFilePath,
                                 ApplicationContextProvider applicationContextProvider) {
         this.gameModel = gameModel;
+        this.levelChange = levelChange1;
         this.applicationContextProvider = applicationContextProvider;
 
         currLevelFilePath = firstLevelFilePath;
@@ -79,8 +83,7 @@ public class Main_game_controller implements Initializable {
         initMenu();
         initCanvas();
 
-        gameModel.levelChange
-                .changeLevelByFlags(gameModel.firstLevelFilePath,
+        levelChange.changeLevelByFlags(gameModel.firstLevelFilePath,
                  false, false);
     }
 
