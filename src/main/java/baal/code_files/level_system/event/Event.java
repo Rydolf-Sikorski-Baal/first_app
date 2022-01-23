@@ -22,7 +22,7 @@ public class Event {
         boolean res = true;
         for (Term<?> term : termsList)
             res = res && term.check(level);
-        return true;
+        return res;
     }
     public void ifTrue(LevelInterface level){ifTrue.accept(level);}
     public void ifFalse(LevelInterface level){ifFalse.accept(level);}

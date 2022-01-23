@@ -33,7 +33,7 @@ public class EventBuilder implements EventBuilderInterface{
                 obj = Class
                         .forName(entry.getKey())
                         .getConstructor(params)
-                        .newInstance(10);
+                        .newInstance(6);
             } catch (InstantiationException | IllegalAccessException | ClassNotFoundException | NoSuchMethodException | InvocationTargetException e) {
                 e.printStackTrace();
             }
