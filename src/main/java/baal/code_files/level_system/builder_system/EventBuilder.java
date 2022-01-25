@@ -3,12 +3,17 @@ package baal.code_files.level_system.builder_system;
 import baal.code_files.entities.entities_tree.Hero;
 import baal.code_files.level_system.event.Event;
 import baal.code_files.level_system.event.Term;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.Map;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.DoubleStream;
+import java.util.stream.IntStream;
+import java.util.stream.LongStream;
+import java.util.stream.Stream;
 
 @Component
 public class EventBuilder implements EventBuilderInterface{
@@ -21,17 +26,20 @@ public class EventBuilder implements EventBuilderInterface{
         this.consequenceFactory = consequenceFactory;
     }
 
+    private static Map<String, Object> argsMap;
     @Override
     public EventBuilderInterface loadTermsList(Map<String, Object> map) {
         ArrayList<Term<Hero>> termList = new ArrayList<>();
         for (Map.Entry<String, Object> entry : map.entrySet()){
+            argsMap = (Map<String, Object>) entry.getValue();
+
             Object obj = null;
             try {
-                Class[] params = {double.class};
+                Class[] args = {DoubleStream.class};
                 obj = Class
                         .forName(entry.getKey())
-                        .getConstructor(params)
-                        .newInstance(6);
+                        .getConstructor(args)
+                        .newInstance(DoubleStream.of(6.0, 5.0));
             } catch (InstantiationException | IllegalAccessException | ClassNotFoundException | NoSuchMethodException | InvocationTargetException e) {
                 e.printStackTrace();
             }
