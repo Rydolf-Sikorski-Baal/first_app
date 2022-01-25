@@ -53,9 +53,18 @@ public class EventBuilder implements EventBuilderInterface{
 
     @Override
     public EventBuilderInterface loadConsequence(Map<String, Object> map){
+        Map<String, String> ifTrueMap = (Map<String, String>) argsMap.get("ifTrue");
+        Map<String, String> ifFalseMap = (Map<String, String>) argsMap.get("ifTrue");
+
+        ConsequenceType ifTrueType = ConsequenceType.valueOf(ifTrueMap.get("Type"));
+        String ifTrueArgs = ifTrueMap.get("Args");
+
+        ConsequenceType ifFalseType = ConsequenceType.valueOf(ifFalseMap.get("Type"));
+        String ifFalseArgs = ifFalseMap.get("Args");
+
         consequenceFactory.integrateConsequence(event,
-                ConsequenceType.CHANGE_LEVEL, "",
-                ConsequenceType.NOTHING, "");
+                ifTrueType, ifTrueArgs,
+                ifFalseType, ifFalseArgs);
         return this;
     }
 
