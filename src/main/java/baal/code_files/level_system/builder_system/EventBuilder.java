@@ -3,17 +3,13 @@ package baal.code_files.level_system.builder_system;
 import baal.code_files.entities.entities_tree.Hero;
 import baal.code_files.level_system.event.Event;
 import baal.code_files.level_system.event.Term;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.*;
-import java.util.function.*;
+import java.util.ArrayList;
+import java.util.Map;
 import java.util.stream.DoubleStream;
-import java.util.stream.IntStream;
-import java.util.stream.LongStream;
-import java.util.stream.Stream;
 
 @Component
 public class EventBuilder implements EventBuilderInterface{
@@ -35,11 +31,12 @@ public class EventBuilder implements EventBuilderInterface{
 
             Object obj = null;
             try {
-                Class[] args = {DoubleStream.class};
+                Class[] args = {double[].class};
+                double[] params = {16.0, 16.0};
                 obj = Class
                         .forName(entry.getKey())
                         .getConstructor(args)
-                        .newInstance(DoubleStream.of(6.0, 5.0));
+                        .newInstance(params);
             } catch (InstantiationException | IllegalAccessException | ClassNotFoundException | NoSuchMethodException | InvocationTargetException e) {
                 e.printStackTrace();
             }

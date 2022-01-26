@@ -5,7 +5,7 @@ import baal.code_files.entities.entities_tree.Hero;
 import java.util.stream.DoubleStream;
 
 public class HeroPositionXEquals<T extends Hero> extends HeroPositionTerm<T>{
-    protected HeroPositionXEquals(DoubleStream args) {
-        super(pointDouble -> pointDouble.getX() == args.toArray()[0]);
+    protected HeroPositionXEquals(double[] args) {
+        super(pointDouble -> pointDouble.getX() == args[0]);
     }
 }

@@ -1,3 +1,8 @@
 firstEvent:
   baal.code_files.level_system.event.position.HeroPositionXOver:
-    "asd"
+    ifTrue:
+      Type: CHANGE_LEVEL
+      Args: ""
+    ifFalse:
+      Type: NOTHING
+      Args: ""

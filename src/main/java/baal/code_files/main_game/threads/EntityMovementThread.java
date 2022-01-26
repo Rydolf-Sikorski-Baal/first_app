@@ -6,6 +6,7 @@ import baal.code_files.entity_movement.EntityMovement;
 import baal.code_files.level_system.level.LevelInterface;
 import baal.code_files.main_game.GameModel;
 import baal.code_files.main_game.LevelChange;
+import javafx.application.Platform;
 import lombok.SneakyThrows;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -57,12 +58,12 @@ public class EntityMovementThread extends Thread {
 
             checkEntitiesCollision(level);
 
-            /*Platform.runLater(
+            Platform.runLater(
                 () -> {
-                    this.gameModel.drawer().drawThisLevel(gameModel.canvas(), gameModel.getCurr_level());
-                    this.gameModel.label.setText(String.valueOf(tick_number));
+                    this.gameModel.drawer.drawThisLevel(gameModel.canvas, gameModel.curr_level);
+                    //this.gameModel.label.setText(String.valueOf(tick_number));
                 }
-            );*/
+            );
 
             sleep(tickInMillisecond);
         }

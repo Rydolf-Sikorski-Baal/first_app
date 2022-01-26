@@ -91,6 +91,8 @@ public class Main_game_controller implements Initializable {
     private void initCanvas() {
         canvas.setWidth(800);
         canvas.setHeight(800);
+
+        gameModel.canvas = this.canvas;
     }
 
     private void initMenu() {

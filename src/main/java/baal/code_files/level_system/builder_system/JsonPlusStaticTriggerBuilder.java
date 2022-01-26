@@ -32,8 +32,6 @@ public class JsonPlusStaticTriggerBuilder implements BuilderInterface {
         return this;
     }
 
-    private void doSmt(LevelInterface levelInterface) {}
-
     @Override
     @SuppressWarnings("all")
     public BuilderInterface loadTriggers(String levelFileName) {
