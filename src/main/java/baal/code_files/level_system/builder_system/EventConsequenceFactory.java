@@ -40,6 +40,6 @@ public class EventConsequenceFactory {
     }
     private void changeLevel(LevelInterface levelInterface){
         levelChange.changeLevelByFlags("src/main/resources/baal/code_files/level_system/second",
-                false, true);
+                false, false);
     }
 }
