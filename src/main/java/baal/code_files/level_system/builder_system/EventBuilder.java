@@ -32,11 +32,11 @@ public class EventBuilder implements EventBuilderInterface{
             Object obj = null;
             try {
                 Class[] args = {double[].class};
-                double[] params = {16.0, 16.0};
+                double[] params = {6.0, 6.0};
                 obj = Class
                         .forName(entry.getKey())
                         .getConstructor(args)
-                        .newInstance(params);
+                        .newInstance((Object) params);
             } catch (InstantiationException | IllegalAccessException | ClassNotFoundException | NoSuchMethodException | InvocationTargetException e) {
                 e.printStackTrace();
             }
@@ -51,7 +51,7 @@ public class EventBuilder implements EventBuilderInterface{
     @Override
     public EventBuilderInterface loadConsequence(Map<String, Object> map){
         Map<String, String> ifTrueMap = (Map<String, String>) argsMap.get("ifTrue");
-        Map<String, String> ifFalseMap = (Map<String, String>) argsMap.get("ifTrue");
+        Map<String, String> ifFalseMap = (Map<String, String>) argsMap.get("ifFalse");
 
         ConsequenceType ifTrueType = ConsequenceType.valueOf(ifTrueMap.get("Type"));
         String ifTrueArgs = ifTrueMap.get("Args");
