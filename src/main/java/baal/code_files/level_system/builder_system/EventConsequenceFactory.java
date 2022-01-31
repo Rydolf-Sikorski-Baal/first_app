@@ -36,8 +36,7 @@ public class EventConsequenceFactory {
         return consumer;
     }
 
-    private void doNothing(LevelInterface levelInterface) {
-    }
+    private void doNothing(LevelInterface levelInterface) {}
     private void changeLevel(LevelInterface levelInterface){
         levelChange.changeLevelByFlags("src/main/resources/baal/code_files/level_system/second",
                 false, false);

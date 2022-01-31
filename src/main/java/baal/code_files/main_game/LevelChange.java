@@ -49,7 +49,7 @@ public class LevelChange {
                 .getBean(Main_game_controller.class);
 
         closeLevel();
-        main_game_controller.currLevelFilePath = levelFilePath;
+        gameModel.currLevelFilePath = levelFilePath;
         startLevel();
     }
 
