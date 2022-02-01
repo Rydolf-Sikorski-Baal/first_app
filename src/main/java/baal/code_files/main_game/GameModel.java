@@ -6,6 +6,7 @@ import baal.code_files.level_system.level.LevelInterface;
 import javafx.scene.canvas.Canvas;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -25,7 +26,9 @@ public class GameModel {
                              Chapter chapter) {
         this.drawer = drawer;
         this.chapter = chapter;
+    }
 
+    public void startChapter(){
         chapter.startChapter();
     }
 }

@@ -61,7 +61,7 @@ public class EntityMovementThread extends Thread {
             Platform.runLater(
                 () -> {
                     this.gameModel.drawer.drawThisLevel(gameModel.canvas, gameModel.curr_level);
-                    //this.gameModel.label.setText(String.valueOf(tick_number));
+                    this.gameModel.chapter.tickCount++;
                 }
             );
 
@@ -75,6 +75,7 @@ public class EntityMovementThread extends Thread {
             for (Entity secondEntity : level.getLevelEntities().getEntityVector()){
                 if (firstEntity != secondEntity){
                     if (isIntersect(firstEntity, secondEntity)){
+                        this.gameModel.chapter.deathCount++;
                         levelChange.changeLevelByFlags("src/main/resources/baal/code_files/level_system/first",
                                 false, false);
                     }

@@ -19,13 +19,11 @@ public class Chapter {
     private String entryPointFilePath;
     @Getter
     private String currLevelFilePath;
-    @Getter
-    volatile private Integer tickCount = 0;
-    @Getter
-    volatile private Integer deathCount = 0;
+    volatile public Integer tickCount = 0;
+    volatile public Integer deathCount = 0;
 
     @Setter
-    private String chapterName = "forestChapter";
+    private volatile String chapterName = "forestChapter";
 
     public void startChapter(){
         Yaml yaml = new Yaml();

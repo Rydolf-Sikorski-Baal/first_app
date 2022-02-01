@@ -76,6 +76,8 @@ public class Main_game_controller implements Initializable {
         initMenu();
         initCanvas();
 
+        gameModel.startChapter();
+
         levelChange.changeLevelByFlags(gameModel.chapter.getEntryPointFilePath(),
                  false, false);
     }

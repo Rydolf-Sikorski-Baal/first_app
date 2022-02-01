@@ -36,6 +36,7 @@ public class ChapterSelectionController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         comboBox.getItems().add("forestChapter");
+        comboBox.getItems().add("mountainChapter");
 
         this.toMenu.setText("To Menu");
         this.select.setText("select");
