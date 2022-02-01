@@ -21,7 +21,7 @@ public class DeathEntity extends Entity {
     public void drawYourself(Canvas canvas, double cellHeight, double cellWidth) {
         if (image == null)
             image = new Image(Objects.requireNonNull(getClass()
-                    .getResourceAsStream("123.png")));
+                    .getResourceAsStream("bullet.png")));
 
         canvas.getGraphicsContext2D().drawImage(image, position.getY() * cellWidth, position.getX() * cellHeight,
                 0.5 * cellWidth, 0.5 * cellHeight);

@@ -1,7 +1,6 @@
 package baal.code_files.main_game;
 
 import baal.code_files.chapter.Chapter;
-import baal.code_files.graphics_system.DrawerInterface;
 import baal.code_files.level_system.level.LevelInterface;
 import javafx.scene.canvas.Canvas;
 import org.springframework.beans.factory.annotation.Qualifier;
