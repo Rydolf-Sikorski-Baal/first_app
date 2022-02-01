@@ -1,7 +1,6 @@
 package baal.code_files.main_game;
 
 import baal.ApplicationContextProvider;
-import baal.code_files.chapter_system.ChapterInterface;
 import baal.code_files.entities.entities_tree.Entity;
 import baal.code_files.graphics_system.DrawerInterface;
 import baal.code_files.main_game.controls.ControlsCodes;
@@ -58,13 +57,7 @@ public class Main_game_controller implements Initializable {
     public volatile Label label;
     public volatile int tik_number = 0;
 
-    public Main_game_controller(@Qualifier("drawer")
-                                        DrawerInterface drawer,
-                                @Qualifier("chapter")
-                                        ChapterInterface chapter,
-                                @Qualifier("levelChange")
-                                        LevelChange levelChange,
-                                @Qualifier("gameModel")
+    public Main_game_controller(@Qualifier("gameModel")
                                         GameModel gameModel,
                                 @Qualifier("levelChange")
                                         LevelChange levelChange1,
@@ -83,7 +76,7 @@ public class Main_game_controller implements Initializable {
         initMenu();
         initCanvas();
 
-        levelChange.changeLevelByFlags(gameModel.firstLevelFilePath,
+        levelChange.changeLevelByFlags(gameModel.chapter.getEntryPointFilePath(),
                  false, false);
     }
 

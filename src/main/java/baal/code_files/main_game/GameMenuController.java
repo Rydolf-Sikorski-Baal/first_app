@@ -6,7 +6,6 @@ import javafx.scene.control.Button;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.stereotype.Component;
 
-import java.awt.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 

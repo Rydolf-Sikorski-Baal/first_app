@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.stream.DoubleStream;
 
 @Component
 public class EventBuilder implements EventBuilderInterface{
@@ -32,7 +31,7 @@ public class EventBuilder implements EventBuilderInterface{
             Object obj = null;
             try {
                 Class[] args = {double[].class};
-                double[] params = {6.0, 6.0};
+                double[] params = {4.0, 4.0};
                 obj = Class
                         .forName(entry.getKey())
                         .getConstructor(args)

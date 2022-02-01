@@ -38,6 +38,7 @@ public class TriggerCheckThread extends Thread{
                 for(Event event : this.gameModel.curr_level.getLevelEvents().getLevelEventsVector()){
                     if (event.check(this.gameModel.curr_level)) {
                         event.ifTrue(this.gameModel.curr_level);
+                        //this.gameModel.curr_level.getLevelEvents().getLevelEventsVector().clear();
                     }else{
                         event.ifFalse(this.gameModel.curr_level);
                     }

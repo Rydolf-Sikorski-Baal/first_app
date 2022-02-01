@@ -1,5 +1,6 @@
 package baal.code_files.level_system.builder_system;
 
+import baal.code_files.entities.movement_tree.AccordingToSpeed;
 import baal.code_files.level_system.event.Event;
 import baal.code_files.level_system.level.LevelInterface;
 import baal.code_files.main_game.LevelChange;
@@ -32,13 +33,32 @@ public class EventConsequenceFactory {
             case CHANGE_LEVEL:
                 consumer = this::changeLevel;
                 break;
+            case CHANGE_HERO_SPEED:
+                consumer = this::changeHeroSpeed;
+                break;
+            case SET_HERO_SPEED_X:
+                consumer = this::setHeroSpeedX;
+                break;
+            case SET_HERO_SPEED_Y:
+                consumer = this::setHeroSpeedY;
+                break;
         }
         return consumer;
     }
 
-    private void doNothing(LevelInterface levelInterface) {}
-    private void changeLevel(LevelInterface levelInterface){
+    private void doNothing(LevelInterface level) {}
+    private void changeLevel(LevelInterface level){
         levelChange.changeLevelByFlags("src/main/resources/baal/code_files/level_system/second",
                 false, false);
+    }
+    private void changeHeroSpeed(LevelInterface level){
+        ((AccordingToSpeed)level.getLevelEntities().getEntityVector().get(0).movement).changeSpeedX(-1);
+        ((AccordingToSpeed)level.getLevelEntities().getEntityVector().get(0).movement).changeSpeedY(1);
+    }
+    private void setHeroSpeedX(LevelInterface level){
+        ((AccordingToSpeed)(level.getLevelEntities().getEntityVector().get(0)).movement).setSpeed_x(-0.01);
+    }
+    private void setHeroSpeedY(LevelInterface level){
+        ((AccordingToSpeed)(level.getLevelEntities().getEntityVector().get(0)).movement).setSpeed_y(1);
     }
 }
