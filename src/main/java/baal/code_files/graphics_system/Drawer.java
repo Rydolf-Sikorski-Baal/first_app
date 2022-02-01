@@ -2,15 +2,20 @@ package baal.code_files.graphics_system;
 
 import baal.code_files.entities.entities_tree.Entity;
 import baal.code_files.level_system.level.LevelInterface;
+import baal.code_files.main_game.GameModel;
 import javafx.scene.image.Image;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 
 @Component
+@RequiredArgsConstructor
 public class Drawer implements DrawerInterface{
     private javafx.scene.canvas.Canvas canvas;
     private LevelInterface level;
+    @NonNull private volatile GameModel gameModel;
 
     private void drawThisLevel(){
         setBackScreen();
@@ -37,7 +42,7 @@ public class Drawer implements DrawerInterface{
     private void setBackScreen() {
         if (image == null)
             image = new Image(Objects.requireNonNull(getClass()
-                    .getResourceAsStream("Forest_background_7.png")));
+                    .getResourceAsStream(gameModel.chapter.defaultBackgroundFilePath)));
 
         canvas.getGraphicsContext2D().drawImage(image, 0, 0,
                 canvas.getWidth(), canvas.getHeight());

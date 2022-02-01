@@ -3,6 +3,7 @@ package baal.code_files.main_game.threads;
 import baal.code_files.entities.entities_tree.Entity;
 import baal.code_files.entities.movement_tree.AccordingToSpeed;
 import baal.code_files.entity_movement.EntityMovement;
+import baal.code_files.graphics_system.Drawer;
 import baal.code_files.level_system.level.LevelInterface;
 import baal.code_files.main_game.GameModel;
 import baal.code_files.main_game.LevelChange;
@@ -20,6 +21,7 @@ public class EntityMovementThread extends Thread {
     private final EntityMovement entityMovement;
 
     private final GameModel gameModel;
+    private final Drawer drawer;
 
     private final int tickInMillisecond;
 
@@ -27,12 +29,15 @@ public class EntityMovementThread extends Thread {
                                         EntityMovement entityMovement,
                                 @Qualifier("gameModel")
                                         GameModel gameModel,
+                                @Qualifier("drawer")
+                                        Drawer drawer,
                                 @Value("${tickInMillisecond}")
                                         int tickInMillisecond,
                                 @Qualifier("levelChange")
                                         LevelChange levelChange) {
         this.entityMovement = entityMovement;
         this.gameModel = gameModel;
+        this.drawer = drawer;
         this.tickInMillisecond = tickInMillisecond;
         this.levelChange = levelChange;
     }
@@ -60,7 +65,7 @@ public class EntityMovementThread extends Thread {
 
             Platform.runLater(
                 () -> {
-                    this.gameModel.drawer.drawThisLevel(gameModel.canvas, gameModel.curr_level);
+                    this.drawer.drawThisLevel(gameModel.canvas, gameModel.curr_level);
                     this.gameModel.chapter.tickCount++;
                 }
             );

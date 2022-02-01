@@ -2,7 +2,6 @@ package baal.code_files;
 
 import baal.ApplicationContextProvider;
 import baal.code_files.chapter_selection.ChapterSelectionController;
-import baal.code_files.main_game.Main_game_controller;
 import baal.code_files.redactor.Redactor_controller;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;

@@ -17,6 +17,7 @@ public class GameMenuController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        ToMenu.setText("Exit");
         ToMenu.setOnAction(event -> System.exit(0));
     }
 }

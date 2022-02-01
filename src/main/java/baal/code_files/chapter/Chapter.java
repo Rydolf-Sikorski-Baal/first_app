@@ -25,6 +25,8 @@ public class Chapter {
     @Setter
     private volatile String chapterName = "forestChapter";
 
+    public volatile String defaultBackgroundFilePath;
+
     public void startChapter(){
         Yaml yaml = new Yaml();
         InputStream inputStream = null;
@@ -37,6 +39,7 @@ public class Chapter {
         Map<String, Object> map = yaml.load(inputStream);
 
         entryPointFilePath = (String) map.get("entryPoint");
+        defaultBackgroundFilePath = (String) map.get("defaultBackgroundFilePath");
         currLevelFilePath = entryPointFilePath;
     }
     public void endChapter(){}
