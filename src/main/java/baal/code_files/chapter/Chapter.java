@@ -2,6 +2,7 @@ package baal.code_files.chapter;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.springframework.stereotype.Component;
 import org.yaml.snakeyaml.Yaml;
 
@@ -14,19 +15,24 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class Chapter {
     @Getter
+    @Setter
     private String entryPointFilePath;
     @Getter
     private String currLevelFilePath;
     @Getter
-    volatile private Integer tickCount;
+    volatile private Integer tickCount = 0;
     @Getter
-    volatile private Integer deathCount;
+    volatile private Integer deathCount = 0;
+
+    @Setter
+    private String chapterName = "forestChapter";
 
     public void startChapter(){
         Yaml yaml = new Yaml();
         InputStream inputStream = null;
         try{
-            inputStream = new FileInputStream("src/main/resources/baal/code_files/chapter/forestChapter");
+            inputStream = new FileInputStream
+                    (String.format("src/main/resources/baal/code_files/chapter/%s", chapterName));
         }catch (FileNotFoundException e){
             e.printStackTrace();
         }

@@ -1,6 +1,7 @@
 package baal.code_files;
 
 import baal.ApplicationContextProvider;
+import baal.code_files.chapter_selection.ChapterSelectionController;
 import baal.code_files.main_game.Main_game_controller;
 import baal.code_files.redactor.Redactor_controller;
 import javafx.event.EventHandler;
@@ -49,7 +50,7 @@ public class Menu_controller implements Initializable{
         Start.setText("START");
         Start.setPrefSize(200, 50);
 
-        this.Start.setOnAction(event -> setScene(Main_game_controller.class));
+        this.Start.setOnAction(event -> setScene(ChapterSelectionController.class));
     }
 
     private void initExit(){
