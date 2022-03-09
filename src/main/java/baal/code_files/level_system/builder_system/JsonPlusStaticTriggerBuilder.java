@@ -18,12 +18,15 @@ public class JsonPlusStaticTriggerBuilder implements BuilderInterface {
 
     private final LevelLoaderInterface levelLoader;
     private final EventBuilderDirectorInterface eventBuilderDirector;
+    private final EntityBuilderDirectorInterface entityBuilderDirector;
 
     public JsonPlusStaticTriggerBuilder(@Qualifier("levelJsonLoader")
                                                 LevelLoaderInterface levelLoader,
-                                        EventBuilderDirectorInterface eventBuilderDirector) {
+                                        EventBuilderDirectorInterface eventBuilderDirector,
+                                        EntityBuilderDirectorInterface entityBuilderDirector) {
         this.levelLoader = levelLoader;
         this.eventBuilderDirector = eventBuilderDirector;
+        this.entityBuilderDirector = entityBuilderDirector;
     }
 
     @Override
@@ -63,7 +66,10 @@ public class JsonPlusStaticTriggerBuilder implements BuilderInterface {
         }
 
         Map<String, Object> map = yaml.load(inputStream);
-        фывапрол
+        for (Map.Entry<String, Object> entry : map.entrySet()){
+            level.getLevelEntities().getEntityVector()
+                    .add(entityBuilderDirector.build((Map<String, Object>) map.get(entry.getKey())));
+        }
 
         return this;
     }
