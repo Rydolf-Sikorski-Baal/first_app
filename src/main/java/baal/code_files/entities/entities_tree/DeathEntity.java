@@ -23,7 +23,8 @@ public class DeathEntity extends Entity {
             image = new Image(Objects.requireNonNull(getClass()
                     .getResourceAsStream("bullet.png")));
 
-        canvas.getGraphicsContext2D().drawImage(image, position.getY() * cellWidth, position.getX() * cellHeight,
+        canvas.getGraphicsContext2D().drawImage(image,
+                position.getY() * cellWidth, position.getX() * cellHeight,
                 0.5 * cellWidth, 0.5 * cellHeight);
     }
 }

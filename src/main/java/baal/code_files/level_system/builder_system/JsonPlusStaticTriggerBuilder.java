@@ -53,6 +53,22 @@ public class JsonPlusStaticTriggerBuilder implements BuilderInterface {
     }
 
     @Override
+    public BuilderInterface loadEntities(String levelFileName) {
+        Yaml yaml = new Yaml();
+        InputStream inputStream = null;
+        try {
+            inputStream = new FileInputStream("src/main/resources/baal/code_files/level_system/firstEntities");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        Map<String, Object> map = yaml.load(inputStream);
+        фывапрол
+
+        return this;
+    }
+
+    @Override
     public LevelInterface build() {
         return level;
     }

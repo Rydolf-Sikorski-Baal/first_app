@@ -7,6 +7,7 @@ import java.io.IOException;
 public interface BuilderInterface {
     BuilderInterface loadJson(String levelFileName) throws IOException;
     BuilderInterface loadTriggers(String levelFileName) throws ClassNotFoundException;
+    BuilderInterface loadEntities(String levelFileName);
 
     LevelInterface build();
 }

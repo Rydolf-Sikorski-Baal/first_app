@@ -22,9 +22,11 @@ public class EventConsequenceFactory {
         event.setIfTrue(createConsequence(ifTrue, ifTrueArguments));
         event.setIfFalse(createConsequence(ifFalse, ifFalseArguments));
     }
+    public static String arguments = "src/main/resources/baal/code_files/level_system/second";
 
     private Consumer<LevelInterface> createConsequence(ConsequenceType type,
                                                        String arguments){
+        EventConsequenceFactory.arguments = arguments;
         Consumer<LevelInterface> consumer = null;
         switch(type) {
             case NOTHING:
@@ -48,7 +50,8 @@ public class EventConsequenceFactory {
 
     private void doNothing(LevelInterface level) {}
     private void changeLevel(LevelInterface level){
-        levelChange.changeLevelByFlags("src/main/resources/baal/code_files/level_system/second",
+        levelChange.changeLevelByFlags(
+                arguments,
                 false, false);
     }
     private void changeHeroSpeed(LevelInterface level){
