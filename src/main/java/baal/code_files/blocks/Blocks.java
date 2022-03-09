@@ -1,16 +1,15 @@
 package baal.code_files.blocks;
 
-import baal.code_files.interfaces.BlocksVis;
-import baal.code_files.interfaces.ChangingSpeed;
-import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import lombok.SneakyThrows;
 import org.yaml.snakeyaml.Yaml;
 
-import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Map;
+import java.util.Objects;
 
 public enum Blocks implements ChangingSpeed, BlocksVis {
     Air(),
@@ -18,12 +17,20 @@ public enum Blocks implements ChangingSpeed, BlocksVis {
     Ice(),
     ExternalBlock();
 
+    private final Map<String, Object> map;
+    {
+        Yaml yaml = new Yaml();
+        InputStream inputStream = null;
+        try {
+            inputStream = new FileInputStream("src/main/resources/baal/code_files/blocks/blocks");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        map = yaml.load(inputStream);
+    }
+
     @SneakyThrows
     Blocks() {
-        Yaml yaml = new Yaml();
-        InputStream inputStream = new FileInputStream(new File("src/main/resources/baal/code_files/blocks/blocks"));
-        Map<String, Object> map = yaml.load(inputStream);
-
         @SuppressWarnings("unchecked")
         Map<String, Object> block = (Map<String, Object>) map.get(this.name());
 
@@ -56,16 +63,20 @@ public enum Blocks implements ChangingSpeed, BlocksVis {
         return ySpeedChangeCoefficient * current_y;
     }
 
+    private Image image;
     @Override
     public void drawYourself(javafx.scene.canvas.Canvas canvas, double top_left_corner_x, double top_left_corner_y,
                              double cellHeight, double cellWidth) {
         Color color = new Color(this.colorRed, this.colorGreen, this.colorBlue,
                 this.opacity);
 
-        GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
+        if (image == null)
+            image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("2bd433.jpeg")));
 
-        graphicsContext.setFill(color);
-        graphicsContext.fillRect(top_left_corner_y * cellWidth, top_left_corner_x * cellHeight,
+        if (!this.equals(Blocks.Air))
+            canvas.getGraphicsContext2D().drawImage(image, top_left_corner_y * cellWidth, top_left_corner_x * cellHeight,
                 cellWidth, cellHeight);
+
+
     }
 }

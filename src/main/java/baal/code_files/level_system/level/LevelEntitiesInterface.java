@@ -6,4 +6,5 @@ import java.util.Vector;
 
 public interface LevelEntitiesInterface {
     Vector<Entity> getEntityVector();
+    void setEntityVector(Vector<Entity> entityVector);
 }

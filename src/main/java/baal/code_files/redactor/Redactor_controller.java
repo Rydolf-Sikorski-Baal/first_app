@@ -85,10 +85,7 @@ public class Redactor_controller implements Initializable{
                 double curr_mouse_x = mouseEvent.getY();
                 double curr_mouse_y = mouseEvent.getX();
 
-                if (level == null)
-                    level = levelLoader.loadLevel("src/main/resources/baal/code_files/level_system/first");
-                if (level.getLevelCellsSizes() == null)
-                    level.setLevelCellsSizes(drawer.getLevelCellsSizesForThisLevel(level));
+                level = levelLoader.loadLevel(String.format(levelFilePathPattern, redactorLevelComboBox.getValue()));
                 int curr_cell_x = (int) (curr_mouse_x / level.getLevelCellsSizes().getHeight());
                 int curr_cell_y = (int) (curr_mouse_y / level.getLevelCellsSizes().getWidth());
 

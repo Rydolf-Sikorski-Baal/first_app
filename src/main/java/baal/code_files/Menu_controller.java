@@ -1,7 +1,7 @@
 package baal.code_files;
 
 import baal.ApplicationContextProvider;
-import baal.code_files.main_game.Main_game_controller;
+import baal.code_files.chapter_selection.ChapterSelectionController;
 import baal.code_files.redactor.Redactor_controller;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -49,19 +49,14 @@ public class Menu_controller implements Initializable{
         Start.setText("START");
         Start.setPrefSize(200, 50);
 
-        this.Start.setOnAction(event -> setScene(Main_game_controller.class));
+        this.Start.setOnAction(event -> setScene(ChapterSelectionController.class));
     }
 
     private void initExit(){
         Exit.setText("EXIT");
         Exit.setPrefSize(200, 50);
 
-        Exit.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                System.exit(0);
-            }
-        });
+        Exit.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> System.exit(0));
 
         EventHandler<KeyEvent> closeEventHandler = event ->{
             KeyCode code = event.getCode();
@@ -90,6 +85,7 @@ public class Menu_controller implements Initializable{
         Parent root = fxWeaver.loadView(controllerClass);
         Scene scene = new Scene(root);
         stage.setScene(scene);
+        stage.setFullScreen(true);
         stage.show();
     }
 }

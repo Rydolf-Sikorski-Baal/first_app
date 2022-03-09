@@ -1,37 +1,18 @@
 package baal.code_files.entities.entities_tree;
 
-import baal.code_files.PointDouble;
 import baal.code_files.entities.controllability_tree.HeroControls;
 import baal.code_files.entities.movement_tree.AccordingToSpeed;
 import baal.code_files.entities.shape_tree.Rectangle;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
+import lombok.Setter;
 
-import javax.annotation.PostConstruct;
+import java.util.Objects;
 
 public class Hero extends Entity {
-    @Override
-    public void setPosition(PointDouble new_position) {
-        position = new_position;
-    }
-    @Override
-    public void setPosition(double new_x, double new_y) {
-        PointDouble newPosition = new PointDouble(new_x, new_y);
-        setPosition(newPosition);
-    }
-
-    @Override
-    public void moveTick() {
-        movement.moveTick(this);
-    }
-
-    @Override
-    public void moveBack() {
-        movement.moveBack(this);
-    }
+    @Setter public Color myColor = Color.RED;
+    Image image;
 
     public Hero(Rectangle rectangle, AccordingToSpeed movement, HeroControls heroControls){
         this.shape = rectangle;
@@ -39,19 +20,14 @@ public class Hero extends Entity {
         this.controllability = heroControls;
     }
 
-    public void connect(){
-        this.controllability.setEntity(this);
-    }
-
     @Override
     public void drawYourself(Canvas canvas, double cellHeight, double cellWidth) {
-        GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
-        double left_top_x = this.position.getX();
-        double left_top_y = this.position.getY();
-        
-        graphicsContext.setFill(Color.RED);
+        if (image == null)
+            image = new Image(Objects.requireNonNull(getClass()
+                    .getResourceAsStream("123.png")));
 
-        graphicsContext.fillRect(left_top_y * cellHeight, left_top_x * cellWidth,
-                ((Rectangle)shape).getY_size() * cellHeight, ((Rectangle)shape).getX_size() * cellWidth);
+        canvas.getGraphicsContext2D().drawImage(image,
+                position.getY() * cellWidth, position.getX() * cellHeight,
+                0.5 * cellWidth, 0.5 * cellHeight);
     }
 }

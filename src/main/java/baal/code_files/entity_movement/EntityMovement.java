@@ -4,9 +4,8 @@ import baal.code_files.PointDouble;
 import baal.code_files.blocks.Blocks;
 import baal.code_files.entities.entities_tree.Entity;
 import baal.code_files.entities.movement_tree.AccordingToSpeed;
-import baal.code_files.entities.movement_tree.Movement;
 import baal.code_files.entities.shape_tree.Rectangle;
-import baal.code_files.level_system.level.Level;
+import baal.code_files.level_system.level.LevelInterface;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,7 +25,7 @@ public class EntityMovement {
     private final Collision collision;
     private Map<String, Consumer<Entity>> moveTickFunctions;
 
-    private Level level;
+    private LevelInterface level;
 
     class ClassPair {
         Class<?> first, second;
@@ -47,28 +46,13 @@ public class EntityMovement {
                 this::moveRectangleAccordingToSpeed);
     }
 
-    public void moveTick(Entity entity, Level _level){
+    public void moveTick(Entity entity, LevelInterface _level){
         level = _level;
 
         String entityTypeInformation = (entity.shape.getClass()).toString() + "_" +
                 (entity.movement.getClass()).toString();
 
         moveTickFunctions.get(entityTypeInformation).accept(entity);
-    }
-
-    public static class EntityTypeInformation {
-        private Class<?> shapeClass;
-        private Class<?> movementClass;
-
-        EntityTypeInformation(Entity entity){
-            shapeClass = entity.shape.getClass();
-            movementClass = entity.movement.getClass();
-        }
-
-        EntityTypeInformation(baal.code_files.entities.shape_tree.Shape shape, Movement movement){
-            shapeClass = shape.getClass();
-            movementClass = movement.getClass();
-        }
     }
 
     //прямоугольник по скорости
@@ -81,15 +65,16 @@ public class EntityMovement {
     @AllArgsConstructor
     @Getter
     @Setter
+    static
     class CollideInformation{
         private double requiredTime;
         private Side side;
     }
 
     private final double tickTime = 100;
-    private double wastedTime;
+
     private void moveRectangleAccordingToSpeed(Entity entity){
-        wastedTime = 0;
+        double wastedTime = 0;
         while(abs(tickTime - wastedTime) > epsilon
                 && ((((AccordingToSpeed)entity.movement).getSpeed_x() != 0) || (((AccordingToSpeed)entity.movement).getSpeed_y() != 0))) {
 
@@ -122,7 +107,7 @@ public class EntityMovement {
             CollideInformation nextCollide = new CollideInformation(INFINITY, Side.None);
             for (int blockX = minimumX; blockX <= maximumX; blockX++)
                 for (int blockY = minimumY; blockY <= maximumY; blockY++) {
-                    Blocks block = level.getBlockByCoords(blockX, blockY);
+                    Blocks block = level.getBlockByCords(blockX, blockY);
 
                     if (!block.isPassable()) {
                         CollideInformation collideInformation = getTimeToBlock_RectangleAccordingToSpeed(entity,
@@ -210,8 +195,8 @@ public class EntityMovement {
         PointDouble interceptionBottomRight = new PointDouble(Math.min(newEntityBottomRightCorner.getX(), blockBottomRightCorner.getX()),
                 Math.min(newEntityBottomRightCorner.getY(), blockBottomRightCorner.getY()));
 
-        if ((interceptionBottomRight.getX() - interceptionTopLeft.getX() < -0.01) ||
-            (interceptionBottomRight.getY() - interceptionTopLeft.getY() < -0.01)) {
+        if ((interceptionBottomRight.getX() - interceptionTopLeft.getX() < -0.00005) ||
+            (interceptionBottomRight.getY() - interceptionTopLeft.getY() < -0.00005)) {
             res = 1;
             side = Side.None;
         }
