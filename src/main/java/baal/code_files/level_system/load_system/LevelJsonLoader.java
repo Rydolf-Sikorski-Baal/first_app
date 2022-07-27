@@ -11,7 +11,7 @@ import java.io.IOException;
 public class LevelJsonLoader implements LevelLoaderInterface{
     public Level loadLevel(String levelFileName) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        File file = new File(levelFileName);
+        File file = new File(String.format(levelFileName, "first"));
 
         return objectMapper.readValue(file, Level.class);
     }

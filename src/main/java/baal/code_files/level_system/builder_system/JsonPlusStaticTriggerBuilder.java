@@ -62,7 +62,7 @@ public class JsonPlusStaticTriggerBuilder implements BuilderInterface {
         Yaml yaml = new Yaml();
         InputStream inputStream = null;
         try {
-            inputStream = new FileInputStream(levelFileName);
+            inputStream = new FileInputStream(String.format(levelFileName, "firstEntities"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

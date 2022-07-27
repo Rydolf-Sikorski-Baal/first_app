@@ -1,8 +1,11 @@
 package baal.code_files.entities.entities_tree;
 
+import baal.code_files.entities.controllability_tree.Controllability;
 import baal.code_files.entities.controllability_tree.HeroControls;
 import baal.code_files.entities.movement_tree.AccordingToSpeed;
+import baal.code_files.entities.movement_tree.Movement;
 import baal.code_files.entities.shape_tree.Rectangle;
+import baal.code_files.entities.shape_tree.Shape;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
@@ -14,7 +17,7 @@ public class Hero extends Entity {
     @Setter public Color myColor = Color.RED;
     Image image;
 
-    public Hero(Rectangle rectangle, AccordingToSpeed movement, HeroControls heroControls){
+    public Hero(Shape rectangle, Movement movement, Controllability heroControls){
         this.shape = rectangle;
         this.movement = movement;
         this.controllability = heroControls;

@@ -13,6 +13,10 @@ public class LevelBuilderDirector implements LevelBuilderDirectorInterface{
     private final BuilderInterface builder;
 
     public LevelInterface build(String levelFileName) throws ClassNotFoundException, IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-        return (((this.builder).loadJson(levelFileName)).loadTriggers(levelFileName)).loadEntities(levelFileName).build();
+        return this.builder
+                .loadJson(levelFileName)
+                .loadTriggers(levelFileName)
+                .loadEntities(levelFileName)
+                .build();
     }
 }

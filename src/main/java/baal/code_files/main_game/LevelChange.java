@@ -17,8 +17,6 @@ import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Vector;
-
 @RequiredArgsConstructor
 @Component("levelChange")
 public class LevelChange {
@@ -66,58 +64,11 @@ public class LevelChange {
 
     @SneakyThrows
     private void startLevel() {
-        /*double positionX = gameModel.curr_level == null ? 0 : gameModel.curr_level
-                           .getLevelEntities().getEntityVector().get(0).position
-                           .getX(),
-               positionY = gameModel.curr_level == null ? 0 : gameModel.curr_level
-                           .getLevelEntities().getEntityVector().get(0).position
-                           .getY();
-        double speedX = gameModel.curr_level == null ? 0 :
-                        ((AccordingToSpeed)gameModel.curr_level
-                        .getLevelEntities().getEntityVector().get(0).movement)
-                        .getSpeed_x(),
-               speedY = gameModel.curr_level == null ? 0 :
-                        ((AccordingToSpeed)gameModel.curr_level
-                        .getLevelEntities().getEntityVector().get(0).movement)
-                        .getSpeed_y();
+        LevelLoadThread levelLoadThread =
+                (LevelLoadThread) applicationContextProvider.getApplicationContext().getBean("levelLoadThread");
+        levelLoadThread.start();
 
-        main_game_controller
-                .setLevelLoadThread(applicationContextProvider
-                        .getApplicationContext()
-                        .getBean(LevelLoadThread.class));
-        main_game_controller.getLevelLoadThread().start();
-        gameModel.isStarted = true;
-
-        while(main_game_controller.getLevelLoadThread().isAlive()){}
-        if (!flags.isPositionRequiresSaving()) {
-            positionX = gameModel.curr_level.getLevelSettings().getHeroStartX();
-            positionY = gameModel.curr_level.getLevelSettings().getHeroStartY();
-        }
-        if (!flags.isMovementRequiresSaving()){
-            speedX = gameModel.curr_level.getLevelSettings().getDefaultSpeedX();
-            speedY = gameModel.curr_level.getLevelSettings().getDefaultSpeedY();
-        }
-        Rectangle rectangle = new Rectangle();
-        rectangle.setX_size(0.5);
-        rectangle.setY_size(0.5);
-        AccordingToSpeed accordingToSpeed = new AccordingToSpeed();
-        accordingToSpeed.setSpeed_x(speedX);
-        accordingToSpeed.setSpeed_y(speedY);
-        Hero hero = new Hero(rectangle, accordingToSpeed, new HeroControls());
-
-        hero.setPosition(positionX, positionY);
-        hero.connect();
-
-        AccordingToSpeed accordingToSpeed2 = new AccordingToSpeed();
-        accordingToSpeed2.setSpeed_x(0);
-        accordingToSpeed2.setSpeed_y(0.01);
-        DeathEntity deathEntity = new DeathEntity(rectangle, accordingToSpeed2, new Uncontrollable());
-        deathEntity.setPosition(3.0, 2.0);
-
-        Vector<Entity> entityVector = new Vector<>();
-        entityVector.add(hero);
-        entityVector.add(deathEntity);
-        gameModel.curr_level.getLevelEntities().setEntityVector(entityVector);*/
+        //while (levelLoadThread.isAlive()){}
 
         assignThreads();
         startThreads();

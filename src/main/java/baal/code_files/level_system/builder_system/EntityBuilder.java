@@ -13,7 +13,6 @@ import java.util.Map;
 @Component
 @RequiredArgsConstructor
 public class EntityBuilder implements EntityBuilderInterface {
-    private Entity entity;
 
     @Override
     @SuppressWarnings("all")
@@ -31,9 +30,10 @@ public class EntityBuilder implements EntityBuilderInterface {
         Shape shape = null;
         shape = (Shape) Class.forName(args.get("shape")).getConstructor().newInstance();
 
-        entity = (Entity) Class.forName(entry.getKey())
-                    .getConstructor()
-                    .newInstance(shape, movement, controllability);
+        Class[] constructorArgs = {Shape.class, Movement.class, Controllability.class};
+        Entity entity = (Entity) Class.forName(entry.getKey())
+                .getConstructor(constructorArgs)
+                .newInstance(shape, movement, controllability);
 
         return entity;
     }
