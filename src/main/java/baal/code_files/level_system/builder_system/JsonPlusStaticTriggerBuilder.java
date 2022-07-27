@@ -10,6 +10,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
 @Component
@@ -49,18 +50,19 @@ public class JsonPlusStaticTriggerBuilder implements BuilderInterface {
         Map<String, Object> map = yaml.load(inputStream);
         for (Map.Entry<String, Object> entry : map.entrySet()){
             level.getLevelEvents().getLevelEventsVector()
-                    .add(eventBuilderDirector.build((Map<String, Object>) map.get(entry.getKey())));
+                    .add(eventBuilderDirector.build((Map<String, Object>) entry.getValue()));
         }
 
         return this;
     }
 
     @Override
-    public BuilderInterface loadEntities(String levelFileName) {
+    @SuppressWarnings("all")
+    public BuilderInterface loadEntities(String levelFileName) throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         Yaml yaml = new Yaml();
         InputStream inputStream = null;
         try {
-            inputStream = new FileInputStream("src/main/resources/baal/code_files/level_system/firstEntities");
+            inputStream = new FileInputStream(levelFileName);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -68,7 +70,7 @@ public class JsonPlusStaticTriggerBuilder implements BuilderInterface {
         Map<String, Object> map = yaml.load(inputStream);
         for (Map.Entry<String, Object> entry : map.entrySet()){
             level.getLevelEntities().getEntityVector()
-                    .add(entityBuilderDirector.build((Map<String, Object>) map.get(entry.getKey())));
+                    .add(entityBuilderDirector.build((Map<String, Object>) entry.getValue()));
         }
 
         return this;

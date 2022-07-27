@@ -26,7 +26,8 @@ public class Hero extends Entity {
             image = new Image(Objects.requireNonNull(getClass()
                     .getResourceAsStream("123.png")));
 
-        canvas.getGraphicsContext2D().drawImage(image,
+        canvas.getGraphicsContext2D().drawImage(
+                image,
                 position.getY() * cellWidth, position.getX() * cellHeight,
                 0.5 * cellWidth, 0.5 * cellHeight);
     }

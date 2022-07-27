@@ -1,0 +1,5 @@
+firstEntity:
+    baal/code_files/entities/entities_tree/Hero.java:
+        shape: src/main/java/baal/code_files/entities/shape_tree/Rectangle.java
+        movement: src/main/java/baal/code_files/entities/movement_tree/AccordingToSpeed.java
+        controllability: baal/code_files/entities/controllability_tree/HeroControls.java

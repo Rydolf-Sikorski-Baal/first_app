@@ -12,7 +12,7 @@ import java.util.Map;
 
 @Component
 public class EventBuilder implements EventBuilderInterface{
-    private final Event event = new Event();
+    private Event event = new Event();
 
     private final EventConsequenceFactory consequenceFactory;
 
@@ -23,6 +23,7 @@ public class EventBuilder implements EventBuilderInterface{
 
     private static Map<String, Object> argsMap;
     @Override
+    @SuppressWarnings("all")
     public EventBuilderInterface loadTermsList(Map<String, Object> map) {
         ArrayList<Term<Hero>> termList = new ArrayList<>();
         for (Map.Entry<String, Object> entry : map.entrySet()){
@@ -48,6 +49,7 @@ public class EventBuilder implements EventBuilderInterface{
     }
 
     @Override
+    @SuppressWarnings("all")
     public EventBuilderInterface loadConsequence(Map<String, Object> map){
         Map<String, String> ifTrueMap = (Map<String, String>) argsMap.get("ifTrue");
         Map<String, String> ifFalseMap = (Map<String, String>) argsMap.get("ifFalse");
@@ -58,7 +60,8 @@ public class EventBuilder implements EventBuilderInterface{
         ConsequenceType ifFalseType = ConsequenceType.valueOf(ifFalseMap.get("Type"));
         String ifFalseArgs = ifFalseMap.get("Args");
 
-        consequenceFactory.integrateConsequence(event,
+        consequenceFactory.integrateConsequence(
+                event,
                 ifTrueType, ifTrueArgs,
                 ifFalseType, ifFalseArgs);
         return this;

@@ -5,6 +5,5 @@ import lombok.NonNull;
 
 @Data
 public class LevelCellsSizes {
-    @NonNull
-    private double height, width;
+    private final double height, width;
 }

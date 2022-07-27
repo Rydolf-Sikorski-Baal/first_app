@@ -56,7 +56,7 @@ public class EventConsequenceFactory {
     }
     private void changeHeroSpeed(LevelInterface level){
         ((AccordingToSpeed)level.getLevelEntities().getEntityVector().get(0).movement).changeSpeedX(-1);
-        ((AccordingToSpeed)level.getLevelEntities().getEntityVector().get(0).movement).changeSpeedY(1);
+        ((AccordingToSpeed)level.getLevelEntities().getEntityVector().get(0).movement).changeSpeedY( 1);
     }
     private void setHeroSpeedX(LevelInterface level){
         ((AccordingToSpeed)(level.getLevelEntities().getEntityVector().get(0)).movement).setSpeed_x(-0.01);

@@ -66,7 +66,7 @@ public class LevelChange {
 
     @SneakyThrows
     private void startLevel() {
-        double positionX = gameModel.curr_level == null ? 0 : gameModel.curr_level
+        /*double positionX = gameModel.curr_level == null ? 0 : gameModel.curr_level
                            .getLevelEntities().getEntityVector().get(0).position
                            .getX(),
                positionY = gameModel.curr_level == null ? 0 : gameModel.curr_level
@@ -117,7 +117,7 @@ public class LevelChange {
         Vector<Entity> entityVector = new Vector<>();
         entityVector.add(hero);
         entityVector.add(deathEntity);
-        gameModel.curr_level.getLevelEntities().setEntityVector(entityVector);
+        gameModel.curr_level.getLevelEntities().setEntityVector(entityVector);*/
 
         assignThreads();
         startThreads();
