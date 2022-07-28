@@ -1,2 +1,2 @@
-entryPoint: "src/main/resources/baal/code_files/level_system/mountainEntrance"
+entryPoint: "src/main/resources/baal/code_files/level_system/mountain%s"
 defaultBackgroundFilePath: "mountain_background.jpeg"

@@ -1,2 +1,2 @@
-entryPoint: "src/main/resources/baal/code_files/level_system/%s"
+entryPoint: "src/main/resources/baal/code_files/level_system/first%s"
 defaultBackgroundFilePath: "Forest_background_7.png"

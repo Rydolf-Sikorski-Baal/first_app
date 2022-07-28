@@ -1,8 +1,12 @@
 package baal.code_files.entities.entities_tree;
 
+import baal.code_files.PointDouble;
+import baal.code_files.entities.controllability_tree.Controllability;
 import baal.code_files.entities.controllability_tree.Uncontrollable;
 import baal.code_files.entities.movement_tree.AccordingToSpeed;
+import baal.code_files.entities.movement_tree.Movement;
 import baal.code_files.entities.shape_tree.Rectangle;
+import baal.code_files.entities.shape_tree.Shape;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.Image;
 
@@ -11,10 +15,11 @@ import java.util.Objects;
 public class DeathEntity extends Entity {
     Image image;
 
-    public DeathEntity(Rectangle rectangle, AccordingToSpeed accordingToSpeed, Uncontrollable uncontrollable){
+    public DeathEntity(Shape rectangle, Movement movement, Controllability heroControls, PointDouble position){
         this.shape = rectangle;
-        this.movement = accordingToSpeed;
-        this.controllability = uncontrollable;
+        this.movement = movement;
+        this.controllability = heroControls; controllability.setEntity(this);
+        this.position = position;
     }
 
     @Override

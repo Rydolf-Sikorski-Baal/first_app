@@ -32,7 +32,7 @@ public class EntityBuilder implements EntityBuilderInterface {
         shape = (Shape) Class.forName((String) args.get("shape")).getConstructor().newInstance();
 
         PointDouble position = null;
-        position = new PointDouble((double) args.get("positionX"), (double) args.get("positionY"));
+        position = new PointDouble((double) args.get("positionY"), (double) args.get("positionX"));
 
         Class[] constructorArgs = {Shape.class, Movement.class, Controllability.class, PointDouble.class};
         Entity entity = (Entity) Class.forName(entry.getKey())
