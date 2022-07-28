@@ -42,7 +42,7 @@ public class JsonPlusStaticTriggerBuilder implements BuilderInterface {
         Yaml yaml = new Yaml();
         InputStream inputStream = null;
         try {
-            inputStream = new FileInputStream("src/main/resources/baal/code_files/level_system/firstEvents");
+            inputStream = new FileInputStream(String.format(levelFileName, "first" + "Events"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -62,7 +62,7 @@ public class JsonPlusStaticTriggerBuilder implements BuilderInterface {
         Yaml yaml = new Yaml();
         InputStream inputStream = null;
         try {
-            inputStream = new FileInputStream(String.format(levelFileName, "firstEntities"));
+            inputStream = new FileInputStream(String.format(levelFileName, "first" + "Entities"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

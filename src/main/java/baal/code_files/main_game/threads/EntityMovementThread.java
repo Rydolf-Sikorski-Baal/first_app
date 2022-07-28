@@ -81,8 +81,8 @@ public class EntityMovementThread extends Thread {
                 if (firstEntity != secondEntity){
                     if (isIntersect(firstEntity, secondEntity)){
                         this.gameModel.chapter.deathCount++;
-                        levelChange.changeLevelByFlags("src/main/resources/baal/code_files/level_system/first",
-                                false, false);
+                        //levelChange.changeLevelByFlags("src/main/resources/baal/code_files/level_system/first",
+                          //      false, false);
                     }
                 }
             }

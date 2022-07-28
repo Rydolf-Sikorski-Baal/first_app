@@ -1,5 +1,6 @@
 package baal.code_files.entities.entities_tree;
 
+import baal.code_files.PointDouble;
 import baal.code_files.entities.controllability_tree.Controllability;
 import baal.code_files.entities.controllability_tree.HeroControls;
 import baal.code_files.entities.movement_tree.AccordingToSpeed;
@@ -11,16 +12,18 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import lombok.Setter;
 
+import javax.swing.text.Position;
 import java.util.Objects;
 
 public class Hero extends Entity {
     @Setter public Color myColor = Color.RED;
     Image image;
 
-    public Hero(Shape rectangle, Movement movement, Controllability heroControls){
+    public Hero(Shape rectangle, Movement movement, Controllability heroControls, PointDouble position){
         this.shape = rectangle;
         this.movement = movement;
         this.controllability = heroControls;
+        this.position = position;
     }
 
     @Override

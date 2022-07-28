@@ -10,13 +10,14 @@ import lombok.NonNull;
 public abstract class Entity implements Visible {
     @NonNull
     public Shape shape;
+    @NonNull
     public PointDouble position;
     @NonNull
     public Movement movement;
     @NonNull
     public Controllability controllability;
 
-    public void setPosition(PointDouble new_position) {
+    public void setPosition(@NonNull PointDouble new_position) {
         position = new_position;
     }
 

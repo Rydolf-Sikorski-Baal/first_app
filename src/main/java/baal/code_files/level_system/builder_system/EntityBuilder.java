@@ -1,5 +1,6 @@
 package baal.code_files.level_system.builder_system;
 
+import baal.code_files.PointDouble;
 import baal.code_files.entities.controllability_tree.Controllability;
 import baal.code_files.entities.entities_tree.Entity;
 import baal.code_files.entities.movement_tree.Movement;
@@ -19,21 +20,24 @@ public class EntityBuilder implements EntityBuilderInterface {
     public Entity build(Map<String, Object> map) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         Map.Entry<String, Object> entry = (Map.Entry<String, Object>) map.entrySet().toArray()[0];
 
-        Map<String, String> args = (Map<String, String>) entry.getValue();
+        Map<String, Object> args = (Map<String, Object>) entry.getValue();
 
         Controllability controllability = null;
-        controllability = (Controllability) Class.forName(args.get("controllability")).getConstructor().newInstance();
+        controllability = (Controllability) Class.forName((String) args.get("controllability")).getConstructor().newInstance();
 
         Movement movement = null;
-        movement = (Movement) Class.forName(args.get("movement")).getConstructor().newInstance();
+        movement = (Movement) Class.forName((String) args.get("movement")).getConstructor().newInstance();
 
         Shape shape = null;
-        shape = (Shape) Class.forName(args.get("shape")).getConstructor().newInstance();
+        shape = (Shape) Class.forName((String) args.get("shape")).getConstructor().newInstance();
 
-        Class[] constructorArgs = {Shape.class, Movement.class, Controllability.class};
+        PointDouble position = null;
+        position = new PointDouble((double) args.get("positionX"), (double) args.get("positionY"));
+
+        Class[] constructorArgs = {Shape.class, Movement.class, Controllability.class, PointDouble.class};
         Entity entity = (Entity) Class.forName(entry.getKey())
                 .getConstructor(constructorArgs)
-                .newInstance(shape, movement, controllability);
+                .newInstance(shape, movement, controllability, position);
 
         return entity;
     }

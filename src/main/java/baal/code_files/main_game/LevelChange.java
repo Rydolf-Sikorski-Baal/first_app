@@ -68,7 +68,9 @@ public class LevelChange {
                 (LevelLoadThread) applicationContextProvider.getApplicationContext().getBean("levelLoadThread");
         levelLoadThread.start();
 
-        //while (levelLoadThread.isAlive()){}
+        while (levelLoadThread.isAlive()){}
+
+        gameModel.isStarted = true;
 
         assignThreads();
         startThreads();
