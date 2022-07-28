@@ -33,7 +33,5 @@ public class LevelLoadThread extends Thread {
     private void loadFromThisLevel() throws IOException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         this.gameModel.curr_level =
                 levelBuilderDirector.build(this.gameModel.currLevelFilePath);
-
-        int x = 1;
     }
 }

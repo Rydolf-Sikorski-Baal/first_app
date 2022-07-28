@@ -70,7 +70,11 @@ public class EntityMovementThread extends Thread {
                 }
             );
 
-            sleep(tickInMillisecond);
+            try{
+                sleep(tickInMillisecond);
+            }catch (InterruptedException e){
+                e.printStackTrace();
+            }
         }
     }
 

@@ -52,10 +52,10 @@ public class LevelChange {
     }
 
     private void closeLevelThreads(){
-        if (this.main_game_controller.getEntityMovementThread() != null)
-            this.main_game_controller.getEntityMovementThread().interrupt();
-        if (this.main_game_controller.getTriggerCheckThread() != null)
-            this.main_game_controller.getTriggerCheckThread().interrupt();
+        //if (this.main_game_controller.getEntityMovementThread() != null)
+            //this.main_game_controller.getEntityMovementThread().interrupt();
+        //if (this.main_game_controller.getTriggerCheckThread() != null)
+            //this.main_game_controller.getTriggerCheckThread().interrupt();
     }
 
     private void closeLevel(){
@@ -69,7 +69,6 @@ public class LevelChange {
         levelLoadThread.start();
 
         while (levelLoadThread.isAlive()){}
-
         gameModel.isStarted = true;
 
         assignThreads();

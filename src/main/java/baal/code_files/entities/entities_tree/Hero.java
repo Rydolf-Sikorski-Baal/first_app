@@ -22,7 +22,7 @@ public class Hero extends Entity {
     public Hero(Shape rectangle, Movement movement, Controllability heroControls, PointDouble position){
         this.shape = rectangle;
         this.movement = movement;
-        this.controllability = heroControls;
+        this.controllability = heroControls; controllability.setEntity(this);
         this.position = position;
     }
 
