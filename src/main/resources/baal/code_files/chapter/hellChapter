@@ -1,0 +1,2 @@
+entryPoint: "src/main/resources/baal/code_files/level_system/hell%s"
+defaultBackgroundFilePath: "Hell_background.webp"

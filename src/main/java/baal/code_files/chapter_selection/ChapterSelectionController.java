@@ -16,7 +16,9 @@ import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 @Component
@@ -34,8 +36,14 @@ public class ChapterSelectionController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        comboBox.getItems().add("forestChapter");
-        comboBox.getItems().add("mountainChapter");
+        File folder = new File("src/main/resources/baal/code_files/chapter");
+        File[] listOfFiles = folder.listFiles();
+
+        for (int i = 0; i < Objects.requireNonNull(listOfFiles).length; i++) {
+            if (listOfFiles[i].isFile()) {
+                comboBox.getItems().add(listOfFiles[i].getName());
+            }
+        }
 
         this.toMenu.setText("To Menu");
         this.select.setText("select");
