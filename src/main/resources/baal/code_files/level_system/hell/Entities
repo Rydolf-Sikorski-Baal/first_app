@@ -1,0 +1,7 @@
+firstEntity:
+    baal.code_files.entities.entities_tree.Hero:
+        shape: baal.code_files.entities.shape_tree.Rectangle
+        movement: baal.code_files.entities.movement_tree.AccordingToSpeed
+        controllability: baal.code_files.entities.controllability_tree.HeroControls
+        positionX: 3.0
+        positionY: 3.0
